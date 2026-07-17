@@ -60,6 +60,11 @@ model Comment {
 
   post      Post     @relation(fields: [postId], references: [id])
   postId    String
+
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  parentId  String?
+
+  replies   Comment[] @relation("CommentReplies")
 }
 
 model Reaction {
