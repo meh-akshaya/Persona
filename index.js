@@ -7,7 +7,8 @@ const communityRoutes = require('./routes/community')
 const postRoutes = require('./routes/post')
 // At the top with your other requires
 const commentRoutes = require('./routes/comment')
-
+// with your other requires
+const reactionRoutes = require('./routes/reaction')
 const app = express()
 const PORT = process.env.PORT || 5000
 
@@ -23,7 +24,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/communities', communityRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/comments', commentRoutes)
-
+app.use('/api/reactions', reactionRoutes)
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok' }))
 
