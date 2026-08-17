@@ -8,6 +8,8 @@ import PostDetail from './pages/PostDetail'
 import Login from './pages/Login'
 import Register from './pages/Register'
 
+import RightSidebar from './components/layout/RightSidebar'
+
 // Route Guard — Redirects unauthenticated users to /login
 function ProtectedRoute({ children }) {
   const { isLoggedIn, loading } = useAuth()
@@ -15,8 +17,8 @@ function ProtectedRoute({ children }) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)]">
         <div className="flex flex-col items-center gap-3 animate-fade-in">
-          <span className="text-4xl animate-bounce">🎭</span>
-          <p style={{ color: 'var(--text-secondary)' }} className="text-xs font-semibold tracking-wider uppercase">
+          <div className="w-10 h-10 rounded-full border-2 border-blue-500 border-t-transparent animate-spin" />
+          <p style={{ color: 'var(--text-secondary)' }} className="text-xs font-bold tracking-wider uppercase">
             Loading Persona...
           </p>
         </div>
@@ -41,20 +43,22 @@ function RedirectIfAuthenticated({ children }) {
 
 function MainLayout({ searchQuery, setSearchQuery }) {
   return (
-    <div style={{ backgroundColor: 'var(--bg-primary)' }} className="min-h-screen">
-      <Navbar onSearchChange={setSearchQuery} />
-      <div className="flex">
+    <div style={{ backgroundColor: 'var(--bg-primary)' }} className="min-h-screen flex justify-center">
+      <div className="w-full max-w-7xl flex justify-between">
+        {/* Left Substack Navigation Sidebar */}
         <Sidebar />
-        <main
-          style={{ backgroundColor: 'var(--bg-primary)' }}
-          className="flex-1 mt-14 md:ml-[240px] p-4 md:p-8 min-h-[calc(100vh-56px)] transition-all"
-        >
+
+        {/* Middle Main Feed Container */}
+        <main className="flex-1 max-w-2xl min-h-screen border-r border-[var(--border)] px-4 py-6">
           <Routes>
             <Route path="/" element={<Home searchQuery={searchQuery} />} />
             <Route path="/c/:slug" element={<Home searchQuery={searchQuery} />} />
             <Route path="/post/:id" element={<PostDetail />} />
           </Routes>
         </main>
+
+        {/* Right Substack Widget & Search Sidebar */}
+        <RightSidebar onSearchChange={setSearchQuery} />
       </div>
     </div>
   )

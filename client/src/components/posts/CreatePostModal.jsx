@@ -42,8 +42,10 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
         .then(res => {
           const list = res.data.communities || []
           setCommunities(list)
-          if (!communityId && list.length > 0) {
-            setCommunityId(preselectedCommunityId || list[0].id)
+          if (preselectedCommunityId) {
+            setCommunityId(preselectedCommunityId)
+          } else if (!communityId && list.length > 0) {
+            setCommunityId(list[0].id)
           }
         })
         .catch(console.error)
@@ -94,14 +96,10 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
       >
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-[var(--border)]">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">✍️</span>
-            <h2 className="text-lg font-bold">Create Anonymous Post</h2>
-          </div>
+          <h2 className="text-base font-bold text-[var(--text-primary)]">Create Anonymous Post</h2>
           <button
             onClick={onClose}
-            style={{ color: 'var(--text-secondary)' }}
-            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[var(--border)] transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-[var(--border)] transition-colors text-[var(--text-secondary)] text-sm"
           >
             ✕
           </button>
@@ -109,8 +107,8 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
 
         <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
           {error && (
-            <div className="p-3 text-xs rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 font-medium">
-              ⚠️ {error}
+            <div className="p-3 text-xs rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 font-medium">
+              {error}
             </div>
           )}
 
@@ -127,12 +125,12 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
                 borderColor: 'var(--border)',
                 color: 'var(--text-primary)',
               }}
-              className="w-full px-3.5 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+              className="w-full px-3.5 py-2.5 rounded-xl border text-sm font-medium focus:outline-none focus:border-blue-500"
             >
               <option value="" disabled>Choose a community...</option>
               {communities.map(c => (
                 <option key={c.id} value={c.id}>
-                  {c.icon} {c.name}
+                  {c.name}
                 </option>
               ))}
             </select>
@@ -153,7 +151,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
                 borderColor: privacyAlert.hasLeak ? 'var(--warning-border)' : 'var(--border)',
                 color: 'var(--text-primary)',
               }}
-              className="w-full p-3.5 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)] resize-none transition-colors"
+              className="w-full p-3.5 rounded-xl border text-sm focus:outline-none focus:border-blue-500 resize-none transition-colors"
             />
           </div>
 
@@ -167,7 +165,9 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
               }}
               className="p-3.5 rounded-xl border text-xs flex items-start gap-2.5 animate-fade-in"
             >
-              <span className="text-base leading-none">⚠️</span>
+              <svg className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
               <div>
                 <p className="font-bold">Privacy Warning Detected!</p>
                 <p className="mt-0.5 opacity-90 leading-relaxed">
@@ -181,29 +181,20 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
           {/* Footer Actions */}
           <div className="flex items-center justify-between pt-2 border-t border-[var(--border)] mt-2">
             <span style={{ color: 'var(--text-muted)' }} className="text-xs">
-              🛡️ Post will be attached to your persona
+              Post attached to your persona
             </span>
             <div className="flex gap-2">
               <button
                 type="button"
                 onClick={onClose}
-                style={{
-                  backgroundColor: 'var(--bg-sidebar)',
-                  color: 'var(--text-secondary)',
-                  border: '1px solid var(--border)',
-                }}
-                className="px-4 py-2 rounded-xl text-xs font-semibold hover:opacity-80 transition-opacity"
+                className="px-4 py-2 rounded-xl text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading || !content.trim()}
-                style={{
-                  backgroundColor: 'var(--accent)',
-                  color: '#ffffff',
-                }}
-                className="px-5 py-2 rounded-xl text-xs font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+                className="px-5 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
                 {loading ? 'Publishing...' : 'Publish Anonymously'}
               </button>
@@ -214,3 +205,4 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
     </div>
   )
 }
+

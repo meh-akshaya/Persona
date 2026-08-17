@@ -12,7 +12,7 @@ export default function Home({ searchQuery = '' }) {
   const [sortBy, setSortBy] = useState('latest') // 'latest' | 'top'
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const { slug } = useParams()
-  const { isLoggedIn, persona } = useAuth()
+  const { isLoggedIn } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -55,27 +55,66 @@ export default function Home({ searchQuery = '' }) {
     setPosts(prev => [newPost, ...prev])
   }
 
+  const handleStartPost = () => {
+    if (!isLoggedIn) return navigate('/login')
+    setIsCreateModalOpen(true)
+  }
+
   return (
-    <div className="max-w-2xl mx-auto py-4 px-2 md:px-0">
-      {/* Community Header Banner */}
-      {community ? (
+    <div className="w-full space-y-6 animate-fade-in">
+      {/* Substack Style Hero Featured Banner Card */}
+      {!slug && (
+        <div
+          style={{
+            background: 'linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%)',
+            borderColor: '#2563eb',
+          }}
+          className="rounded-2xl p-6 sm:p-8 border shadow-lg relative overflow-hidden text-white"
+        >
+          <div className="relative z-10 max-w-lg">
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
+              Share your honest thoughts anonymously
+            </h1>
+            <p className="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed opacity-90">
+              Join discussions on career, tech, relationships, and finance without attached real names.
+            </p>
+            <div className="flex items-center gap-3 mt-5">
+              <button
+                onClick={handleStartPost}
+                className="px-5 py-2.5 rounded-full text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md uppercase tracking-wider cursor-pointer"
+              >
+                Start a Post
+              </button>
+              <button
+                onClick={() => navigate('/c/coding-tech')}
+                className="px-4 py-2.5 rounded-full text-xs font-semibold text-slate-200 border border-slate-700 hover:bg-slate-800 transition-colors"
+              >
+                Explore Tech
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Community Header if inside a Space */}
+      {community && (
         <div
           style={{
             backgroundColor: 'var(--bg-card)',
-            border: '1px solid var(--border)',
+            borderColor: 'var(--border)',
           }}
-          className="rounded-2xl p-6 mb-6 shadow-xs animate-fade-in"
+          className="rounded-2xl p-6 border shadow-xs"
         >
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-3xl p-2 rounded-2xl bg-[var(--bg-sidebar)] border border-[var(--border)]">
-              {community.icon}
-            </span>
+            <div className="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm">
+              #
+            </div>
             <div>
-              <h1 className="text-xl font-extrabold tracking-tight">
+              <h1 className="text-xl font-bold tracking-tight text-[var(--text-primary)]">
                 {community.name}
               </h1>
-              <p style={{ color: 'var(--text-secondary)' }} className="text-xs mt-0.5 font-medium">
-                {community._count?.posts || 0} anonymous discussions
+              <p style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
+                {community._count?.posts || 0} discussions
               </p>
             </div>
           </div>
@@ -83,109 +122,60 @@ export default function Home({ searchQuery = '' }) {
             {community.description}
           </p>
         </div>
-      ) : (
-        <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-extrabold tracking-tight flex items-center gap-2">
-              <span>🌐</span>
-              <span>All Discussions</span>
-            </h1>
-            <p style={{ color: 'var(--text-secondary)' }} className="text-xs mt-1 font-medium">
-              Real stories, honest advice, and 100% anonymous community feedback.
-            </p>
-          </div>
-
-          {/* Sort Controls */}
-          <div
-            style={{
-              backgroundColor: 'var(--bg-sidebar)',
-              border: '1px solid var(--border)',
-            }}
-            className="flex items-center p-1 rounded-xl text-xs font-semibold self-start sm:self-auto"
-          >
-            <button
-              onClick={() => setSortBy('latest')}
-              style={{
-                backgroundColor: sortBy === 'latest' ? 'var(--bg-card)' : 'transparent',
-                color: sortBy === 'latest' ? 'var(--text-primary)' : 'var(--text-secondary)',
-              }}
-              className="px-3 py-1.5 rounded-lg transition-all"
-            >
-              Latest
-            </button>
-            <button
-              onClick={() => setSortBy('top')}
-              style={{
-                backgroundColor: sortBy === 'top' ? 'var(--bg-card)' : 'transparent',
-                color: sortBy === 'top' ? 'var(--text-primary)' : 'var(--text-secondary)',
-              }}
-              className="px-3 py-1.5 rounded-lg transition-all"
-            >
-              🔥 Top Reacted
-            </button>
-          </div>
-        </div>
       )}
 
-      {/* Quick Post Prompt Composer Box */}
-      <div
-        onClick={() => {
-          if (!isLoggedIn) return navigate('/login')
-          setIsCreateModalOpen(true)
-        }}
-        style={{
-          backgroundColor: 'var(--bg-card)',
-          border: '1px solid var(--border)',
-        }}
-        className="rounded-2xl p-4 mb-6 shadow-xs flex items-center gap-3 cursor-pointer hover:border-[var(--accent-text)] transition-all group"
-      >
-        <div
-          style={{ backgroundColor: (persona?.color || '#7c5cfc') + '22' }}
-          className="w-10 h-10 rounded-full flex items-center justify-center text-lg shrink-0"
-        >
-          {persona?.emoji || '🎭'}
+      {/* Substack Feed Header Bar ("For you" / Sort tabs) */}
+      <div className="flex items-center justify-between pb-3 border-b border-[var(--border)] text-xs">
+        <div className="flex items-center gap-4 font-bold text-[var(--text-primary)]">
+          <span className="text-sm font-bold flex items-center gap-1">
+            <span>{slug ? community?.name || slug : 'For you'}</span>
+            <svg className="w-4 h-4 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
         </div>
-        <div
-          style={{
-            backgroundColor: 'var(--bg-sidebar)',
-            color: 'var(--text-muted)',
-            borderColor: 'var(--border)',
-          }}
-          className="flex-1 px-4 py-2.5 rounded-xl border text-xs font-medium group-hover:text-[var(--text-primary)] transition-colors"
-        >
-          {isLoggedIn
-            ? `Post anonymously in ${community ? community.name : 'any community'}...`
-            : 'Sign in to post an anonymous question or story...'}
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setSortBy('latest')}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              sortBy === 'latest'
+                ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20'
+                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            }`}
+          >
+            Latest
+          </button>
+          <button
+            onClick={() => setSortBy('top')}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              sortBy === 'top'
+                ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20'
+                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            }`}
+          >
+            Top Reacted
+          </button>
         </div>
-        <button
-          style={{
-            backgroundColor: 'var(--accent)',
-            color: '#ffffff',
-          }}
-          className="px-4 py-2 rounded-xl text-xs font-bold shrink-0 hover:opacity-90 transition-opacity"
-        >
-          Post
-        </button>
       </div>
 
       {/* Feed List */}
       {loading ? (
-        <div className="flex flex-col gap-4">
+        <div className="space-y-6 sm:space-y-7">
           {[1, 2, 3].map(i => (
             <div
               key={i}
               style={{
                 backgroundColor: 'var(--bg-card)',
-                border: '1px solid var(--border)',
+                borderColor: 'var(--border)',
               }}
-              className="rounded-2xl p-5 animate-pulse-subtle flex flex-col gap-3"
+              className="rounded-2xl p-6 border animate-pulse space-y-3"
             >
-              <div className="flex items-center gap-2">
-                <div className="w-24 h-6 rounded-full bg-[var(--border)]" />
-                <div className="w-16 h-6 rounded-full bg-[var(--border)]" />
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-[var(--border)]" />
+                <div className="w-28 h-4 rounded bg-[var(--border)]" />
               </div>
-              <div className="w-full h-12 rounded-xl bg-[var(--border)]" />
-              <div className="w-32 h-6 rounded-xl bg-[var(--border)]" />
+              <div className="w-full h-10 rounded bg-[var(--border)]" />
             </div>
           ))}
         </div>
@@ -193,41 +183,27 @@ export default function Home({ searchQuery = '' }) {
         <div
           style={{
             backgroundColor: 'var(--bg-card)',
-            border: '1px solid var(--border)',
+            borderColor: 'var(--border)',
           }}
-          className="rounded-2xl p-12 text-center my-4 animate-fade-in"
+          className="rounded-2xl p-12 text-center border my-4"
         >
-          <span className="text-4xl block mb-3">🍃</span>
-          <h3 className="text-base font-bold">No discussions found</h3>
+          <h3 className="text-base font-bold text-[var(--text-primary)]">No discussions found</h3>
           <p style={{ color: 'var(--text-secondary)' }} className="text-xs mt-1 max-w-sm mx-auto">
             {searchQuery
-              ? `No posts matched "${searchQuery}". Try a different keyword.`
-              : 'Be the very first member to share an anonymous story or question in this space.'}
+              ? `No posts matched "${searchQuery}".`
+              : 'Be the first persona to start a discussion in this space.'}
           </p>
           <button
-            onClick={() => {
-              if (!isLoggedIn) return navigate('/login')
-              setIsCreateModalOpen(true)
-            }}
-            style={{
-              backgroundColor: 'var(--accent)',
-              color: '#ffffff',
-            }}
-            className="mt-4 px-5 py-2.5 rounded-xl text-xs font-bold hover:opacity-90 transition-opacity"
+            onClick={handleStartPost}
+            className="mt-4 px-5 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-xs"
           >
-            Start a Discussion
+            Start a Post
           </button>
         </div>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className="space-y-6 sm:space-y-7">
           {filteredPosts.map(post => (
-            <PostCard
-              key={post.id}
-              post={post}
-              onReactionUpdated={() => {
-                // Background refresh feed if needed
-              }}
-            />
+            <PostCard key={post.id} post={post} />
           ))}
         </div>
       )}

@@ -1,47 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #090d16;
-  --bg-sidebar: #0e1526;
-  --bg-card: rgba(17, 24, 39, 0.85);
-  --bg-modal: #111827;
-  --border: #1f293d;
-  --border-subtle: #182234;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent: #8b5cfc;
-  --accent-hover: #7c3aed;
-  --accent-light: rgba(139, 92, 246, 0.15);
-  --accent-text: #c4b5fd;
-  --accent-glow: 0 0 25px rgba(139, 92, 246, 0.35);
-  --warning-bg: rgba(66, 32, 6, 0.6);
+  --bg-primary: #121214;
+  --bg-sidebar: #121214;
+  --bg-card: #19191d;
+  --bg-modal: #18181c;
+  --border: #26262e;
+  --border-subtle: #1e1e24;
+  --text-primary: #f4f4f6;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: rgba(37, 99, 235, 0.12);
+  --accent-text: #60a5fa;
+  --accent-glow: 0 0 20px rgba(37, 99, 235, 0.35);
+  --warning-bg: rgba(66, 32, 6, 0.5);
   --warning-border: #78350f;
   --warning-text: #fde047;
-  --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.3);
-  --modal-overlay: rgba(3, 7, 18, 0.82);
+  --card-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
+  --modal-overlay: rgba(9, 9, 11, 0.85);
 }
 
 [data-theme="light"] {
-  --bg-primary: #f8fafc;
-  --bg-sidebar: #f1f5f9;
+  --bg-primary: #ffffff;
+  --bg-sidebar: #ffffff;
   --bg-card: #ffffff;
   --bg-modal: #ffffff;
-  --border: #e2e8f0;
-  --border-subtle: #f1f5f9;
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
-  --accent: #7c3aed;
-  --accent-hover: #6d28d9;
-  --accent-light: #f3e8ff;
-  --accent-text: #6d28d9;
-  --accent-glow: 0 0 20px rgba(124, 58, 237, 0.2);
+  --border: #e4e4e7;
+  --border-subtle: #f4f4f5;
+  --text-primary: #09090b;
+  --text-secondary: #71717a;
+  --text-muted: #a1a1aa;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: #eff6ff;
+  --accent-text: #2563eb;
+  --accent-glow: 0 0 15px rgba(37, 99, 235, 0.15);
   --warning-bg: #fffbe6;
   --warning-border: #ffe58f;
   --warning-text: #d48806;
-  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --modal-overlay: rgba(15, 23, 42, 0.5);
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --modal-overlay: rgba(9, 9, 11, 0.5);
 }
 
 * {
@@ -54,32 +54,15 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* Glassmorphism helpers */
-.glass-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border);
-}
-
-.glass-card-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.glass-card-hover:hover {
-  border-color: rgba(139, 92, 246, 0.4);
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.12), var(--card-shadow);
-  transform: translateY(-1px);
-}
-
-/* Custom scrollbar */
+/* Substack-style Clean Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -89,24 +72,24 @@ body {
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: var(--text-muted);
 }
 
-/* Keyframes */
+/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulseGlow {
-  0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6)); }
-  50% { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2)); }
-}
-
 .animate-fade-in {
-  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.animate-glow {
-  animation: pulseGlow 3s ease-in-out infinite;
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

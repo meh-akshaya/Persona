@@ -35,63 +35,60 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen bg-[#090d16] flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background Glow Effects */}
-      <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none animate-glow" />
-      <div className="absolute bottom-10 left-10 w-80 h-80 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-[#0d0e12] flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Subtle Radial Accent Glow */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Main Glass Card */}
+      {/* Main Substack Style Card */}
       <div
         style={{
-          background: 'rgba(15, 23, 42, 0.75)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(99, 102, 241, 0.15)',
+          backgroundColor: '#16171d',
+          borderColor: '#26262e',
         }}
-        className="w-full max-w-lg rounded-3xl p-8 relative z-10 animate-fade-in"
+        className="w-full max-w-lg rounded-2xl p-8 border shadow-xl relative z-10 animate-fade-in"
       >
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 text-3xl mb-3 shadow-[0_0_20px_rgba(99,102,241,0.3)]">
-            🛡️
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-400 mb-3">
+            <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
           </div>
-          <h1 className="text-2xl font-black tracking-tight text-white">
-            Create Your <span className="bg-gradient-to-r from-indigo-400 to-violet-300 bg-clip-text text-transparent">Persona</span>
+          <h1 className="text-2xl font-black tracking-tight text-white font-sans">
+            Create Your Persona
           </h1>
-          <p className="text-slate-400 text-xs mt-2 leading-relaxed max-w-sm mx-auto">
+          <p className="text-zinc-400 text-xs mt-2 leading-relaxed max-w-sm mx-auto">
             A 100% unique, anonymous persona avatar & identity will be automatically assigned to your account.
           </p>
         </div>
 
-        {/* Live Persona Generator Teaser */}
-        <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 mb-6 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500/30 to-rose-500/30 border border-amber-500/40 flex items-center justify-center text-2xl shrink-0 animate-bounce">
-            🦊
+        {/* Persona Generator Teaser */}
+        <div className="p-4 rounded-xl bg-[#121214] border border-[#26262e] mb-6 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm shrink-0">
+            P
           </div>
           <div className="overflow-hidden">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-slate-100">Unique Persona Auto-Assigned</span>
-              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+              <span className="text-xs font-bold text-zinc-100">Unique Persona Auto-Assigned</span>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
                 100% Secret
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 mt-0.5 truncate">
+            <p className="text-[11px] text-zinc-400 mt-0.5 truncate">
               E.g., SilentFox, CalmEagle, SwiftStone — assigned upon registration.
             </p>
           </div>
         </div>
 
         {error && (
-          <div className="mb-6 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-medium flex items-center gap-2 animate-fade-in">
-            <span className="text-base">⚠️</span>
-            <span>{error}</span>
+          <div className="mb-6 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-medium">
+            {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
               Email Address
             </label>
             <input
@@ -100,15 +97,15 @@ export default function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your.email@example.com"
-              className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-100 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-600"
+              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-blue-500 transition-all placeholder:text-zinc-600"
             />
-            <p className="text-[10px] text-slate-500 mt-1">
+            <p className="text-[10px] text-zinc-500 mt-1">
               * Your email is strictly private and never shared or displayed anywhere.
             </p>
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
               Password (min 8 characters)
             </label>
             <input
@@ -117,12 +114,12 @@ export default function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-100 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-600"
+              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-blue-500 transition-all placeholder:text-zinc-600"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-zinc-400 mb-1.5">
               Confirm Password
             </label>
             <input
@@ -131,23 +128,23 @@ export default function Register() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-100 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-600"
+              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-blue-500 transition-all placeholder:text-zinc-600"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 transition-all shadow-[0_0_20px_rgba(99,102,241,0.4)] disabled:opacity-50 mt-2 cursor-pointer"
+            className="w-full py-3.5 rounded-xl text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md disabled:opacity-50 mt-2 cursor-pointer uppercase tracking-wider"
           >
-            {loading ? 'Assigning Persona Identity...' : 'Generate My Anonymous Account'}
+            {loading ? 'Assigning Identity...' : 'Generate My Anonymous Account'}
           </button>
         </form>
 
         {/* Footer Navigation */}
-        <div className="mt-6 pt-4 border-t border-slate-800/80 text-center text-xs text-slate-400">
+        <div className="mt-6 pt-4 border-t border-[#26262e] text-center text-xs text-zinc-400">
           Already registered?{' '}
-          <Link to="/login" className="font-bold text-indigo-400 hover:text-indigo-300 transition-colors">
+          <Link to="/login" className="font-bold text-blue-400 hover:text-blue-300 transition-colors">
             Sign In to Persona →
           </Link>
         </div>
@@ -155,3 +152,4 @@ export default function Register() {
     </div>
   )
 }
+

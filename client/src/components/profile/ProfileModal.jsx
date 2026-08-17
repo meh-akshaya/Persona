@@ -5,6 +5,8 @@ export default function ProfileModal({ isOpen, onClose }) {
 
   if (!isOpen || !persona) return null
 
+  const personaInitial = persona.name ? persona.name.charAt(0).toUpperCase() : 'P'
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[var(--modal-overlay)] backdrop-blur-xs animate-fade-in">
       <div
@@ -15,17 +17,16 @@ export default function ProfileModal({ isOpen, onClose }) {
         }}
         className="relative w-full max-w-md rounded-2xl p-6 shadow-xl overflow-hidden"
       >
-        {/* Header decoration banner */}
+        {/* Header banner */}
         <div
           style={{
-            background: `linear-gradient(135deg, ${persona.color || '#7c5cfc'}44, ${persona.color || '#7c5cfc'}11)`,
+            background: `linear-gradient(135deg, ${persona.color || '#2563eb'}44, ${persona.color || '#2563eb'}11)`,
           }}
           className="h-20 -mx-6 -mt-6 mb-4 flex items-center justify-end px-4"
         >
           <button
             onClick={onClose}
-            style={{ color: 'var(--text-secondary)' }}
-            className="w-8 h-8 rounded-full flex items-center justify-center bg-black/10 hover:bg-black/20 dark:bg-white/10 dark:hover:bg-white/20 transition-colors"
+            className="w-8 h-8 rounded-full flex items-center justify-center bg-black/20 hover:bg-black/40 text-white text-xs transition-colors"
           >
             ✕
           </button>
@@ -35,35 +36,22 @@ export default function ProfileModal({ isOpen, onClose }) {
         <div className="flex flex-col items-center text-center -mt-12 mb-4">
           <div
             style={{
-              backgroundColor: persona.color || '#7c5cfc',
-              boxShadow: `0 0 20px ${persona.color || '#7c5cfc'}55`,
+              backgroundColor: persona.color || '#2563eb',
             }}
-            className="w-20 h-20 rounded-full flex items-center justify-center text-4xl border-4 border-[var(--bg-modal)] transition-transform hover:scale-105"
+            className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-black text-white border-4 border-[var(--bg-modal)] shadow-md"
           >
-            {persona.emoji || '🎭'}
+            {personaInitial}
           </div>
 
-          <h2 className="text-xl font-bold mt-3 tracking-tight">
+          <h2 className="text-xl font-bold mt-3 tracking-tight text-[var(--text-primary)]">
             {persona.name || 'Anonymous Persona'}
           </h2>
 
           <div className="flex items-center gap-2 mt-2">
-            <span
-              style={{
-                backgroundColor: 'var(--accent-light)',
-                color: 'var(--accent-text)',
-              }}
-              className="text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1"
-            >
-              🛡️ Trust Score: {persona.trustScore || 0}
+            <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              Trust Score: {persona.trustScore || 0}
             </span>
-            <span
-              style={{
-                backgroundColor: 'var(--border-subtle)',
-                color: 'var(--text-secondary)',
-              }}
-              className="text-xs px-2.5 py-1 rounded-full"
-            >
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#1e1e24] text-[var(--text-secondary)] border border-[var(--border)]">
               Anonymous
             </span>
           </div>
@@ -73,11 +61,11 @@ export default function ProfileModal({ isOpen, onClose }) {
         <div
           style={{
             backgroundColor: 'var(--bg-sidebar)',
-            border: '1px solid var(--border)',
+            borderColor: 'var(--border)',
           }}
-          className="rounded-xl p-3.5 mb-5 text-xs text-center leading-relaxed"
+          className="rounded-xl p-3.5 mb-5 text-xs text-center leading-relaxed border text-[var(--text-secondary)]"
         >
-          🔒 <strong>100% Identity Shielded</strong> — Your real email and identity are encrypted. Other members only see your <span>{persona.name}</span> persona.
+          <strong>100% Identity Shielded</strong> — Your real email and identity are encrypted. Other members only see your <span className="text-[var(--text-primary)] font-semibold">{persona.name}</span> persona.
         </div>
 
         {/* Stats Grid */}
@@ -85,28 +73,28 @@ export default function ProfileModal({ isOpen, onClose }) {
           <div
             style={{
               backgroundColor: 'var(--bg-sidebar)',
-              border: '1px solid var(--border)',
+              borderColor: 'var(--border)',
             }}
-            className="p-3 rounded-xl text-center"
+            className="p-3 rounded-xl text-center border"
           >
-            <p style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
+            <p style={{ color: 'var(--text-muted)' }} className="text-xs font-medium uppercase tracking-wider">
               Posts Written
             </p>
-            <p className="text-lg font-bold text-[var(--accent-text)] mt-0.5">
+            <p className="text-lg font-bold text-blue-400 mt-0.5">
               {persona._count?.posts ?? '—'}
             </p>
           </div>
           <div
             style={{
               backgroundColor: 'var(--bg-sidebar)',
-              border: '1px solid var(--border)',
+              borderColor: 'var(--border)',
             }}
-            className="p-3 rounded-xl text-center"
+            className="p-3 rounded-xl text-center border"
           >
-            <p style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
+            <p style={{ color: 'var(--text-muted)' }} className="text-xs font-medium uppercase tracking-wider">
               Comments Shared
             </p>
-            <p className="text-lg font-bold text-[var(--accent-text)] mt-0.5">
+            <p className="text-lg font-bold text-blue-400 mt-0.5">
               {persona._count?.comments ?? '—'}
             </p>
           </div>
@@ -119,17 +107,13 @@ export default function ProfileModal({ isOpen, onClose }) {
               logout()
               onClose()
             }}
-            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold text-rose-500 bg-rose-500/10 hover:bg-rose-500/20 transition-colors"
+            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 transition-colors border border-rose-500/20"
           >
             Logout Persona
           </button>
           <button
             onClick={onClose}
-            style={{
-              backgroundColor: 'var(--accent)',
-              color: '#ffffff',
-            }}
-            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-semibold hover:opacity-90 transition-opacity"
+            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-xs"
           >
             Close
           </button>
@@ -138,3 +122,4 @@ export default function ProfileModal({ isOpen, onClose }) {
     </div>
   )
 }
+
