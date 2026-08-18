@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 import CreatePostModal from '../posts/CreatePostModal'
+import BitmojiAvatar from '../common/BitmojiAvatar'
 
 const formatSpaceName = (c) => {
   if (!c) return 'General'
@@ -44,133 +45,155 @@ export default function Sidebar({ onCreatePostClick }) {
 
   return (
     <>
-      <aside className="w-[240px] min-w-[240px] hidden md:flex flex-col justify-between py-6 px-4 sticky top-0 h-screen overflow-y-auto no-scrollbar border-r border-[var(--border)]">
+      <aside className="w-[230px] min-w-[230px] hidden md:flex flex-col justify-between py-6 px-3 sticky top-0 h-screen overflow-y-auto no-scrollbar border-r border-[#25252A] bg-[#0D0D0F]">
         <div className="flex flex-col gap-6">
-          {/* Substack Style Minimal Wordmark Logo */}
+          {/* Minimalist Wordmark Logo */}
           <Link to="/" className="flex items-center gap-2.5 px-2 group">
-            <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 shadow-xs group-hover:bg-amber-400 transition-colors font-bold">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <div className="w-7 h-7 rounded-[6px] bg-[#F5B800] flex items-center justify-center text-[#0D0D0F] group-hover:bg-[#e0a800] transition-colors font-bold">
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
               </svg>
             </div>
-            <span className="text-xl font-black tracking-tight text-[var(--text-primary)] font-sans">
+            <span className="text-lg font-extrabold tracking-tight text-[#F2F2F2] uppercase">
               Persona
             </span>
           </Link>
 
-          {/* Substack Primary Navigation List */}
-          <nav className="flex flex-col gap-1 text-sm font-semibold">
-            {/* Home */}
-            <Link
-              to="/"
-              className={`flex items-center gap-3.5 px-3 py-2.5 rounded-xl transition-all ${
-                !slug
-                  ? 'bg-[var(--border-subtle)] text-[var(--text-primary)] font-bold'
-                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)]'
-              }`}
-            >
-              <svg className="w-5 h-5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              <span>Home</span>
-            </Link>
-
-            {/* Spaces / Communities Toggle */}
-            <button
-              onClick={() => setShowSpaces(!showSpaces)}
-              className="flex items-center justify-between px-3 py-2.5 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] transition-all cursor-pointer"
-            >
-              <div className="flex items-center gap-3.5">
-                <svg className="w-5 h-5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-                <span>Spaces</span>
-              </div>
-              <svg className={`w-4 h-4 transition-transform ${showSpaces ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-
-            {/* Sub-menu of Community Spaces */}
-            {showSpaces && (
-              <div className="ml-5 border-l border-[var(--border)] pl-3 flex flex-col gap-0.5 my-1">
-                {loading ? (
-                  <div className="py-2 space-y-2">
-                    {[1, 2, 3].map(i => (
-                      <div key={i} className="h-6 bg-[var(--border-subtle)] rounded-lg animate-pulse" />
-                    ))}
-                  </div>
-                ) : (
-                  communities.map(c => {
-                    const isActive = slug === c.slug
-                    const cleanName = formatSpaceName(c)
-                    return (
-                      <Link
-                        key={c.id}
-                        to={`/c/${c.slug}`}
-                        className={`flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-semibold transition-all ${
-                          isActive
-                            ? 'text-amber-400 bg-amber-500/10 font-bold border-l-2 border-amber-500'
-                            : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)]'
-                        }`}
-                      >
-                        <span className="truncate">{cleanName}</span>
-                        {c._count?.posts > 0 && (
-                          <span className="text-[10px] opacity-70">
-                            {c._count.posts}
-                          </span>
-                        )}
-                      </Link>
-                    )
-                  })
-                )}
-              </div>
-            )}
-
-            {/* Activity */}
-            <Link
-              to="/"
-              className="flex items-center gap-3.5 px-3 py-2.5 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] transition-all"
-            >
-              <svg className="w-5 h-5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-              <span>Activity</span>
-            </Link>
-
-            {/* Explore */}
-            <Link
-              to="/"
-              className="flex items-center gap-3.5 px-3 py-2.5 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] transition-all"
-            >
-              <svg className="w-5 h-5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <span>Explore</span>
-            </Link>
-
-            {/* Profile */}
-            <Link
-              to={isLoggedIn ? '/' : '/login'}
-              className="flex items-center gap-3.5 px-3 py-2.5 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] transition-all"
-            >
-              <svg className="w-5 h-5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              <span>{isLoggedIn ? persona?.name || 'Profile' : 'Profile'}</span>
-            </Link>
-          </nav>
-        </div>
-
-        {/* Substack Prominent "Create" Primary Button */}
-        <div className="pt-4">
+          {/* Primary CTA Button */}
           <button
             onClick={handleCreateClick}
-            className="w-full py-3 px-4 rounded-full text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider hover:scale-[1.02]"
+            className="w-full py-2.5 px-3 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <span>+</span>
-            <span>Create</span>
+            <span>Start a post</span>
           </button>
+
+          {/* Grouped Sidebar Navigation */}
+          <nav className="flex flex-col gap-5 text-xs">
+            {/* MAIN GROUP */}
+            <div>
+              <div className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase mb-1 px-3">
+                Main
+              </div>
+              <Link
+                to="/"
+                className={`flex items-center gap-3 px-3 py-2 rounded-[6px] transition-colors ${
+                  !slug
+                    ? 'bg-[#151518] text-[#F2F2F2] font-semibold border-l-2 border-[#F5B800]'
+                    : 'text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60'
+                }`}
+              >
+                <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                <span>Home</span>
+              </Link>
+            </div>
+
+            {/* SPACES GROUP */}
+            <div>
+              <div className="flex items-center justify-between px-3 mb-1">
+                <span className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase">
+                  Spaces
+                </span>
+                <button
+                  onClick={() => setShowSpaces(!showSpaces)}
+                  className="text-[#6F7076] hover:text-[#F2F2F2] transition-colors cursor-pointer"
+                >
+                  <svg className={`w-3 h-3 transition-transform ${showSpaces ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+
+              {showSpaces && (
+                <div className="flex flex-col gap-0.5 mt-0.5">
+                  {loading ? (
+                    <div className="py-2 space-y-1.5 px-3">
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="h-5 bg-[#151518] rounded animate-pulse" />
+                      ))}
+                    </div>
+                  ) : (
+                    communities.map(c => {
+                      const isActive = slug === c.slug
+                      const cleanName = formatSpaceName(c)
+                      return (
+                        <Link
+                          key={c.id}
+                          to={`/c/${c.slug}`}
+                          className={`flex items-center justify-between py-1.5 px-3 rounded-[6px] text-xs font-medium transition-colors ${
+                            isActive
+                              ? 'text-[#F5B800] bg-[#151518] font-bold border-l-2 border-[#F5B800]'
+                              : 'text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60'
+                          }`}
+                        >
+                          <span className="truncate">{cleanName}</span>
+                          {c._count?.posts > 0 && (
+                            <span className="text-[10px] text-[#6F7076]">
+                              {c._count.posts}
+                            </span>
+                          )}
+                        </Link>
+                      )
+                    })
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* ACTIVITY GROUP */}
+            <div>
+              <div className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase mb-1 px-3">
+                Activity
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <Link
+                  to="/"
+                  className="flex items-center gap-3 px-3 py-2 rounded-[6px] text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors"
+                >
+                  <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  <span>Notifications</span>
+                </Link>
+
+                <Link
+                  to="/"
+                  className="flex items-center gap-3 px-3 py-2 rounded-[6px] text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors"
+                >
+                  <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <span>Explore</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* ACCOUNT GROUP */}
+            <div>
+              <div className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase mb-1 px-3">
+                Account
+              </div>
+              <Link
+                to={isLoggedIn ? '/' : '/login'}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-[6px] text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors"
+              >
+                {isLoggedIn && persona ? (
+                  <BitmojiAvatar
+                    seed={persona.name}
+                    avatarConfig={persona.avatarConfig}
+                    size={22}
+                  />
+                ) : (
+                  <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                )}
+                <span>{isLoggedIn ? persona?.name || 'Profile' : 'Profile'}</span>
+              </Link>
+            </div>
+          </nav>
         </div>
       </aside>
 

@@ -61,97 +61,81 @@ export default function Home({ searchQuery = '' }) {
   }
 
   return (
-    <div className="w-full space-y-6 animate-fade-in">
-      {/* Substack Style Hero Featured Banner Card */}
+    <div className="w-full animate-fade-in">
+      {/* Stream Integrated Hero Header */}
       {!slug && (
-        <div
-          style={{
-            background: 'linear-gradient(135deg, #271c08 0%, #121214 100%)',
-            borderColor: 'rgba(245, 158, 11, 0.3)',
-          }}
-          className="rounded-2xl p-6 sm:p-8 border shadow-lg relative overflow-hidden text-white"
-        >
-          <div className="relative z-10 max-w-lg">
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight text-zinc-100">
-              Say what you think.
-            </h1>
-            <p className="text-zinc-400 text-xs sm:text-sm mt-2 leading-relaxed">
-              Join discussions on IT, finance, fitness, geopolitics, relationships, and startups without attached real names.
-            </p>
-            <div className="flex items-center gap-3 mt-5">
-              <button
-                onClick={handleStartPost}
-                className="px-5 py-2.5 rounded-full text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-600 transition-colors shadow-md uppercase tracking-wider cursor-pointer"
-              >
-                Start a Post
-              </button>
-              <button
-                onClick={() => navigate('/c/coding-tech')}
-                className="px-4 py-2.5 rounded-full text-xs font-semibold text-zinc-300 border border-zinc-700 hover:bg-zinc-800 transition-colors"
-              >
-                Explore IT
-              </button>
-            </div>
+        <div className="pb-6 pt-1 mb-6 border-b border-[#25252A]">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#F2F2F2]">
+            Say what you think.
+          </h1>
+          <p className="text-[#9A9A9F] text-xs sm:text-sm mt-1.5 leading-relaxed">
+            Real conversations. No real names.
+          </p>
+          <div className="flex items-center gap-3 mt-4">
+            <button
+              onClick={handleStartPost}
+              className="px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer"
+            >
+              <span>+</span>
+              <span>Start a post</span>
+            </button>
+            <button
+              onClick={() => navigate('/c/coding-tech')}
+              className="px-3 py-2 text-xs font-medium text-[#9A9A9F] hover:text-[#F2F2F2] transition-colors cursor-pointer"
+            >
+              Explore spaces →
+            </button>
           </div>
         </div>
       )}
 
       {/* Community Header if inside a Space */}
       {community && (
-        <div
-          style={{
-            backgroundColor: 'var(--bg-card)',
-            borderColor: 'var(--border)',
-          }}
-          className="rounded-2xl p-6 border shadow-xs"
-        >
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">
-              #
-            </div>
-            <div>
-              <h1 className="text-xl font-bold tracking-tight text-[var(--text-primary)]">
-                {community.name}
-              </h1>
-              <p style={{ color: 'var(--text-secondary)' }} className="text-xs font-medium">
-                {community._count?.posts || 0} discussions
-              </p>
-            </div>
+        <div className="pb-5 mb-5 border-b border-[#25252A]">
+          <div className="flex items-center gap-2.5 mb-1.5">
+            <span className="text-[#F5B800] font-bold text-base">#</span>
+            <h1 className="text-xl font-bold tracking-tight text-[#F2F2F2]">
+              {community.name}
+            </h1>
+            <span className="text-[11px] font-semibold text-[#6F7076] ml-2">
+              {community._count?.posts || 0} discussions
+            </span>
           </div>
-          <p style={{ color: 'var(--text-secondary)' }} className="text-xs leading-relaxed mt-2">
+          <p className="text-[#9A9A9F] text-xs leading-relaxed">
             {community.description}
           </p>
         </div>
       )}
 
-      {/* Substack Feed Header Bar ("For you" / Sort tabs) */}
-      <div className="flex items-center justify-between pb-3 border-b border-[var(--border)] text-xs">
-        <div className="flex items-center gap-4 font-bold text-[var(--text-primary)]">
-          <span className="text-sm font-bold flex items-center gap-1">
-            <span>{slug ? community?.name || slug : 'For you'}</span>
-            <svg className="w-4 h-4 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2">
+      {/* Clean Stream Feed Tabs (Underline Active Indicator) */}
+      <div className="flex items-center justify-between border-b border-[#25252A] mb-2 text-xs">
+        <div className="flex items-center gap-6 font-medium">
           <button
             onClick={() => setSortBy('latest')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`py-2.5 px-1 font-semibold transition-all relative cursor-pointer ${
               sortBy === 'latest'
-                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                ? 'text-[#F2F2F2] border-b-2 border-[#F5B800]'
+                : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
+            }`}
+          >
+            {slug ? community?.name || slug : 'For you'}
+          </button>
+          <button
+            onClick={() => setSortBy('latest')}
+            className={`py-2.5 px-1 font-semibold transition-all cursor-pointer ${
+              sortBy === 'latest'
+                ? 'text-[#F2F2F2]'
+                : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
             }`}
           >
             Latest
           </button>
           <button
             onClick={() => setSortBy('top')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`py-2.5 px-1 font-semibold transition-all cursor-pointer ${
               sortBy === 'top'
-                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                ? 'text-[#F5B800] font-bold border-b-2 border-[#F5B800]'
+                : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
             }`}
           >
             Top Reacted
@@ -159,49 +143,36 @@ export default function Home({ searchQuery = '' }) {
         </div>
       </div>
 
-      {/* Feed List */}
+      {/* Feed List — Continuous Stream Format */}
       {loading ? (
-        <div className="space-y-6 sm:space-y-7">
+        <div className="divide-y divide-[#25252A]">
           {[1, 2, 3].map(i => (
-            <div
-              key={i}
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                borderColor: 'var(--border)',
-              }}
-              className="rounded-2xl p-6 border animate-pulse space-y-3"
-            >
+            <div key={i} className="py-5 animate-pulse space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-[var(--border)]" />
-                <div className="w-28 h-4 rounded bg-[var(--border)]" />
+                <div className="w-8 h-8 rounded-full bg-[#25252A]" />
+                <div className="w-32 h-4 rounded bg-[#25252A]" />
               </div>
-              <div className="w-full h-10 rounded bg-[var(--border)]" />
+              <div className="w-full h-12 rounded bg-[#25252A]" />
             </div>
           ))}
         </div>
       ) : filteredPosts.length === 0 ? (
-        <div
-          style={{
-            backgroundColor: 'var(--bg-card)',
-            borderColor: 'var(--border)',
-          }}
-          className="rounded-2xl p-12 text-center border my-4"
-        >
-          <h3 className="text-base font-bold text-[var(--text-primary)]">No discussions found</h3>
-          <p style={{ color: 'var(--text-secondary)' }} className="text-xs mt-1 max-w-sm mx-auto">
+        <div className="py-16 text-center border border-dashed border-[#25252A] rounded-[8px] my-6">
+          <h3 className="text-sm font-bold text-[#F2F2F2]">No discussions found</h3>
+          <p className="text-xs text-[#9A9A9F] mt-1 max-w-sm mx-auto">
             {searchQuery
               ? `No posts matched "${searchQuery}".`
               : 'Be the first persona to start a discussion in this space.'}
           </p>
           <button
             onClick={handleStartPost}
-            className="mt-4 px-5 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-xs"
+            className="mt-4 px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors cursor-pointer"
           >
-            Start a Post
+            + Start a post
           </button>
         </div>
       ) : (
-        <div className="space-y-6 sm:space-y-7">
+        <div className="divide-y divide-[#25252A]">
           {filteredPosts.map(post => (
             <PostCard key={post.id} post={post} />
           ))}

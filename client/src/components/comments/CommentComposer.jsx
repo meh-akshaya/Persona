@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import api from '../../api/axios'
+import BitmojiAvatar from '../common/BitmojiAvatar'
 
 export default function CommentComposer({ postId, parentId = null, onCommentAdded, placeholder = 'Add an anonymous comment...', onCancel }) {
   const { isLoggedIn, persona } = useAuth()
@@ -38,7 +39,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       {error && (
-        <div className="p-2 text-xs rounded-lg bg-rose-500/10 text-rose-500 font-medium">
+        <div className="p-2 text-xs rounded-[6px] bg-rose-500/10 text-rose-500 font-medium border border-rose-500/20">
           {error}
         </div>
       )}
@@ -49,17 +50,17 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder={placeholder}
-          style={{
-            backgroundColor: 'var(--bg-sidebar)',
-            borderColor: 'var(--border)',
-            color: 'var(--text-primary)',
-          }}
-          className="w-full p-3 rounded-xl border text-xs focus:outline-none focus:border-amber-500 resize-none transition-all placeholder:text-[var(--text-muted)]"
+          className="w-full p-3 rounded-[8px] border border-[#25252A] bg-[#0D0D0F] text-[#F2F2F2] text-xs focus:outline-none focus:border-[#F5B800] resize-none transition-all placeholder:text-[#6F7076]"
         />
 
         {/* Floating Persona Badge */}
         {isLoggedIn && persona && (
-          <div className="absolute right-3 bottom-3 text-[10px] font-semibold text-[var(--text-muted)] flex items-center gap-1">
+          <div className="absolute right-3 bottom-3 text-[10px] font-semibold text-[#9A9A9F] flex items-center gap-1.5 bg-[#151518]/90 px-2 py-1 rounded-[4px] border border-[#25252A]">
+            <BitmojiAvatar
+              seed={persona.name}
+              avatarConfig={persona.avatarConfig}
+              size={14}
+            />
             <span>As {persona.name}</span>
           </div>
         )}

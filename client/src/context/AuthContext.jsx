@@ -88,6 +88,19 @@ export const AuthProvider = ({ children }) => {
     setPersona(null)
   }
 
+  const updateAvatarConfig = (newConfig) => {
+    if (!persona) return
+    const updatedPersona = {
+      ...persona,
+      avatarConfig: newConfig,
+    }
+    setPersona(updatedPersona)
+    localStorage.setItem('persona', JSON.stringify(updatedPersona))
+    if (persona.name) {
+      localStorage.setItem(`persona_avatar_${persona.name}`, JSON.stringify(newConfig))
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -96,6 +109,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         refreshPersona,
+        updateAvatarConfig,
         loading,
         isLoggedIn: !!token,
       }}

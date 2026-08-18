@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import ProfileModal from '../profile/ProfileModal'
+import BitmojiAvatar from '../common/BitmojiAvatar'
 
 export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
   const { isLoggedIn, persona, logout } = useAuth()
@@ -17,7 +18,7 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
 
   return (
     <>
-      <aside className="w-[280px] min-w-[280px] hidden lg:block py-6 px-3.5 sticky top-0 h-screen overflow-y-auto no-scrollbar border-l border-[var(--border)]">
+      <aside className="w-[280px] min-w-[280px] hidden lg:block py-6 px-3.5 sticky top-0 h-screen overflow-y-auto no-scrollbar border-l border-[#25252A] bg-[#0D0D0F]">
         {/* Search Bar */}
         <div className="relative mb-5">
           <input
@@ -25,15 +26,10 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
             value={searchQuery}
             onChange={handleSearch}
             placeholder="Search Persona..."
-            style={{
-              backgroundColor: 'var(--bg-card)',
-              borderColor: 'var(--border)',
-              color: 'var(--text-primary)',
-            }}
-            className="w-full pl-9 pr-3.5 py-2 rounded-full text-xs border focus:outline-none focus:border-amber-500 transition-all placeholder:text-[var(--text-muted)]"
+            className="w-full pl-9 pr-3.5 py-2 rounded-[8px] text-xs bg-[#151518] border border-[#25252A] text-[#F2F2F2] placeholder-[#6F7076] focus:outline-none focus:border-[#F5B800] transition-colors"
           />
           <svg
-            className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[var(--text-muted)]"
+            className="w-4 h-4 absolute left-3 top-2.5 text-[#6F7076]"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -42,104 +38,73 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
           </svg>
         </div>
 
-        {/* Auth / Account Card Widget */}
+        {/* Auth / Account Widget */}
         {!isLoggedIn ? (
-          <div
-            style={{
-              backgroundColor: 'var(--bg-card)',
-              borderColor: 'var(--border)',
-            }}
-            className="rounded-2xl p-5 border text-center mb-5 shadow-sm animate-fade-in hover:scale-[1.01] hover:border-amber-500/40 transition-all duration-300 group"
-          >
-            <div className="w-10 h-10 mx-auto mb-3 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </div>
-
-            <h3 className="text-sm font-bold text-[var(--text-primary)]">
+          <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 text-center mb-5 shadow-xs">
+            <h3 className="text-xs font-bold text-[#F2F2F2]">
               Log in or sign up
             </h3>
-            <p style={{ color: 'var(--text-secondary)' }} className="text-[11px] mt-1 leading-relaxed mb-4">
+            <p className="text-[11px] text-[#9A9A9F] mt-1 leading-relaxed mb-3">
               Join insightful anonymous discussions.
             </p>
 
             <div className="flex flex-col gap-2">
               <Link
                 to="/register"
-                className="w-full py-2 rounded-xl text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-all shadow-xs"
+                className="w-full py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors text-center"
               >
                 Start your Persona
               </Link>
               <Link
                 to="/login"
-                style={{
-                  backgroundColor: 'var(--border-subtle)',
-                  color: 'var(--text-primary)',
-                  borderColor: 'var(--border)',
-                }}
-                className="w-full py-2 rounded-xl text-xs font-semibold border hover:bg-[var(--border)] transition-colors"
+                className="w-full py-2 rounded-[6px] text-xs font-semibold text-[#9A9A9F] bg-[#151518] border border-[#25252A] hover:text-[#F2F2F2] transition-colors text-center"
               >
                 Sign in
               </Link>
             </div>
           </div>
         ) : (
-          <div
-            style={{
-              backgroundColor: 'var(--bg-card)',
-              borderColor: 'var(--border)',
-            }}
-            className="rounded-2xl p-4 border mb-5 shadow-sm animate-fade-in hover:border-amber-500/30 transition-all"
-          >
-            <div className="flex items-center gap-2.5 mb-3">
-              <div
-                style={{ backgroundColor: persona?.color || '#f59e0b' }}
-                className="w-10 h-10 rounded-full flex items-center justify-center text-slate-950 font-bold text-xs shrink-0 shadow-xs"
-              >
-                {persona?.name ? persona.name.charAt(0).toUpperCase() : 'P'}
-              </div>
-              <div className="overflow-hidden">
-                <h3 className="text-xs font-bold truncate text-[var(--text-primary)]">
+          <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 mb-5 text-xs">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h3 className="font-bold text-[#F2F2F2] text-sm leading-tight">
                   {persona?.name}
                 </h3>
-                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-400 mt-0.5">
-                  <svg className="w-2.5 h-2.5 fill-current text-amber-400" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2A11.954 11.954 0 0110 1.944z" clipRule="evenodd" />
-                  </svg>
-                  Trust: {persona?.trustScore || 0}
+                <span className="text-[11px] font-medium text-[#9A9A9F]">
+                  Trust <span className="text-[#F5B800] font-bold">{persona?.trustScore || 0}</span>
                 </span>
               </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 py-2.5 border-y border-[var(--border)] mb-3 text-center text-xs">
-              <div>
-                <span style={{ color: 'var(--text-muted)' }} className="text-[9px] uppercase font-bold block">Posts</span>
-                <span className="font-bold text-xs text-[var(--text-primary)]">{persona?._count?.posts ?? 0}</span>
-              </div>
-              <div>
-                <span style={{ color: 'var(--text-muted)' }} className="text-[9px] uppercase font-bold block">Comments</span>
-                <span className="font-bold text-xs text-[var(--text-primary)]">{persona?._count?.comments ?? 0}</span>
-              </div>
-            </div>
-
-            <div className="flex gap-2">
               <button
                 onClick={() => setIsProfileOpen(true)}
-                className="flex-1 py-1.5 rounded-lg text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-colors cursor-pointer"
+                title="Customize Avatar in Studio"
+                className="cursor-pointer hover:scale-105 transition-transform"
               >
-                Profile
+                <BitmojiAvatar
+                  seed={persona?.name || 'Persona'}
+                  avatarConfig={persona?.avatarConfig}
+                  size={36}
+                />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-4 py-2 border-t border-b border-[#25252A] mb-3 text-[#9A9A9F] text-xs">
+              <div><span className="font-bold text-[#F2F2F2]">{persona?._count?.posts ?? 0}</span> Posts</div>
+              <div><span className="font-bold text-[#F2F2F2]">{persona?._count?.comments ?? 0}</span> Comments</div>
+            </div>
+
+            <div className="flex items-center justify-between text-xs">
+              <button
+                onClick={() => setIsProfileOpen(true)}
+                className="text-[#F5B800] hover:underline font-semibold cursor-pointer"
+              >
+                View profile
               </button>
               <button
                 onClick={() => {
                   logout()
                   navigate('/login')
                 }}
-                style={{
-                  backgroundColor: 'var(--border-subtle)',
-                  color: 'var(--text-secondary)',
-                }}
-                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold hover:text-[var(--text-primary)] transition-colors cursor-pointer"
+                className="text-[#6F7076] hover:text-[#9A9A9F] cursor-pointer"
               >
                 Logout
               </button>
@@ -148,14 +113,17 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
         )}
 
         {/* Minimal Footer Links */}
-        <div style={{ color: 'var(--text-muted)' }} className="px-1 text-[10px] space-y-1.5">
-          <div className="flex flex-wrap gap-x-2.5 gap-y-1 font-medium">
-            <button onClick={() => onOpenInfoModal && onOpenInfoModal('privacy')} className="hover:underline hover:text-amber-400">Privacy</button>
-            <button onClick={() => onOpenInfoModal && onOpenInfoModal('terms')} className="hover:underline hover:text-amber-400">Terms</button>
-            <button onClick={() => onOpenInfoModal && onOpenInfoModal('guidelines')} className="hover:underline hover:text-amber-400">Guidelines</button>
-            <button onClick={() => onOpenInfoModal && onOpenInfoModal('contact')} className="hover:underline hover:text-amber-400">Contact</button>
+        <div className="px-1 text-[11px] text-[#6F7076] space-y-1">
+          <div className="flex items-center gap-1.5 font-medium flex-wrap">
+            <button onClick={() => onOpenInfoModal && onOpenInfoModal('privacy')} className="hover:text-[#9A9A9F] cursor-pointer">Privacy</button>
+            <span>·</span>
+            <button onClick={() => onOpenInfoModal && onOpenInfoModal('terms')} className="hover:text-[#9A9A9F] cursor-pointer">Terms</button>
+            <span>·</span>
+            <button onClick={() => onOpenInfoModal && onOpenInfoModal('guidelines')} className="hover:text-[#9A9A9F] cursor-pointer">Guidelines</button>
+            <span>·</span>
+            <button onClick={() => onOpenInfoModal && onOpenInfoModal('contact')} className="hover:text-[#9A9A9F] cursor-pointer">Contact</button>
           </div>
-          <p className="opacity-70">Persona Inc. © {new Date().getFullYear()}</p>
+          <p className="text-[10px]">Persona Inc. © {new Date().getFullYear()}</p>
         </div>
       </aside>
 

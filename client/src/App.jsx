@@ -55,7 +55,7 @@ function MainLayout({ searchQuery, setSearchQuery }) {
   }
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-primary)' }} className="min-h-screen flex flex-col justify-between overflow-x-hidden">
+    <div style={{ backgroundColor: 'var(--bg-primary)' }} className="min-h-screen flex flex-col justify-between overflow-x-hidden text-[#F2F2F2]">
       {/* Mobile Top Responsive Sticky Header */}
       <MobileHeader
         searchQuery={searchQuery}
@@ -64,12 +64,12 @@ function MainLayout({ searchQuery, setSearchQuery }) {
         onOpenInfoModal={(type) => setInfoModalType(type)}
       />
 
-      <div className="w-full max-w-7xl mx-auto flex justify-between flex-1">
-        {/* Left Substack Navigation Sidebar (Hidden on mobile < md) */}
+      <div className="w-full max-w-6xl mx-auto flex justify-center flex-1">
+        {/* Left Navigation Sidebar (230px, hidden on mobile < md) */}
         <Sidebar onCreatePostClick={handleCreatePost} />
 
-        {/* Middle Main Feed Container */}
-        <main className="flex-1 max-w-2xl w-full min-h-screen border-r border-[var(--border)] px-4 py-6">
+        {/* Middle Main Feed Container (640-680px visual focus) */}
+        <main className="flex-1 max-w-[660px] w-full min-h-screen border-r border-l border-[#25252A] px-4 sm:px-6 py-6">
           <Routes>
             <Route path="/" element={<Home searchQuery={searchQuery} />} />
             <Route path="/c/:slug" element={<Home searchQuery={searchQuery} />} />
@@ -107,7 +107,7 @@ function AppContent() {
 
   return (
     <Routes>
-      {/* Public Auth Routes */}
+      {/* Auth Routes */}
       <Route
         path="/login"
         element={
@@ -125,14 +125,10 @@ function AppContent() {
         }
       />
 
-      {/* Main Protected App Routes */}
+      {/* Main Discussion Platform (Publicly Browsable, Auth Required for Post/Comment) */}
       <Route
         path="/*"
-        element={
-          <ProtectedRoute>
-            <MainLayout searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-          </ProtectedRoute>
-        }
+        element={<MainLayout searchQuery={searchQuery} setSearchQuery={setSearchQuery} />}
       />
     </Routes>
   )

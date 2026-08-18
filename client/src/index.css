@@ -1,47 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --bg-primary: #121214;
-  --bg-sidebar: #121214;
-  --bg-card: #19191d;
-  --bg-modal: #18181c;
-  --border: #26262e;
-  --border-subtle: #1e1e24;
-  --text-primary: #f4f4f6;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --accent: #f59e0b;
-  --accent-hover: #d97706;
-  --accent-light: rgba(245, 158, 11, 0.12);
-  --accent-text: #fbbf24;
-  --accent-glow: 0 0 20px rgba(245, 158, 11, 0.35);
-  --warning-bg: rgba(66, 32, 6, 0.5);
+  --bg-primary: #0D0D0F;
+  --bg-sidebar: #0D0D0F;
+  --bg-card: #151518;
+  --bg-modal: #151518;
+  --border: #25252A;
+  --border-subtle: #1B1B1F;
+  --text-primary: #F2F2F2;
+  --text-secondary: #9A9A9F;
+  --text-muted: #6F7076;
+  --accent: #F5B800;
+  --accent-hover: #E0A800;
+  --accent-light: rgba(245, 184, 0, 0.1);
+  --accent-text: #F5B800;
+  --accent-glow: 0 0 15px rgba(245, 184, 0, 0.2);
+  --warning-bg: rgba(66, 32, 6, 0.4);
   --warning-border: #78350f;
-  --warning-text: #fde047;
-  --card-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
-  --modal-overlay: rgba(9, 9, 11, 0.85);
+  --warning-text: #F5B800;
+  --card-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.5);
+  --modal-overlay: rgba(0, 0, 0, 0.85);
 }
 
 [data-theme="light"] {
-  --bg-primary: #ffffff;
-  --bg-sidebar: #ffffff;
-  --bg-card: #ffffff;
-  --bg-modal: #ffffff;
-  --border: #e4e4e7;
-  --border-subtle: #f4f4f5;
-  --text-primary: #09090b;
-  --text-secondary: #71717a;
-  --text-muted: #a1a1aa;
-  --accent: #d97706;
-  --accent-hover: #b45309;
-  --accent-light: #fffbe6;
-  --accent-text: #d97706;
-  --accent-glow: 0 0 15px rgba(217, 119, 6, 0.15);
+  --bg-primary: #FAFAFA;
+  --bg-sidebar: #FAFAFA;
+  --bg-card: #FFFFFF;
+  --bg-modal: #FFFFFF;
+  --border: #E5E5E7;
+  --border-subtle: #F2F2F4;
+  --text-primary: #111113;
+  --text-secondary: #6E6E73;
+  --text-muted: #8E8E93;
+  --accent: #D9A000;
+  --accent-hover: #B88800;
+  --accent-light: #FFFBE6;
+  --accent-text: #D9A000;
+  --accent-glow: 0 0 15px rgba(217, 160, 0, 0.15);
   --warning-bg: #fffbe6;
   --warning-border: #ffe58f;
   --warning-text: #d48806;
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --modal-overlay: rgba(9, 9, 11, 0.5);
+  --modal-overlay: rgba(0, 0, 0, 0.5);
 }
 
 html, body {

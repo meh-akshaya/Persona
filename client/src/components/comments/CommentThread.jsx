@@ -2,11 +2,12 @@ import { useState } from 'react'
 import CommentComposer from './CommentComposer'
 import { useAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import BitmojiAvatar from '../common/BitmojiAvatar'
 
 export default function CommentThread({ comment, postId, onReplyAdded, depth = 0 }) {
   const [replying, setReplying] = useState(false)
   const [replies, setReplies] = useState(comment.replies || [])
-  const { isLoggedIn } = useAuth()
+  const { isLoggedIn, persona } = useAuth()
   const navigate = useNavigate()
 
   const timeAgo = (date) => {
@@ -22,27 +23,22 @@ export default function CommentThread({ comment, postId, onReplyAdded, depth = 0
     if (onReplyAdded) onReplyAdded(newReply)
   }
 
-  const authorColor = comment.author?.personaColor || '#7c5cfc'
+  const savedAvatarConfig = (persona && persona.name === comment.author?.personaName)
+    ? persona.avatarConfig
+    : comment.author?.avatarConfig
 
   return (
-    <div className={`flex flex-col gap-2 ${depth > 0 ? 'ml-4 pl-3 border-l-2 border-[var(--border)]' : ''}`}>
-      <div
-        style={{
-          backgroundColor: 'var(--bg-card)',
-          borderColor: 'var(--border)',
-        }}
-        className="p-3.5 rounded-xl border text-xs animate-fade-in"
-      >
+    <div className={`flex flex-col gap-2 ${depth > 0 ? 'ml-4 pl-3 border-l-2 border-[#25252A]' : ''}`}>
+      <div className="p-3.5 rounded-[8px] border border-[#25252A] bg-[#151518] text-xs animate-fade-in">
         {/* Comment Header */}
         <div className="flex items-center gap-2 mb-2">
           <div className="flex items-center gap-2">
-            <div
-              style={{ backgroundColor: authorColor }}
-              className="w-6 h-6 rounded-full flex items-center justify-center text-slate-950 font-bold text-[10px] shrink-0"
-            >
-              {comment.author?.personaName ? comment.author.personaName.charAt(0).toUpperCase() : 'P'}
-            </div>
-            <span className="font-bold text-xs text-[var(--text-primary)]">
+            <BitmojiAvatar
+              seed={comment.author?.personaName || 'Persona'}
+              avatarConfig={savedAvatarConfig}
+              size={24}
+            />
+            <span className="font-bold text-xs text-[#F2F2F2]">
               {comment.author?.personaName}
             </span>
             <span className="text-[10px] font-extrabold px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">

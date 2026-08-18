@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Link, useParams, useNavigate } from 'react'
 import { Link as RouterLink, useParams as useRouterParams, useNavigate as useRouterNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import BitmojiAvatar from '../common/BitmojiAvatar'
 
 const SPACES_LIST = [
   { name: 'IT', slug: 'coding-tech' },
@@ -27,15 +27,15 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
   return (
     <>
       {/* Mobile Top Sticky Navigation Bar (Visible only on screens < md) */}
-      <header className="md:hidden sticky top-0 z-30 w-full bg-[#121214]/95 backdrop-blur-md border-b border-[#26262e] px-4 py-3 flex items-center justify-between">
+      <header className="md:hidden sticky top-0 z-30 w-full bg-[#0D0D0F]/95 backdrop-blur-md border-b border-[#25252A] px-4 py-3 flex items-center justify-between">
         {/* Clickable Brand Logo */}
         <RouterLink to="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-black shadow-xs">
+          <div className="w-7 h-7 rounded-[6px] bg-[#F5B800] flex items-center justify-center text-[#0D0D0F] font-black shadow-xs">
             <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
-          <span className="text-lg font-black tracking-tight text-white">
+          <span className="text-base font-extrabold tracking-tight text-[#F2F2F2] uppercase">
             Persona
           </span>
         </RouterLink>
@@ -45,7 +45,7 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
           {/* Create Button */}
           <button
             onClick={onCreatePostClick}
-            className="px-3 py-1.5 rounded-full text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors shadow-xs flex items-center gap-1"
+            className="px-3 py-1.5 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors flex items-center gap-1 cursor-pointer"
           >
             <span>+</span>
             <span>Post</span>
@@ -55,7 +55,7 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
           <button
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle Navigation Menu"
-            className="p-2 rounded-xl text-zinc-300 hover:text-white bg-[#19191d] border border-[#26262e] transition-colors"
+            className="p-2 rounded-[6px] text-[#9A9A9F] hover:text-[#F2F2F2] bg-[#151518] border border-[#25252A] transition-colors cursor-pointer"
           >
             {isOpen ? (
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -72,21 +72,21 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
 
       {/* Slide-out Mobile Navigation Drawer */}
       {isOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-black/80 backdrop-blur-sm animate-fade-in flex flex-col justify-between p-5 overflow-y-auto">
+        <div className="md:hidden fixed inset-0 z-40 bg-[#0D0D0F]/95 backdrop-blur-md animate-fade-in flex flex-col justify-between p-5 overflow-y-auto">
           <div>
             {/* Header in Drawer */}
-            <div className="flex items-center justify-between pb-4 border-b border-[#26262e] mb-4">
+            <div className="flex items-center justify-between pb-4 border-b border-[#25252A] mb-4">
               <RouterLink to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-black">
-                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <div className="w-7 h-7 rounded-[6px] bg-[#F5B800] flex items-center justify-center text-[#0D0D0F] font-black">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                   </svg>
                 </div>
-                <span className="text-xl font-black text-white">Persona</span>
+                <span className="text-lg font-extrabold text-[#F2F2F2] uppercase">Persona</span>
               </RouterLink>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 rounded-xl text-zinc-400 hover:text-white"
+                className="p-2 rounded-[6px] text-[#9A9A9F] hover:text-[#F2F2F2]"
               >
                 ✕
               </button>
@@ -99,24 +99,24 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search Persona..."
-                className="w-full px-4 py-2.5 rounded-xl bg-[#19191d] border border-[#26262e] text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500"
+                className="w-full px-3.5 py-2 rounded-[8px] bg-[#151518] border border-[#25252A] text-xs text-[#F2F2F2] placeholder-[#6F7076] focus:outline-none focus:border-[#F5B800]"
               />
             </div>
 
             {/* Spaces Navigation Section */}
             <div className="mb-6">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 block mb-2 px-1">
-                Spaces & Topics
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#6F7076] block mb-2 px-1">
+                Spaces
               </span>
               <div className="grid grid-cols-2 gap-2">
                 {SPACES_LIST.map(space => (
                   <button
                     key={space.slug}
                     onClick={() => handleSpaceClick(space.slug)}
-                    className={`py-2 px-3 rounded-xl text-xs font-semibold text-left transition-all ${
+                    className={`py-2 px-3 rounded-[6px] text-xs font-semibold text-left transition-all cursor-pointer ${
                       slug === space.slug
-                        ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30 font-bold'
-                        : 'bg-[#19191d] text-zinc-300 border border-[#26262e] hover:bg-[#222228]'
+                        ? 'bg-[#151518] text-[#F5B800] border-l-2 border-[#F5B800] font-bold'
+                        : 'bg-[#151518]/60 text-[#9A9A9F] border border-[#25252A] hover:text-[#F2F2F2]'
                     }`}
                   >
                     # {space.name}
@@ -127,17 +127,16 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
 
             {/* User Account Info */}
             {isLoggedIn && persona && (
-              <div className="p-4 rounded-xl bg-[#19191d] border border-[#26262e] mb-6">
+              <div className="p-4 rounded-[8px] bg-[#151518] border border-[#25252A] mb-6 text-xs">
                 <div className="flex items-center gap-3">
-                  <div
-                    style={{ backgroundColor: persona.color || '#f59e0b' }}
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-slate-950 font-bold text-xs shrink-0"
-                  >
-                    {persona.name ? persona.name.charAt(0).toUpperCase() : 'P'}
-                  </div>
+                  <BitmojiAvatar
+                    seed={persona.name}
+                    avatarConfig={persona.avatarConfig}
+                    size={32}
+                  />
                   <div>
-                    <h4 className="text-xs font-bold text-white">{persona.name}</h4>
-                    <span className="text-[10px] font-bold text-amber-400">
+                    <h4 className="text-xs font-bold text-[#F2F2F2]">{persona.name}</h4>
+                    <span className="text-[10px] font-bold text-[#F5B800]">
                       Trust Score: {persona.trustScore || 0}
                     </span>
                   </div>
@@ -148,23 +147,23 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
                     logout()
                     navigate('/login')
                   }}
-                  className="w-full mt-3 py-2 rounded-xl text-xs font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20"
+                  className="w-full mt-3 py-2 rounded-[6px] text-xs font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 cursor-pointer"
                 >
-                  Logout Persona
+                  Logout
                 </button>
               </div>
             )}
           </div>
 
           {/* Footer Info Links */}
-          <div className="pt-4 border-t border-[#26262e] text-[11px] text-zinc-500 space-y-2">
-            <div className="flex flex-wrap gap-3 font-semibold text-zinc-400">
-              <button onClick={() => { setIsOpen(false); onOpenInfoModal('privacy') }} className="hover:text-amber-400">Privacy Policy</button>
-              <button onClick={() => { setIsOpen(false); onOpenInfoModal('terms') }} className="hover:text-amber-400">Terms of Service</button>
-              <button onClick={() => { setIsOpen(false); onOpenInfoModal('guidelines') }} className="hover:text-amber-400">Guidelines</button>
-              <button onClick={() => { setIsOpen(false); onOpenInfoModal('contact') }} className="hover:text-amber-400">Contact</button>
+          <div className="pt-4 border-t border-[#25252A] text-[11px] text-[#6F7076] space-y-2">
+            <div className="flex flex-wrap gap-3 font-medium text-[#9A9A9F]">
+              <button onClick={() => { setIsOpen(false); onOpenInfoModal('privacy') }} className="hover:text-[#F5B800]">Privacy</button>
+              <button onClick={() => { setIsOpen(false); onOpenInfoModal('terms') }} className="hover:text-[#F5B800]">Terms</button>
+              <button onClick={() => { setIsOpen(false); onOpenInfoModal('guidelines') }} className="hover:text-[#F5B800]">Guidelines</button>
+              <button onClick={() => { setIsOpen(false); onOpenInfoModal('contact') }} className="hover:text-[#F5B800]">Contact</button>
             </div>
-            <p className="text-[10px] text-zinc-600">Persona Inc. © {new Date().getFullYear()}</p>
+            <p className="text-[10px] text-[#6F7076]">Persona Inc. © {new Date().getFullYear()}</p>
           </div>
         </div>
       )}
