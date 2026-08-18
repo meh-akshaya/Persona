@@ -10,11 +10,11 @@
   --text-primary: #f4f4f6;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-light: rgba(37, 99, 235, 0.12);
-  --accent-text: #60a5fa;
-  --accent-glow: 0 0 20px rgba(37, 99, 235, 0.35);
+  --accent: #f59e0b;
+  --accent-hover: #d97706;
+  --accent-light: rgba(245, 158, 11, 0.12);
+  --accent-text: #fbbf24;
+  --accent-glow: 0 0 20px rgba(245, 158, 11, 0.35);
   --warning-bg: rgba(66, 32, 6, 0.5);
   --warning-border: #78350f;
   --warning-text: #fde047;
@@ -32,16 +32,22 @@
   --text-primary: #09090b;
   --text-secondary: #71717a;
   --text-muted: #a1a1aa;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-light: #eff6ff;
-  --accent-text: #2563eb;
-  --accent-glow: 0 0 15px rgba(37, 99, 235, 0.15);
+  --accent: #d97706;
+  --accent-hover: #b45309;
+  --accent-light: #fffbe6;
+  --accent-text: #d97706;
+  --accent-glow: 0 0 15px rgba(217, 119, 6, 0.15);
   --warning-bg: #fffbe6;
   --warning-border: #ffe58f;
   --warning-text: #d48806;
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   --modal-overlay: rgba(9, 9, 11, 0.5);
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
 }
 
 * {
@@ -55,7 +61,6 @@ body {
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
-  overflow-x: hidden;
   min-height: 100vh;
 }
 

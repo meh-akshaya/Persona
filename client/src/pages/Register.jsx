@@ -49,7 +49,7 @@ export default function Register() {
       >
         {/* Header */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-400 mb-3">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-3">
             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
@@ -64,13 +64,13 @@ export default function Register() {
 
         {/* Persona Generator Teaser */}
         <div className="p-4 rounded-xl bg-[#121214] border border-[#26262e] mb-6 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm shrink-0">
+          <div className="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">
             P
           </div>
           <div className="overflow-hidden">
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-zinc-100">Unique Persona Auto-Assigned</span>
-              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">
                 100% Secret
               </span>
             </div>
@@ -97,7 +97,7 @@ export default function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your.email@example.com"
-              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-blue-500 transition-all placeholder:text-zinc-600"
+              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-amber-500 transition-all placeholder:text-zinc-600"
             />
             <p className="text-[10px] text-zinc-500 mt-1">
               * Your email is strictly private and never shared or displayed anywhere.
@@ -114,7 +114,7 @@ export default function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-blue-500 transition-all placeholder:text-zinc-600"
+              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-amber-500 transition-all placeholder:text-zinc-600"
             />
           </div>
 
@@ -128,14 +128,14 @@ export default function Register() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-blue-500 transition-all placeholder:text-zinc-600"
+              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-amber-500 transition-all placeholder:text-zinc-600"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md disabled:opacity-50 mt-2 cursor-pointer uppercase tracking-wider"
+            className="w-full py-3.5 rounded-xl text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-all shadow-md disabled:opacity-50 mt-2 cursor-pointer uppercase tracking-wider"
           >
             {loading ? 'Assigning Identity...' : 'Generate My Anonymous Account'}
           </button>
@@ -144,7 +144,7 @@ export default function Register() {
         {/* Footer Navigation */}
         <div className="mt-6 pt-4 border-t border-[#26262e] text-center text-xs text-zinc-400">
           Already registered?{' '}
-          <Link to="/login" className="font-bold text-blue-400 hover:text-blue-300 transition-colors">
+          <Link to="/login" className="font-bold text-amber-400 hover:text-amber-300 transition-colors">
             Sign In to Persona →
           </Link>
         </div>

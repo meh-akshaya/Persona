@@ -1,14 +1,16 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { AuthProvider, useAuth } from './context/AuthContext'
-import Navbar from './components/layout/Navbar'
 import Sidebar from './components/layout/Sidebar'
+import RightSidebar from './components/layout/RightSidebar'
+import MobileHeader from './components/layout/MobileHeader'
+import InfoModal from './components/layout/InfoModal'
+import CreatePostModal from './components/posts/CreatePostModal'
 import Home from './pages/Home'
 import PostDetail from './pages/PostDetail'
 import Login from './pages/Login'
 import Register from './pages/Register'
-
-import RightSidebar from './components/layout/RightSidebar'
+import NotFound from './pages/NotFound'
 
 // Route Guard — Redirects unauthenticated users to /login
 function ProtectedRoute({ children }) {
@@ -17,7 +19,7 @@ function ProtectedRoute({ children }) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--bg-primary)]">
         <div className="flex flex-col items-center gap-3 animate-fade-in">
-          <div className="w-10 h-10 rounded-full border-2 border-blue-500 border-t-transparent animate-spin" />
+          <div className="w-10 h-10 rounded-full border-2 border-amber-500 border-t-transparent animate-spin" />
           <p style={{ color: 'var(--text-secondary)' }} className="text-xs font-bold tracking-wider uppercase">
             Loading Persona...
           </p>
@@ -42,24 +44,60 @@ function RedirectIfAuthenticated({ children }) {
 }
 
 function MainLayout({ searchQuery, setSearchQuery }) {
+  const [infoModalType, setInfoModalType] = useState(null)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const { isLoggedIn } = useAuth()
+  const navigate = useNavigate()
+
+  const handleCreatePost = () => {
+    if (!isLoggedIn) return navigate('/login')
+    setIsCreateModalOpen(true)
+  }
+
   return (
-    <div style={{ backgroundColor: 'var(--bg-primary)' }} className="min-h-screen flex justify-center">
-      <div className="w-full max-w-7xl flex justify-between">
-        {/* Left Substack Navigation Sidebar */}
-        <Sidebar />
+    <div style={{ backgroundColor: 'var(--bg-primary)' }} className="min-h-screen flex flex-col justify-between overflow-x-hidden">
+      {/* Mobile Top Responsive Sticky Header */}
+      <MobileHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        onCreatePostClick={handleCreatePost}
+        onOpenInfoModal={(type) => setInfoModalType(type)}
+      />
+
+      <div className="w-full max-w-7xl mx-auto flex justify-between flex-1">
+        {/* Left Substack Navigation Sidebar (Hidden on mobile < md) */}
+        <Sidebar onCreatePostClick={handleCreatePost} />
 
         {/* Middle Main Feed Container */}
-        <main className="flex-1 max-w-2xl min-h-screen border-r border-[var(--border)] px-4 py-6">
+        <main className="flex-1 max-w-2xl w-full min-h-screen border-r border-[var(--border)] px-4 py-6">
           <Routes>
             <Route path="/" element={<Home searchQuery={searchQuery} />} />
             <Route path="/c/:slug" element={<Home searchQuery={searchQuery} />} />
             <Route path="/post/:id" element={<PostDetail />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
-        {/* Right Substack Widget & Search Sidebar */}
-        <RightSidebar onSearchChange={setSearchQuery} />
+        {/* Right Substack Widget & Search Sidebar (Hidden on screens < lg) */}
+        <RightSidebar
+          onSearchChange={setSearchQuery}
+          onOpenInfoModal={(type) => setInfoModalType(type)}
+        />
       </div>
+
+      {/* Info Modal (Privacy, Terms, Guidelines, Contact) */}
+      <InfoModal
+        isOpen={!!infoModalType}
+        type={infoModalType}
+        onClose={() => setInfoModalType(null)}
+      />
+
+      {/* Global Create Post Modal */}
+      <CreatePostModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onPostCreated={() => setIsCreateModalOpen(false)}
+      />
     </div>
   )
 }
@@ -69,7 +107,7 @@ function AppContent() {
 
   return (
     <Routes>
-      {/* Public Auth Routes — default entry point */}
+      {/* Public Auth Routes */}
       <Route
         path="/login"
         element={
@@ -87,7 +125,7 @@ function AppContent() {
         }
       />
 
-      {/* Protected Main Platform Routes */}
+      {/* Main Protected App Routes */}
       <Route
         path="/*"
         element={

@@ -80,7 +80,7 @@ export default function ProfileModal({ isOpen, onClose }) {
             <p style={{ color: 'var(--text-muted)' }} className="text-xs font-medium uppercase tracking-wider">
               Posts Written
             </p>
-            <p className="text-lg font-bold text-blue-400 mt-0.5">
+            <p className="text-lg font-bold text-amber-400 mt-0.5">
               {persona._count?.posts ?? '—'}
             </p>
           </div>
@@ -94,7 +94,7 @@ export default function ProfileModal({ isOpen, onClose }) {
             <p style={{ color: 'var(--text-muted)' }} className="text-xs font-medium uppercase tracking-wider">
               Comments Shared
             </p>
-            <p className="text-lg font-bold text-blue-400 mt-0.5">
+            <p className="text-lg font-bold text-amber-400 mt-0.5">
               {persona._count?.comments ?? '—'}
             </p>
           </div>
@@ -113,7 +113,7 @@ export default function ProfileModal({ isOpen, onClose }) {
           </button>
           <button
             onClick={onClose}
-            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-xs"
+            className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors shadow-xs cursor-pointer"
           >
             Close
           </button>

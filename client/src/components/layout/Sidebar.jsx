@@ -4,6 +4,19 @@ import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 import CreatePostModal from '../posts/CreatePostModal'
 
+const formatSpaceName = (c) => {
+  if (!c) return 'General'
+  const slug = c.slug?.toLowerCase() || ''
+  if (slug.includes('coding') || slug.includes('tech')) return 'IT'
+  if (slug.includes('finance')) return 'Finance'
+  if (slug.includes('fitness') || slug.includes('health')) return 'Fitness'
+  if (slug.includes('geopolitics') || slug.includes('life')) return 'Geopolitics'
+  if (slug.includes('relationship') || slug.includes('emotion')) return 'Relationships'
+  if (slug.includes('startup')) return 'Startups'
+  if (slug.includes('career') || slug.includes('placement')) return 'General'
+  return c.name
+}
+
 export default function Sidebar({ onCreatePostClick }) {
   const [communities, setCommunities] = useState([])
   const [loading, setLoading] = useState(true)
@@ -35,7 +48,7 @@ export default function Sidebar({ onCreatePostClick }) {
         <div className="flex flex-col gap-6">
           {/* Substack Style Minimal Wordmark Logo */}
           <Link to="/" className="flex items-center gap-2.5 px-2 group">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-xs group-hover:bg-blue-700 transition-colors">
+            <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 shadow-xs group-hover:bg-amber-400 transition-colors font-bold">
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
               </svg>
@@ -65,7 +78,7 @@ export default function Sidebar({ onCreatePostClick }) {
             {/* Spaces / Communities Toggle */}
             <button
               onClick={() => setShowSpaces(!showSpaces)}
-              className="flex items-center justify-between px-3 py-2.5 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] transition-all"
+              className="flex items-center justify-between px-3 py-2.5 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3.5">
                 <svg className="w-5 h-5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
@@ -90,17 +103,18 @@ export default function Sidebar({ onCreatePostClick }) {
                 ) : (
                   communities.map(c => {
                     const isActive = slug === c.slug
+                    const cleanName = formatSpaceName(c)
                     return (
                       <Link
                         key={c.id}
                         to={`/c/${c.slug}`}
-                        className={`flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-medium transition-all ${
+                        className={`flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-semibold transition-all ${
                           isActive
-                            ? 'text-blue-400 bg-blue-500/10 font-bold'
+                            ? 'text-amber-400 bg-amber-500/10 font-bold border-l-2 border-amber-500'
                             : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--border-subtle)]'
                         }`}
                       >
-                        <span className="truncate">{c.name}</span>
+                        <span className="truncate">{cleanName}</span>
                         {c._count?.posts > 0 && (
                           <span className="text-[10px] opacity-70">
                             {c._count.posts}
@@ -152,7 +166,7 @@ export default function Sidebar({ onCreatePostClick }) {
         <div className="pt-4">
           <button
             onClick={handleCreateClick}
-            className="w-full py-3.5 px-4 rounded-full text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider"
+            className="w-full py-3 px-4 rounded-full text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer uppercase tracking-wider hover:scale-[1.02]"
           >
             <span>+</span>
             <span>Create</span>

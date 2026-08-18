@@ -194,7 +194,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
               <button
                 type="submit"
                 disabled={loading || !content.trim()}
-                className="px-5 py-2 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors disabled:opacity-50"
+                className="px-5 py-2 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors disabled:opacity-50 cursor-pointer"
               >
                 {loading ? 'Publishing...' : 'Publish Anonymously'}
               </button>

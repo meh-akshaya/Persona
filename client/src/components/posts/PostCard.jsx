@@ -87,7 +87,7 @@ export default function PostCard({ post, onReactionUpdated }) {
               <span className="text-xs font-bold text-[var(--text-primary)]">
                 {post.author?.personaName}
               </span>
-              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
                 Trust {post.author?.trustScore ?? 0}
               </span>
             </div>
@@ -96,7 +96,7 @@ export default function PostCard({ post, onReactionUpdated }) {
               <Link
                 to={`/c/${post.community?.slug}`}
                 onClick={(e) => e.stopPropagation()}
-                className="font-semibold text-[var(--text-secondary)] hover:text-blue-400 transition-colors"
+                className="font-semibold text-[var(--text-secondary)] hover:text-amber-400 transition-colors"
               >
                 {post.community?.name}
               </Link>
@@ -151,7 +151,7 @@ export default function PostCard({ post, onReactionUpdated }) {
             title="Mark as Helpful (+1 Trust Score)"
             className={`px-3.5 py-2 rounded-xl border font-medium flex items-center gap-1.5 transition-all text-xs ${
               activeReaction === 'HELPFUL'
-                ? 'bg-blue-600/15 text-blue-400 border-blue-500/30 font-bold'
+                ? 'bg-amber-500/15 text-amber-400 border-amber-500/30 font-bold'
                 : 'bg-[var(--border-subtle)] border-transparent hover:text-[var(--text-primary)]'
             }`}
           >
@@ -167,7 +167,7 @@ export default function PostCard({ post, onReactionUpdated }) {
             title="Mark as Insightful (+1 Trust Score)"
             className={`px-3.5 py-2 rounded-xl border font-medium flex items-center gap-1.5 transition-all text-xs ${
               activeReaction === 'INSIGHTFUL'
-                ? 'bg-blue-600/15 text-blue-400 border-blue-500/30 font-bold'
+                ? 'bg-amber-500/15 text-amber-400 border-amber-500/30 font-bold'
                 : 'bg-[var(--border-subtle)] border-transparent hover:text-[var(--text-primary)]'
             }`}
           >
@@ -183,7 +183,7 @@ export default function PostCard({ post, onReactionUpdated }) {
             title="Mark as Support (+1 Trust Score)"
             className={`px-3.5 py-2 rounded-xl border font-medium flex items-center gap-1.5 transition-all text-xs ${
               activeReaction === 'SUPPORTIVE'
-                ? 'bg-blue-600/15 text-blue-400 border-blue-500/30 font-bold'
+                ? 'bg-amber-500/15 text-amber-400 border-amber-500/30 font-bold'
                 : 'bg-[var(--border-subtle)] border-transparent hover:text-[var(--text-primary)]'
             }`}
           >
@@ -201,7 +201,7 @@ export default function PostCard({ post, onReactionUpdated }) {
         {/* Comment Count Link */}
         <Link
           to={`/post/${post.id}`}
-          className="flex items-center gap-1.5 font-semibold hover:text-blue-400 transition-colors px-2.5 py-1.5"
+          className="flex items-center gap-1.5 font-semibold hover:text-amber-400 transition-colors px-2.5 py-1.5"
         >
           <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />

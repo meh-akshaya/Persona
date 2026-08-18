@@ -39,7 +39,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       {error && (
         <div className="p-2 text-xs rounded-lg bg-rose-500/10 text-rose-500 font-medium">
-          ⚠️ {error}
+          {error}
         </div>
       )}
 
@@ -54,13 +54,13 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
             borderColor: 'var(--border)',
             color: 'var(--text-primary)',
           }}
-          className="w-full p-3 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-[var(--accent)] resize-none transition-all"
+          className="w-full p-3 rounded-xl border text-xs focus:outline-none focus:border-amber-500 resize-none transition-all placeholder:text-[var(--text-muted)]"
         />
 
         {/* Floating Persona Badge */}
         {isLoggedIn && persona && (
-          <div className="absolute right-3 bottom-3 text-[10px] font-semibold opacity-60 flex items-center gap-1">
-            <span>Commenting as {persona.emoji} {persona.name}</span>
+          <div className="absolute right-3 bottom-3 text-[10px] font-semibold text-[var(--text-muted)] flex items-center gap-1">
+            <span>As {persona.name}</span>
           </div>
         )}
       </div>
@@ -79,11 +79,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
         <button
           type="submit"
           disabled={loading || !content.trim()}
-          style={{
-            backgroundColor: 'var(--accent)',
-            color: '#ffffff',
-          }}
-          className="px-4 py-1.5 rounded-xl text-xs font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+          className="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors disabled:opacity-50 cursor-pointer"
         >
           {loading ? 'Posting...' : parentId ? 'Reply' : 'Post Comment'}
         </button>

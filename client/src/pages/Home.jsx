@@ -66,30 +66,30 @@ export default function Home({ searchQuery = '' }) {
       {!slug && (
         <div
           style={{
-            background: 'linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%)',
-            borderColor: '#2563eb',
+            background: 'linear-gradient(135deg, #271c08 0%, #121214 100%)',
+            borderColor: 'rgba(245, 158, 11, 0.3)',
           }}
           className="rounded-2xl p-6 sm:p-8 border shadow-lg relative overflow-hidden text-white"
         >
           <div className="relative z-10 max-w-lg">
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
-              Share your honest thoughts anonymously
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight text-zinc-100">
+              Say what you think.
             </h1>
-            <p className="text-slate-300 text-xs sm:text-sm mt-2 leading-relaxed opacity-90">
-              Join discussions on career, tech, relationships, and finance without attached real names.
+            <p className="text-zinc-400 text-xs sm:text-sm mt-2 leading-relaxed">
+              Join discussions on IT, finance, fitness, geopolitics, relationships, and startups without attached real names.
             </p>
             <div className="flex items-center gap-3 mt-5">
               <button
                 onClick={handleStartPost}
-                className="px-5 py-2.5 rounded-full text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md uppercase tracking-wider cursor-pointer"
+                className="px-5 py-2.5 rounded-full text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-600 transition-colors shadow-md uppercase tracking-wider cursor-pointer"
               >
                 Start a Post
               </button>
               <button
                 onClick={() => navigate('/c/coding-tech')}
-                className="px-4 py-2.5 rounded-full text-xs font-semibold text-slate-200 border border-slate-700 hover:bg-slate-800 transition-colors"
+                className="px-4 py-2.5 rounded-full text-xs font-semibold text-zinc-300 border border-zinc-700 hover:bg-zinc-800 transition-colors"
               >
-                Explore Tech
+                Explore IT
               </button>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function Home({ searchQuery = '' }) {
           className="rounded-2xl p-6 border shadow-xs"
         >
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">
               #
             </div>
             <div>
@@ -140,7 +140,7 @@ export default function Home({ searchQuery = '' }) {
             onClick={() => setSortBy('latest')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               sortBy === 'latest'
-                ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20'
+                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
@@ -150,7 +150,7 @@ export default function Home({ searchQuery = '' }) {
             onClick={() => setSortBy('top')}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               sortBy === 'top'
-                ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20'
+                ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >

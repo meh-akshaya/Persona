@@ -51,7 +51,7 @@ export default function Login() {
       >
         {/* Top Header & Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-400 mb-3">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 mb-3">
             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
@@ -97,7 +97,7 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
-              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-blue-500 transition-all placeholder:text-zinc-600"
+              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-amber-500 transition-all placeholder:text-zinc-600"
             />
           </div>
 
@@ -109,7 +109,7 @@ export default function Login() {
               <button
                 type="button"
                 onClick={fillDemoUser}
-                className="text-[10px] text-blue-400 hover:text-blue-300 transition-colors font-semibold"
+                className="text-[10px] text-amber-400 hover:text-amber-300 transition-colors font-semibold"
               >
                 Use Demo Account
               </button>
@@ -120,14 +120,14 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-blue-500 transition-all placeholder:text-zinc-600"
+              className="w-full px-4 py-3 rounded-xl bg-[#121214] border border-[#26262e] text-zinc-100 text-sm focus:outline-none focus:border-amber-500 transition-all placeholder:text-zinc-600"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-xl text-xs font-extrabold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md disabled:opacity-50 mt-2 cursor-pointer uppercase tracking-wider"
+            className="w-full py-3.5 rounded-xl text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-all shadow-md disabled:opacity-50 mt-2 cursor-pointer uppercase tracking-wider"
           >
             {loading ? 'Authenticating...' : 'Sign In to Persona'}
           </button>
@@ -136,7 +136,7 @@ export default function Login() {
         {/* Footer Navigation */}
         <div className="mt-8 pt-5 border-t border-[#26262e] text-center text-xs text-zinc-400">
           New to Persona?{' '}
-          <Link to="/register" className="font-bold text-blue-400 hover:text-blue-300 transition-colors">
+          <Link to="/register" className="font-bold text-amber-400 hover:text-amber-300 transition-colors">
             Create an Anonymous Account →
           </Link>
         </div>

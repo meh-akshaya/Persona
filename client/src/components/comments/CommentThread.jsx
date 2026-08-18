@@ -35,23 +35,20 @@ export default function CommentThread({ comment, postId, onReplyAdded, depth = 0
       >
         {/* Comment Header */}
         <div className="flex items-center gap-2 mb-2">
-          <span
-            style={{
-              backgroundColor: authorColor + '1a',
-              color: 'var(--text-primary)',
-              borderColor: authorColor + '44',
-            }}
-            className="font-bold px-2 py-0.5 rounded-full border text-[11px] flex items-center gap-1"
-          >
-            <span>{comment.author?.personaEmoji || '🎭'}</span>
-            <span>{comment.author?.personaName}</span>
-            <span
-              style={{ backgroundColor: authorColor, color: '#ffffff' }}
-              className="text-[9px] font-extrabold px-1.5 py-0.1 rounded-full ml-0.5"
+          <div className="flex items-center gap-2">
+            <div
+              style={{ backgroundColor: authorColor }}
+              className="w-6 h-6 rounded-full flex items-center justify-center text-slate-950 font-bold text-[10px] shrink-0"
             >
-              🛡️ {comment.author?.trustScore ?? 0}
+              {comment.author?.personaName ? comment.author.personaName.charAt(0).toUpperCase() : 'P'}
+            </div>
+            <span className="font-bold text-xs text-[var(--text-primary)]">
+              {comment.author?.personaName}
             </span>
-          </span>
+            <span className="text-[10px] font-extrabold px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              Trust {comment.author?.trustScore ?? 0}
+            </span>
+          </div>
 
           <span style={{ color: 'var(--text-muted)' }} className="text-[10px] ml-auto">
             {timeAgo(comment.createdAt)}
@@ -59,7 +56,7 @@ export default function CommentThread({ comment, postId, onReplyAdded, depth = 0
         </div>
 
         {/* Comment Content */}
-        <p style={{ color: 'var(--text-primary)' }} className="text-xs leading-relaxed whitespace-pre-wrap">
+        <p style={{ color: 'var(--text-primary)' }} className="text-xs leading-relaxed whitespace-pre-wrap font-normal">
           {comment.content}
         </p>
 
@@ -70,10 +67,11 @@ export default function CommentThread({ comment, postId, onReplyAdded, depth = 0
               if (!isLoggedIn) return navigate('/login')
               setReplying(!replying)
             }}
-            style={{ color: 'var(--text-secondary)' }}
-            className="text-[11px] font-semibold hover:text-[var(--accent-text)] transition-colors flex items-center gap-1"
+            className="text-[11px] font-semibold text-[var(--text-secondary)] hover:text-amber-400 transition-colors flex items-center gap-1 cursor-pointer"
           >
-            <span>💬</span>
+            <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+            </svg>
             <span>Reply</span>
           </button>
         </div>
