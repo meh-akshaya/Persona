@@ -62,28 +62,30 @@ export default function Home({ searchQuery = '' }) {
 
   return (
     <div className="w-full animate-fade-in">
-      {/* Stream Integrated Hero Header */}
+      {/* Stream Integrated Compact Hero Header */}
       {!slug && (
-        <div className="pb-6 pt-1 mb-6 border-b border-[#25252A]">
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#F2F2F2]">
-            Say what you think.
-          </h1>
-          <p className="text-[#9A9A9F] text-xs sm:text-sm mt-1.5 leading-relaxed">
-            Real conversations. No real names.
-          </p>
-          <div className="flex items-center gap-3 mt-4">
+        <div className="pb-4 pt-1 mb-4 border-b border-[#25252A] flex items-center justify-between gap-4 flex-wrap">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#F2F2F2]">
+              Say what you think.
+            </h1>
+            <p className="text-[#9A9A9F] text-xs mt-1">
+              Real conversations. No real names.
+            </p>
+          </div>
+          <div className="flex items-center gap-2.5">
             <button
               onClick={handleStartPost}
-              className="px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer"
             >
               <span>+</span>
               <span>Start a post</span>
             </button>
             <button
               onClick={() => navigate('/c/coding-tech')}
-              className="px-3 py-2 text-xs font-medium text-[#9A9A9F] hover:text-[#F2F2F2] transition-colors cursor-pointer"
+              className="px-2.5 py-1.5 text-xs font-medium text-[#9A9A9F] hover:text-[#F2F2F2] transition-colors cursor-pointer"
             >
-              Explore spaces →
+              Explore →
             </button>
           </div>
         </div>

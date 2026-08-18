@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import ProfileModal from '../profile/ProfileModal'
 import BitmojiAvatar from '../common/BitmojiAvatar'
+import TopPersonasWidget from '../sidebar/TopPersonasWidget'
 
 export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
   const { isLoggedIn, persona, logout } = useAuth()
@@ -111,6 +112,9 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
             </div>
           </div>
         )}
+
+        {/* Contextual Top Personas Section */}
+        <TopPersonasWidget />
 
         {/* Minimal Footer Links */}
         <div className="px-1 text-[11px] text-[#6F7076] space-y-1">

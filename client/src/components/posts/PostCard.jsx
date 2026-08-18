@@ -139,18 +139,18 @@ export default function PostCard({ post, onReactionUpdated }) {
 
       {/* Action Toolbar — Quieter Secondary Controls */}
       <div className="flex items-center justify-between mt-3 text-xs text-[#9A9A9F]">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 flex-wrap">
           {/* Helpful Reaction */}
           <button
             onClick={(e) => handleReaction(e, 'HELPFUL')}
             title="Mark as Helpful (+1 Trust Score)"
-            className={`font-medium flex items-center gap-1.5 transition-colors cursor-pointer text-xs ${
+            className={`px-2.5 py-1 rounded-[6px] text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border ${
               activeReaction === 'HELPFUL'
-                ? 'text-[#F5B800] font-bold'
-                : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
+                ? 'bg-[#F5B800]/15 text-[#F5B800] border-[#F5B800]/40 font-bold'
+                : 'bg-[#151518]/80 text-[#9A9A9F] border-[#25252A] hover:text-[#F2F2F2] hover:bg-[#151518]'
             }`}
           >
-            <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
             <span>Helpful</span>
@@ -160,13 +160,13 @@ export default function PostCard({ post, onReactionUpdated }) {
           <button
             onClick={(e) => handleReaction(e, 'INSIGHTFUL')}
             title="Mark as Insightful (+1 Trust Score)"
-            className={`font-medium flex items-center gap-1.5 transition-colors cursor-pointer text-xs ${
+            className={`px-2.5 py-1 rounded-[6px] text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border ${
               activeReaction === 'INSIGHTFUL'
-                ? 'text-[#F5B800] font-bold'
-                : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
+                ? 'bg-[#F5B800]/15 text-[#F5B800] border-[#F5B800]/40 font-bold'
+                : 'bg-[#151518]/80 text-[#9A9A9F] border-[#25252A] hover:text-[#F2F2F2] hover:bg-[#151518]'
             }`}
           >
-            <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
             <span>Insightful</span>
@@ -176,29 +176,31 @@ export default function PostCard({ post, onReactionUpdated }) {
           <button
             onClick={(e) => handleReaction(e, 'SUPPORTIVE')}
             title="Mark as Support (+1 Trust Score)"
-            className={`font-medium flex items-center gap-1.5 transition-colors cursor-pointer text-xs ${
+            className={`px-2.5 py-1 rounded-[6px] text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border ${
               activeReaction === 'SUPPORTIVE'
-                ? 'text-[#F5B800] font-bold'
-                : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
+                ? 'bg-[#F5B800]/15 text-[#F5B800] border-[#F5B800]/40 font-bold'
+                : 'bg-[#151518]/80 text-[#9A9A9F] border-[#25252A] hover:text-[#F2F2F2] hover:bg-[#151518]'
             }`}
           >
-            <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2" />
             </svg>
             <span>Support</span>
           </button>
 
-          <span className="text-xs font-semibold text-[#6F7076] ml-1">
-            {reactionsCount}
-          </span>
+          {reactionsCount > 0 && (
+            <span className="text-[11px] font-semibold text-[#6F7076] ml-0.5">
+              {reactionsCount}
+            </span>
+          )}
         </div>
 
         {/* Comment Count Link */}
         <Link
           to={`/post/${post.id}`}
-          className="flex items-center gap-1.5 text-xs text-[#9A9A9F] hover:text-[#F2F2F2] font-medium transition-colors"
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-[6px] bg-[#151518]/40 border border-[#25252A] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518] font-medium transition-colors"
         >
-          <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
           <span>{post._count?.comments || 0} comments</span>
