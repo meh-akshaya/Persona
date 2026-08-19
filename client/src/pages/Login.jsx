@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../api/axios'
 
+import PersonaLogo from '../components/common/PersonaLogo'
+
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -37,53 +39,30 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0D0D0F] flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background Subtle Yellow Radial Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#F5B800]/5 rounded-full blur-3xl pointer-events-none" />
-
-      {/* Main Substack Style Card */}
-      <div className="w-full max-w-md rounded-[8px] p-8 border border-[#25252A] bg-[#151518] text-[#F2F2F2] shadow-2xl relative z-10 animate-fade-in">
-        {/* Top Header & Logo */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-[6px] bg-[#F5B800] text-[#0D0D0F] font-black shadow-xs mb-3">
-            <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-[#F2F2F2]">
-            Sign in to Persona
+    <div className="min-h-screen bg-[#0D0D0F] flex flex-col items-center justify-center p-4 relative select-none">
+      {/* Main Professional Auth Card */}
+      <div className="w-full max-w-[400px] rounded-[8px] p-8 border border-[#25252A] bg-[#151518] text-[#F2F2F2] shadow-2xl relative z-10 animate-fade-in">
+        {/* Brand Logo & Title */}
+        <div className="text-center mb-7">
+          <PersonaLogo size="lg" />
+          <h1 className="text-lg font-bold tracking-tight text-[#F2F2F2] mt-4">
+            Welcome back
           </h1>
-          <p className="text-[#9A9A9F] text-xs mt-2 leading-relaxed max-w-xs mx-auto">
-            Your identity stays 100% encrypted. Access your anonymous persona.
+          <p className="text-xs text-[#9A9A9F] mt-1">
+            Sign in to access your anonymous persona.
           </p>
         </div>
 
-        {/* Feature Badges */}
-        <div className="grid grid-cols-3 gap-2 mb-6 text-center text-[10px] text-[#9A9A9F]">
-          <div className="p-2.5 rounded-[6px] bg-[#0D0D0F] border border-[#25252A]">
-            <span className="font-bold text-[#F2F2F2] block text-xs mb-0.5">Encrypted</span>
-            <span>Zero real names</span>
-          </div>
-          <div className="p-2.5 rounded-[6px] bg-[#0D0D0F] border border-[#25252A]">
-            <span className="font-bold text-[#F2F2F2] block text-xs mb-0.5">Privacy Guard</span>
-            <span>Live leak scanner</span>
-          </div>
-          <div className="p-2.5 rounded-[6px] bg-[#0D0D0F] border border-[#25252A]">
-            <span className="font-bold text-[#F2F2F2] block text-xs mb-0.5">Trust Score</span>
-            <span>Community rating</span>
-          </div>
-        </div>
-
         {error && (
-          <div className="mb-6 p-3.5 rounded-[6px] bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-medium">
+          <div className="mb-5 p-3 rounded-[6px] bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-medium">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#6F7076] mb-1.5">
-              Email Address
+            <label className="block text-xs font-semibold text-[#9A9A9F] mb-1.5">
+              Email address
             </label>
             <input
               type="email"
@@ -91,21 +70,21 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
-              className="w-full px-4 py-2.5 rounded-[8px] bg-[#0D0D0F] border border-[#25252A] text-[#F2F2F2] text-xs focus:outline-none focus:border-[#F5B800] transition-colors placeholder:text-[#6F7076]"
+              className="w-full px-3.5 py-2.5 rounded-[6px] bg-[#0D0D0F] border border-[#25252A] text-[#F2F2F2] text-xs focus:outline-none focus:border-[#F5B800] focus:ring-1 focus:ring-[#F5B800]/20 transition-all placeholder:text-[#6F7076]"
             />
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#6F7076]">
+              <label className="block text-xs font-semibold text-[#9A9A9F]">
                 Password
               </label>
               <button
                 type="button"
                 onClick={fillDemoUser}
-                className="text-[10px] text-[#F5B800] hover:underline font-semibold cursor-pointer"
+                className="text-[11px] font-semibold text-[#F5B800] hover:underline cursor-pointer"
               >
-                Use Demo Account
+                Use demo account
               </button>
             </div>
             <input
@@ -114,34 +93,39 @@ export default function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-4 py-2.5 rounded-[8px] bg-[#0D0D0F] border border-[#25252A] text-[#F2F2F2] text-xs focus:outline-none focus:border-[#F5B800] transition-colors placeholder:text-[#6F7076]"
+              className="w-full px-3.5 py-2.5 rounded-[6px] bg-[#0D0D0F] border border-[#25252A] text-[#F2F2F2] text-xs focus:outline-none focus:border-[#F5B800] focus:ring-1 focus:ring-[#F5B800]/20 transition-all placeholder:text-[#6F7076]"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs disabled:opacity-50 mt-2 cursor-pointer uppercase tracking-wider"
+            className="w-full py-2.5 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors disabled:opacity-50 mt-1 cursor-pointer"
           >
-            {loading ? 'Authenticating...' : 'Sign In to Persona'}
+            {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
 
         {/* Footer Navigation */}
-        <div className="mt-8 pt-5 border-t border-[#25252A] text-center text-xs text-[#9A9A9F] space-y-2">
+        <div className="mt-7 pt-5 border-t border-[#25252A] text-center text-xs text-[#9A9A9F] space-y-2">
           <div>
-            New to Persona?{' '}
-            <Link to="/register" className="font-bold text-[#F5B800] hover:underline">
-              Create an Anonymous Account →
+            Don&apos;t have a persona?{' '}
+            <Link to="/register" className="font-semibold text-[#F5B800] hover:underline">
+              Create an account →
             </Link>
           </div>
           <div>
-            <Link to="/" className="text-[11px] text-[#6F7076] hover:text-[#F2F2F2] transition-colors">
-              Browse feed anonymously as guest →
+            <Link to="/" className="text-[11px] text-[#6F7076] hover:text-[#9A9A9F] transition-colors">
+              Continue as guest →
             </Link>
           </div>
         </div>
       </div>
+
+      {/* Security Note */}
+      <p className="text-[11px] text-[#6F7076] text-center mt-6">
+        Encrypted & anonymous authentication
+      </p>
     </div>
   )
 }

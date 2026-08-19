@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 import CreatePostModal from '../posts/CreatePostModal'
 import BitmojiAvatar from '../common/BitmojiAvatar'
+import PersonaLogo from '../common/PersonaLogo'
 
 const formatSpaceName = (c) => {
   if (!c) return 'General'
@@ -47,17 +48,10 @@ export default function Sidebar({ onCreatePostClick }) {
     <>
       <aside className="w-[240px] min-w-[240px] shrink-0 hidden md:flex flex-col justify-between py-6 px-3.5 sticky top-0 h-screen overflow-y-auto no-scrollbar border-r border-[#25252A] bg-[#0D0D0F]">
         <div className="flex flex-col gap-6">
-          {/* Minimalist Wordmark Logo */}
-          <Link to="/" className="flex items-center gap-2.5 px-3 group">
-            <div className="w-8 h-8 rounded-[6px] bg-[#F5B800] flex items-center justify-center text-[#0D0D0F] group-hover:bg-[#e0a800] transition-colors font-bold shadow-xs">
-              <svg className="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <span className="text-xl font-extrabold tracking-tight text-[#F2F2F2] uppercase">
-              Persona
-            </span>
-          </Link>
+          {/* Futuristic Wordmark Logo (No Icon Image) */}
+          <div className="pl-4 pr-2 pt-1">
+            <PersonaLogo size="md" />
+          </div>
 
           {/* Primary CTA Button */}
           <button

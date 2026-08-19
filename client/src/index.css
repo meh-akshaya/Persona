@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Rajdhani:wght@700&display=swap');
 @import "tailwindcss";
+
+.font-persona {
+  font-family: 'Orbitron', 'Rajdhani', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
 :root {
   --bg-primary: #0D0D0F;

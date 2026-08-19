@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link as RouterLink, useParams as useRouterParams, useNavigate as useRouterNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import BitmojiAvatar from '../common/BitmojiAvatar'
+import PersonaLogo from '../common/PersonaLogo'
 
 const SPACES_LIST = [
   { name: 'IT', slug: 'coding-tech' },
@@ -28,17 +29,8 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
     <>
       {/* Mobile Top Sticky Navigation Bar (Visible only on screens < md) */}
       <header className="md:hidden sticky top-0 z-30 w-full bg-[#0D0D0F]/95 backdrop-blur-md border-b border-[#25252A] px-4 py-3 flex items-center justify-between">
-        {/* Clickable Brand Logo */}
-        <RouterLink to="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-[6px] bg-[#F5B800] flex items-center justify-center text-[#0D0D0F] font-black shadow-xs">
-            <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <span className="text-base font-extrabold tracking-tight text-[#F2F2F2] uppercase">
-            Persona
-          </span>
-        </RouterLink>
+        {/* Futuristic Brand Logo (No Icon Image) */}
+        <PersonaLogo size="sm" />
 
         {/* Right Action Icons */}
         <div className="flex items-center gap-2">
@@ -76,14 +68,7 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
           <div>
             {/* Header in Drawer */}
             <div className="flex items-center justify-between pb-4 border-b border-[#25252A] mb-4">
-              <RouterLink to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-[6px] bg-[#F5B800] flex items-center justify-center text-[#0D0D0F] font-black">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                  </svg>
-                </div>
-                <span className="text-lg font-extrabold text-[#F2F2F2] uppercase">Persona</span>
-              </RouterLink>
+              <PersonaLogo size="md" onClick={() => setIsOpen(false)} />
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-2 rounded-[6px] text-[#9A9A9F] hover:text-[#F2F2F2]"
