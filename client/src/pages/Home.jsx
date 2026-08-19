@@ -62,28 +62,33 @@ export default function Home({ searchQuery = '' }) {
 
   return (
     <div className="w-full animate-fade-in">
-      {/* Stream Integrated Compact Hero Header */}
+      {/* Stream Integrated Polished Hero Card */}
       {!slug && (
-        <div className="pb-4 pt-1 mb-4 border-b border-[#25252A] flex items-center justify-between gap-4 flex-wrap">
+        <div className="p-4 sm:p-5 mb-5 rounded-[8px] bg-[#151518]/40 border border-[#25252A] flex items-center justify-between gap-4 flex-wrap shadow-xs">
           <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[10px] font-bold text-[#F5B800] uppercase tracking-wider bg-[#F5B800]/10 px-2 py-0.5 rounded-[4px] border border-[#F5B800]/20">
+                Encrypted & Anonymous
+              </span>
+            </div>
             <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#F2F2F2]">
               Say what you think.
             </h1>
-            <p className="text-[#9A9A9F] text-xs mt-1">
+            <p className="text-[#9A9A9F] text-xs mt-1 font-medium">
               Real conversations. No real names.
             </p>
           </div>
           <div className="flex items-center gap-2.5">
             <button
               onClick={handleStartPost}
-              className="px-3.5 py-1.5 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer"
             >
               <span>+</span>
               <span>Start a post</span>
             </button>
             <button
               onClick={() => navigate('/c/coding-tech')}
-              className="px-2.5 py-1.5 text-xs font-medium text-[#9A9A9F] hover:text-[#F2F2F2] transition-colors cursor-pointer"
+              className="px-3 py-2 rounded-[6px] text-xs font-medium text-[#9A9A9F] hover:text-[#F2F2F2] bg-[#0D0D0F]/80 border border-[#25252A] transition-colors cursor-pointer"
             >
               Explore →
             </button>

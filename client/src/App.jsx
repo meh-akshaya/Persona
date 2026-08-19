@@ -64,12 +64,12 @@ function MainLayout({ searchQuery, setSearchQuery }) {
         onOpenInfoModal={(type) => setInfoModalType(type)}
       />
 
-      <div className="w-full max-w-6xl mx-auto flex justify-center flex-1">
-        {/* Left Navigation Sidebar (230px, hidden on mobile < md) */}
+      <div className="w-full max-w-[1380px] mx-auto flex justify-between flex-1 px-4 sm:px-6">
+        {/* Left Navigation Sidebar (240px fixed width) */}
         <Sidebar onCreatePostClick={handleCreatePost} />
 
-        {/* Middle Main Feed Container (640-680px visual focus) */}
-        <main className="flex-1 max-w-[660px] w-full min-h-screen border-r border-l border-[#25252A] px-4 sm:px-6 py-6">
+        {/* Middle Main Feed Container (Proportionate 780px main feed focus) */}
+        <main className="flex-1 max-w-[780px] w-full min-h-screen border-r border-l border-[#25252A] px-4 sm:px-6 py-6 min-w-0">
           <Routes>
             <Route path="/" element={<Home searchQuery={searchQuery} />} />
             <Route path="/c/:slug" element={<Home searchQuery={searchQuery} />} />
@@ -78,7 +78,7 @@ function MainLayout({ searchQuery, setSearchQuery }) {
           </Routes>
         </main>
 
-        {/* Right Substack Widget & Search Sidebar (Hidden on screens < lg) */}
+        {/* Right Sidebar (280px anchored sidebar) */}
         <RightSidebar
           onSearchChange={setSearchQuery}
           onOpenInfoModal={(type) => setInfoModalType(type)}
