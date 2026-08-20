@@ -52,4 +52,37 @@ const getCommunityBySlug = async (req, res) => {
   }
 }
 
-module.exports = { getAllCommunities, getCommunityBySlug }
+// ─── GET TOP PERSONAS ─────────────────────────────────────────────────────────
+const getTopPersonas = async (req, res) => {
+  try {
+    const { slug, limit } = req.query
+    const take = parseInt(limit) || 5
+
+    let community = null
+    if (slug && slug !== 'all') {
+      community = await prisma.community.findUnique({
+        where: { slug },
+        select: { id: true, name: true, slug: true },
+      })
+    }
+
+    const topPersonas = await prisma.user.findMany({
+      orderBy: { trustScore: 'desc' },
+      take,
+      select: {
+        id: true,
+        personaName: true,
+        personaEmoji: true,
+        personaColor: true,
+        trustScore: true,
+      },
+    })
+
+    return res.status(200).json({ topPersonas, community })
+  } catch (err) {
+    console.error('Get top personas error:', err)
+    return res.status(500).json({ error: 'Something went wrong' })
+  }
+}
+
+module.exports = { getAllCommunities, getCommunityBySlug, getTopPersonas }
