@@ -49,6 +49,7 @@ app.use('/api/posts', postRoutes)
 app.use('/api/comments', commentRoutes)
 app.use('/api/reactions', reactionRoutes)
 
+app.get('/', (req, res) => res.json({ message: 'Persona Backend API is running', status: 'ok' }))
 app.get('/health', (req, res) => res.json({ status: 'ok' }))
 app.use((req, res) => res.status(404).json({ error: 'Route not found' }))
 
