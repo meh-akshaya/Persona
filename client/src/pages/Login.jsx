@@ -27,7 +27,13 @@ export default function Login() {
         navigate('/')
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Invalid credentials. Please verify your email and password.')
+      if (err.response?.data?.error) {
+        setError(err.response.data.error)
+      } else if (err.message === 'Network Error' || !err.response) {
+        setError('Network error: Unable to connect to backend server. Make sure server is running on http://localhost:5000.')
+      } else {
+        setError('Invalid credentials. Please verify your email and password.')
+      }
     } finally {
       setLoading(false)
     }
