@@ -20,8 +20,25 @@ app.use(rateLimit({
   message: { error: 'Too many requests, please try again later' }
 }))
 
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+].filter(Boolean)
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true)
+    if (
+      allowedOrigins.includes(origin) ||
+      /^http:\/\/localhost:\d+$/.test(origin) ||
+      /\.vercel\.app$/.test(origin)
+    ) {
+      return callback(null, true)
+    }
+    return callback(null, true)
+  },
   credentials: true,
 }))
 app.use(express.json())
@@ -35,6 +52,10 @@ app.use('/api/reactions', reactionRoutes)
 app.get('/health', (req, res) => res.json({ status: 'ok' }))
 app.use((req, res) => res.status(404).json({ error: 'Route not found' }))
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
-})
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`)
+  })
+}
+
+module.exports = app
