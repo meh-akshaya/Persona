@@ -17,13 +17,14 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
       navigate('/login')
       return
     }
-    if (!content.trim()) return
+    const trimmedContent = content.trim()
+    if (!trimmedContent) return
 
     setLoading(true)
     setError(null)
 
     try {
-      const res = await api.post('/comments', { content, postId, parentId })
+      const res = await api.post('/comments', { content: trimmedContent, postId, parentId })
       if (res.data?.comment) {
         onCommentAdded(res.data.comment)
         setContent('')
@@ -72,7 +73,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
             type="button"
             onClick={onCancel}
             style={{ color: 'var(--text-secondary)' }}
-            className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:opacity-80 transition-opacity"
+            className="px-3 py-1.5 rounded-[6px] text-xs font-semibold hover:opacity-80 transition-opacity cursor-pointer"
           >
             Cancel
           </button>
@@ -80,7 +81,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
         <button
           type="submit"
           disabled={loading || !content.trim()}
-          className="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors disabled:opacity-50 cursor-pointer"
+          className="px-4 py-1.5 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         >
           {loading ? 'Posting...' : parentId ? 'Reply' : 'Post Comment'}
         </button>

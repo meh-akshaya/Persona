@@ -43,7 +43,7 @@ const addComment = async (req, res) => {
 
     const comment = await prisma.comment.create({
       data: {
-        content,
+        content: content.trim(),
         authorId,
         postId,
         parentId: parentId || null,

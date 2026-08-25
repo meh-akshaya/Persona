@@ -49,12 +49,14 @@ const createPost = async (req, res) => {
     if (!community)
       return res.status(404).json({ error: 'Community not found' })
 
+    const trimmedContent = content.trim()
+
     // Run privacy detector BEFORE saving — this is the core logic of the feature
-    const { hasLeak, leaks } = detectPrivacyLeaks(content)
+    const { hasLeak, leaks } = detectPrivacyLeaks(trimmedContent)
 
     const post = await prisma.post.create({
       data: {
-        content,
+        content: trimmedContent,
         authorId,
         communityId,
         hasPrivacyLeak: hasLeak,

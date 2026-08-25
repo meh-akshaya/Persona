@@ -61,14 +61,15 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!content.trim()) return setError('Please write some content before posting.')
+    const trimmedContent = content.trim()
+    if (!trimmedContent) return setError('Please write some content before posting.')
     if (!communityId) return setError('Please select a community.')
 
     setLoading(true)
     setError(null)
 
     try {
-      const res = await api.post('/posts', { content, communityId })
+      const res = await api.post('/posts', { content: trimmedContent, communityId })
       if (res.data?.post) {
         onPostCreated(res.data.post)
         setContent('')
@@ -169,8 +170,8 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
               </button>
               <button
                 type="submit"
-                disabled={loading || !content.trim()}
-                className="px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors disabled:opacity-50 cursor-pointer"
+                disabled={loading || !content.trim() || !communityId}
+                className="px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
               >
                 {loading ? 'Publishing...' : 'Publish Anonymously'}
               </button>
