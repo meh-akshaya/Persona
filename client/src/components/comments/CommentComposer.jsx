@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import api from '../../api/axios'
 import BitmojiAvatar from '../common/BitmojiAvatar'
 
+const MAX_COMMENT_LENGTH = 300
+
 export default function CommentComposer({ postId, parentId = null, onCommentAdded, placeholder = 'Add an anonymous comment...', onCancel }) {
   const { isLoggedIn, persona } = useAuth()
   const navigate = useNavigate()
@@ -18,6 +20,9 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
       return
     }
     if (!content.trim()) return
+    if (content.length > MAX_COMMENT_LENGTH) {
+      return setError(`Comment cannot exceed ${MAX_COMMENT_LENGTH} characters.`)
+    }
 
     setLoading(true)
     setError(null)
@@ -36,6 +41,9 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
     }
   }
 
+  const isOverLimit = content.length > MAX_COMMENT_LENGTH
+  const isNearLimit = content.length >= MAX_COMMENT_LENGTH - 30
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       {error && (
@@ -47,10 +55,15 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
       <div className="relative">
         <textarea
           rows={parentId ? 2 : 3}
+          maxLength={MAX_COMMENT_LENGTH}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder={placeholder}
-          className="w-full p-3 rounded-[8px] border border-[#25252A] bg-[#0D0D0F] text-[#F2F2F2] text-xs focus:outline-none focus:border-[#F5B800] resize-none transition-all placeholder:text-[#6F7076]"
+          className={`w-full p-3 rounded-[8px] border bg-[#0D0D0F] text-[#F2F2F2] text-xs focus:outline-none resize-none transition-all placeholder:text-[#6F7076] ${
+            isOverLimit
+              ? 'border-rose-500/60 focus:border-rose-500'
+              : 'border-[#25252A] focus:border-[#F5B800]'
+          }`}
         />
 
         {/* Floating Persona Badge */}
@@ -66,24 +79,38 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
         )}
       </div>
 
-      <div className="flex items-center justify-end gap-2">
-        {onCancel && (
-          <button
-            type="button"
-            onClick={onCancel}
-            style={{ color: 'var(--text-secondary)' }}
-            className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:opacity-80 transition-opacity"
-          >
-            Cancel
-          </button>
-        )}
-        <button
-          type="submit"
-          disabled={loading || !content.trim()}
-          className="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors disabled:opacity-50 cursor-pointer"
+      <div className="flex items-center justify-between gap-2">
+        <span
+          className={`text-[11px] font-medium tabular-nums transition-colors ${
+            isOverLimit
+              ? 'text-rose-400 font-bold'
+              : isNearLimit
+              ? 'text-[#F5B800]'
+              : 'text-[#6F7076]'
+          }`}
         >
-          {loading ? 'Posting...' : parentId ? 'Reply' : 'Post Comment'}
-        </button>
+          {content.length}/{MAX_COMMENT_LENGTH}
+        </span>
+
+        <div className="flex items-center gap-2">
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              style={{ color: 'var(--text-secondary)' }}
+              className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:opacity-80 transition-opacity cursor-pointer"
+            >
+              Cancel
+            </button>
+          )}
+          <button
+            type="submit"
+            disabled={loading || !content.trim() || isOverLimit}
+            className="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors disabled:opacity-50 cursor-pointer"
+          >
+            {loading ? 'Posting...' : parentId ? 'Reply' : 'Post Comment'}
+          </button>
+        </div>
       </div>
     </form>
   )

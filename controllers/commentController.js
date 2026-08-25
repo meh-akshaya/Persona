@@ -12,6 +12,8 @@ const authorSelect = {
   }
 }
 
+const MAX_COMMENT_LENGTH = 300
+
 // ─── ADD COMMENT OR REPLY ─────────────────────────────────────────────────────
 const addComment = async (req, res) => {
   try {
@@ -20,6 +22,9 @@ const addComment = async (req, res) => {
 
     if (!content || !content.trim())
       return res.status(400).json({ error: 'Comment content is required' })
+
+    if (content.length > MAX_COMMENT_LENGTH)
+      return res.status(400).json({ error: `Comment content cannot exceed ${MAX_COMMENT_LENGTH} characters` })
 
     if (!postId)
       return res.status(400).json({ error: 'postId is required' })
