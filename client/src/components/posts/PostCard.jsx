@@ -4,13 +4,33 @@ import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 import BitmojiAvatar from '../common/BitmojiAvatar'
 
-export default function PostCard({ post, onReactionUpdated }) {
+export default function PostCard({ post, onReactionUpdated, isDetail = false }) {
   const { isLoggedIn, persona } = useAuth()
   const navigate = useNavigate()
   const [reactionsCount, setReactionsCount] = useState(post._count?.reactions || 0)
   const [activeReaction, setActiveReaction] = useState(post.userReaction || null)
   const [reacting, setReacting] = useState(false)
   const [reactionMsg, setReactionMsg] = useState(null)
+  const [isExpanded, setIsExpanded] = useState(false)
+
+  const MAX_LINES = 3
+  const MAX_CHARS = 220
+
+  const content = post.content || ''
+  const lines = content.split('\n')
+  const isLong = !isDetail && (content.length > MAX_CHARS || lines.length > MAX_LINES)
+
+  let displayedContent = content
+  if (isLong && !isExpanded) {
+    if (lines.length > MAX_LINES) {
+      const truncatedLines = lines.slice(0, MAX_LINES).join('\n')
+      displayedContent = truncatedLines.length > MAX_CHARS
+        ? truncatedLines.slice(0, MAX_CHARS).trim() + '...'
+        : truncatedLines + '...'
+    } else {
+      displayedContent = content.slice(0, MAX_CHARS).trim() + '...'
+    }
+  }
 
   const timeAgo = (date) => {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000)
@@ -105,30 +125,48 @@ export default function PostCard({ post, onReactionUpdated }) {
       </div>
 
       {/* Main Content Text — Highest Visual Priority */}
-      <Link to={`/post/${post.id}`} className="block group-hover:opacity-95 transition-opacity my-2">
-        <p className="text-[15px] sm:text-[16px] text-[#F2F2F2] leading-relaxed whitespace-pre-wrap font-normal">
-          {post.content}
-        </p>
+      <div className="my-2">
+        <Link to={`/post/${post.id}`} className="block group-hover:opacity-95 transition-opacity">
+          <p className="text-[15px] sm:text-[16px] text-[#F2F2F2] leading-relaxed whitespace-pre-wrap font-normal">
+            {displayedContent}
+          </p>
+        </Link>
+
+        {isLong && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setIsExpanded(prev => !prev)
+            }}
+            className="mt-1.5 text-xs font-semibold text-[#F5B800] hover:text-[#ffd24d] transition-colors cursor-pointer inline-flex items-center gap-1 focus:outline-none"
+          >
+            {isExpanded ? 'Read less' : 'Read more...'}
+          </button>
+        )}
 
         {/* Privacy Leak Alert */}
         {post.hasPrivacyLeak && (
-          <div
-            style={{
-              backgroundColor: 'var(--warning-bg)',
-              borderColor: 'var(--warning-border)',
-              color: 'var(--warning-text)',
-            }}
-            className="mt-3 p-3 rounded-[6px] border text-xs flex items-center gap-2 font-medium"
-          >
-            <svg className="w-4 h-4 text-[#F5B800] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <span>
-              Privacy Warning: Post contains potential personal contact info ({post.privacyLeaks?.join(', ') || 'detected'}).
-            </span>
-          </div>
+          <Link to={`/post/${post.id}`} className="block">
+            <div
+              style={{
+                backgroundColor: 'var(--warning-bg)',
+                borderColor: 'var(--warning-border)',
+                color: 'var(--warning-text)',
+              }}
+              className="mt-3 p-3 rounded-[6px] border text-xs flex items-center gap-2 font-medium"
+            >
+              <svg className="w-4 h-4 text-[#F5B800] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span>
+                Privacy Warning: Post contains potential personal contact info ({post.privacyLeaks?.join(', ') || 'detected'}).
+              </span>
+            </div>
+          </Link>
         )}
-      </Link>
+      </div>
 
       {/* Reaction feedback toast */}
       {reactionMsg && (

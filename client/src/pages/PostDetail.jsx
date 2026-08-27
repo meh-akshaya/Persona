@@ -91,7 +91,7 @@ export default function PostDetail() {
       </div>
 
       {/* Main Post Card */}
-      <PostCard post={post} />
+      <PostCard post={post} isDetail={true} />
 
       {/* Comment Section Header */}
       <div className="mt-8 mb-4 flex items-center justify-between">
