@@ -32,6 +32,8 @@ const postSelect = {
   },
 }
 
+const MAX_POST_LENGTH = 500
+
 // ─── CREATE POST ───────────────────────────────────────────────────────────────
 const createPost = async (req, res) => {
   try {
@@ -40,6 +42,9 @@ const createPost = async (req, res) => {
 
     if (!content || !content.trim())
       return res.status(400).json({ error: 'Post content is required' })
+
+    if (content.length > MAX_POST_LENGTH)
+      return res.status(400).json({ error: `Post content cannot exceed ${MAX_POST_LENGTH} characters` })
 
     if (!communityId)
       return res.status(400).json({ error: 'communityId is required' })

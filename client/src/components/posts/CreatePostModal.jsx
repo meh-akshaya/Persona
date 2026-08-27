@@ -28,6 +28,8 @@ const detectClientPrivacyLeaks = (text) => {
   }
 }
 
+const MAX_POST_LENGTH = 500
+
 export default function CreatePostModal({ isOpen, onClose, onPostCreated, preselectedCommunityId }) {
   const [content, setContent] = useState('')
   const [communityId, setCommunityId] = useState(preselectedCommunityId || '')
@@ -62,6 +64,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!content.trim()) return setError('Please write some content before posting.')
+    if (content.length > MAX_POST_LENGTH) return setError(`Post cannot exceed ${MAX_POST_LENGTH} characters.`)
     if (!communityId) return setError('Please select a community.')
 
     setLoading(true)
@@ -83,6 +86,9 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
   }
 
   if (!isOpen) return null
+
+  const isOverLimit = content.length > MAX_POST_LENGTH
+  const isNearLimit = content.length >= MAX_POST_LENGTH - 50
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-fade-in">
@@ -126,15 +132,33 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
 
           {/* Content Area */}
           <div>
-            <label className="block text-xs font-semibold text-[#9A9A9F] uppercase tracking-wider mb-1.5">
-              What's on your mind?
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-semibold text-[#9A9A9F] uppercase tracking-wider">
+                What's on your mind?
+              </label>
+              <span
+                className={`text-[11px] font-medium tabular-nums transition-colors ${
+                  isOverLimit
+                    ? 'text-rose-400 font-bold'
+                    : isNearLimit
+                    ? 'text-[#F5B800]'
+                    : 'text-[#6F7076]'
+                }`}
+              >
+                {content.length}/{MAX_POST_LENGTH}
+              </span>
+            </div>
             <textarea
               rows={5}
+              maxLength={MAX_POST_LENGTH}
               value={content}
               onChange={handleContentChange}
               placeholder="Share your honest thoughts, experiences, or questions anonymously..."
-              className="w-full p-3 rounded-[8px] border border-[#25252A] bg-[#0D0D0F] text-[#F2F2F2] text-xs focus:outline-none focus:border-[#F5B800] resize-none transition-colors placeholder-[#6F7076]"
+              className={`w-full p-3 rounded-[8px] border bg-[#0D0D0F] text-[#F2F2F2] text-xs focus:outline-none resize-none transition-colors placeholder-[#6F7076] ${
+                isOverLimit
+                  ? 'border-rose-500/60 focus:border-rose-500'
+                  : 'border-[#25252A] focus:border-[#F5B800]'
+              }`}
             />
           </div>
 
@@ -169,7 +193,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
               </button>
               <button
                 type="submit"
-                disabled={loading || !content.trim()}
+                disabled={loading || !content.trim() || isOverLimit}
                 className="px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors disabled:opacity-50 cursor-pointer"
               >
                 {loading ? 'Publishing...' : 'Publish Anonymously'}
