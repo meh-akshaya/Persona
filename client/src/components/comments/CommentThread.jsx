@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import CommentComposer from './CommentComposer'
 import { useAuth } from '../../context/AuthContext'
+import { useSecurity } from '../../context/SecurityContext'
 import { useNavigate } from 'react-router-dom'
 import BitmojiAvatar from '../common/BitmojiAvatar'
 
@@ -8,7 +9,16 @@ export default function CommentThread({ comment, postId, onReplyAdded, depth = 0
   const [replying, setReplying] = useState(false)
   const [replies, setReplies] = useState(comment.replies || [])
   const { isLoggedIn, persona } = useAuth()
+  const security = useSecurity()
+  const showCopyWarning = security?.showCopyWarning
   const navigate = useNavigate()
+
+  const handleCopyAttempt = (e) => {
+    e.preventDefault()
+    if (showCopyWarning) {
+      showCopyWarning('Copying a message is not allowed.')
+    }
+  }
 
   const timeAgo = (date) => {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000)
@@ -52,7 +62,13 @@ export default function CommentThread({ comment, postId, onReplyAdded, depth = 0
         </div>
 
         {/* Comment Content */}
-        <p style={{ color: 'var(--text-primary)' }} className="text-xs leading-relaxed whitespace-pre-wrap font-normal">
+        <p
+          style={{ color: 'var(--text-primary)' }}
+          className="text-xs leading-relaxed whitespace-pre-wrap font-normal select-none"
+          onCopy={handleCopyAttempt}
+          onCut={handleCopyAttempt}
+          onDragStart={(e) => e.preventDefault()}
+        >
           {comment.content}
         </p>
 

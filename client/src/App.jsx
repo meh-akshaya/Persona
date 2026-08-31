@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { SecurityProvider } from './context/SecurityContext'
 import Sidebar from './components/layout/Sidebar'
 import RightSidebar from './components/layout/RightSidebar'
 import MobileHeader from './components/layout/MobileHeader'
@@ -137,9 +138,11 @@ function AppContent() {
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+      <SecurityProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </SecurityProvider>
     </AuthProvider>
   )
 }

@@ -1,17 +1,27 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { useSecurity } from '../../context/SecurityContext'
 import api from '../../api/axios'
 import BitmojiAvatar from '../common/BitmojiAvatar'
 
 export default function PostCard({ post, onReactionUpdated, isDetail = false }) {
   const { isLoggedIn, persona } = useAuth()
+  const security = useSecurity()
+  const showCopyWarning = security?.showCopyWarning
   const navigate = useNavigate()
   const [reactionsCount, setReactionsCount] = useState(post._count?.reactions || 0)
   const [activeReaction, setActiveReaction] = useState(post.userReaction || null)
   const [reacting, setReacting] = useState(false)
   const [reactionMsg, setReactionMsg] = useState(null)
   const [isExpanded, setIsExpanded] = useState(false)
+
+  const handleCopyAttempt = (e) => {
+    e.preventDefault()
+    if (showCopyWarning) {
+      showCopyWarning('Copying a message is not allowed.')
+    }
+  }
 
   const MAX_LINES = 3
   const MAX_CHARS = 220
@@ -87,7 +97,12 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
     : post.author?.avatarConfig
 
   return (
-    <article className="py-4 sm:py-5 px-2 sm:px-3 hover:bg-[#151518]/50 transition-colors animate-fade-in group rounded-[6px]">
+    <article
+      className="py-4 sm:py-5 px-2 sm:px-3 hover:bg-[#151518]/50 transition-colors animate-fade-in group rounded-[6px] select-none"
+      onCopy={handleCopyAttempt}
+      onCut={handleCopyAttempt}
+      onDragStart={(e) => e.preventDefault()}
+    >
       {/* Top Metadata Row: Avatar + Username + Trust + Space + Time */}
       <div className="flex items-center justify-between gap-3 mb-2.5">
         <div className="flex items-center gap-2.5">
@@ -124,10 +139,15 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
         </span>
       </div>
 
-      {/* Main Content Text — Highest Visual Priority */}
-      <div className="my-2">
+      {/* Main Content Text — Highest Visual Priority & Copy Protected */}
+      <div
+        className="my-2 select-none"
+        onCopy={handleCopyAttempt}
+        onCut={handleCopyAttempt}
+        onDragStart={(e) => e.preventDefault()}
+      >
         <Link to={`/post/${post.id}`} className="block group-hover:opacity-95 transition-opacity">
-          <p className="text-[15px] sm:text-[16px] text-[#F2F2F2] leading-relaxed whitespace-pre-wrap font-normal">
+          <p className="text-[15px] sm:text-[16px] text-[#F2F2F2] leading-relaxed whitespace-pre-wrap font-normal select-none">
             {displayedContent}
           </p>
         </Link>
