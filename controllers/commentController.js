@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client')
+const { sanitizeAndTrimText, isInvalidText } = require('../utils/textSanitizer')
 const prisma = new PrismaClient()
 
 // Reusable persona select — same pattern as your post controller
@@ -20,10 +21,11 @@ const addComment = async (req, res) => {
     const { content, postId, parentId } = req.body
     const authorId = req.userId // from JWT middleware
 
-    if (!content || !content.trim())
-      return res.status(400).json({ error: 'Comment content is required' })
+    const cleanedContent = sanitizeAndTrimText(content)
+    if (!cleanedContent || isInvalidText(content))
+      return res.status(400).json({ error: 'Comment content cannot be empty or contain only spaces/invisible characters' })
 
-    if (content.length > MAX_COMMENT_LENGTH)
+    if (cleanedContent.length > MAX_COMMENT_LENGTH)
       return res.status(400).json({ error: `Comment content cannot exceed ${MAX_COMMENT_LENGTH} characters` })
 
     if (!postId)
@@ -48,7 +50,7 @@ const addComment = async (req, res) => {
 
     const comment = await prisma.comment.create({
       data: {
-        content,
+        content: cleanedContent,
         authorId,
         postId,
         parentId: parentId || null,

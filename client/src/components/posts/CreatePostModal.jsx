@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react'
 import api from '../../api/axios'
+import {
+  stripInvisibleChars,
+  sanitizeAndTrimText,
+  isInvalidText,
+  handlePasteSanitization,
+} from '../../utils/textSanitizer'
 
 // Client-side Privacy Leak Scanner matching server logic
 const detectClientPrivacyLeaks = (text) => {
@@ -54,24 +60,29 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
     }
   }, [isOpen, preselectedCommunityId])
 
-  // Live privacy detection on text change
+  // Live privacy detection on text change (with invisible characters stripped)
   const handleContentChange = (e) => {
-    const text = e.target.value
+    const rawText = e.target.value
+    const text = stripInvisibleChars(rawText)
     setContent(text)
     setPrivacyAlert(detectClientPrivacyLeaks(text))
+    if (error && !isInvalidText(text)) {
+      setError(null)
+    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!content.trim()) return setError('Please write some content before posting.')
-    if (content.length > MAX_POST_LENGTH) return setError(`Post cannot exceed ${MAX_POST_LENGTH} characters.`)
+    const cleanedContent = sanitizeAndTrimText(content)
+    if (!cleanedContent) return setError('Post content cannot be empty or contain only spaces/invisible characters.')
+    if (cleanedContent.length > MAX_POST_LENGTH) return setError(`Post cannot exceed ${MAX_POST_LENGTH} characters.`)
     if (!communityId) return setError('Please select a community.')
 
     setLoading(true)
     setError(null)
 
     try {
-      const res = await api.post('/posts', { content, communityId })
+      const res = await api.post('/posts', { content: cleanedContent, communityId })
       if (res.data?.post) {
         onPostCreated(res.data.post)
         setContent('')
@@ -153,6 +164,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
               maxLength={MAX_POST_LENGTH}
               value={content}
               onChange={handleContentChange}
+              onPaste={(e) => handlePasteSanitization(e, setContent, setError)}
               placeholder="Share your honest thoughts, experiences, or questions anonymously..."
               className={`w-full p-3 rounded-[8px] border bg-[#0D0D0F] text-[#F2F2F2] text-xs focus:outline-none resize-none transition-colors placeholder-[#6F7076] ${
                 isOverLimit
@@ -193,7 +205,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
               </button>
               <button
                 type="submit"
-                disabled={loading || !content.trim() || isOverLimit}
+                disabled={loading || isInvalidText(content) || isOverLimit}
                 className="px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors disabled:opacity-50 cursor-pointer"
               >
                 {loading ? 'Publishing...' : 'Publish Anonymously'}

@@ -3,6 +3,12 @@ import { useAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import api from '../../api/axios'
 import BitmojiAvatar from '../common/BitmojiAvatar'
+import {
+  stripInvisibleChars,
+  sanitizeAndTrimText,
+  isInvalidText,
+  handlePasteSanitization,
+} from '../../utils/textSanitizer'
 
 const MAX_COMMENT_LENGTH = 300
 
@@ -13,14 +19,26 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  const handleTextChange = (e) => {
+    const rawText = e.target.value
+    const text = stripInvisibleChars(rawText)
+    setContent(text)
+    if (error && !isInvalidText(text)) {
+      setError(null)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!isLoggedIn) {
       navigate('/login')
       return
     }
-    if (!content.trim()) return
-    if (content.length > MAX_COMMENT_LENGTH) {
+    const cleanedContent = sanitizeAndTrimText(content)
+    if (!cleanedContent) {
+      return setError('Comment content cannot be empty or contain only spaces/invisible characters.')
+    }
+    if (cleanedContent.length > MAX_COMMENT_LENGTH) {
       return setError(`Comment cannot exceed ${MAX_COMMENT_LENGTH} characters.`)
     }
 
@@ -28,7 +46,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
     setError(null)
 
     try {
-      const res = await api.post('/comments', { content, postId, parentId })
+      const res = await api.post('/comments', { content: cleanedContent, postId, parentId })
       if (res.data?.comment) {
         onCommentAdded(res.data.comment)
         setContent('')
@@ -57,7 +75,8 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
           rows={parentId ? 2 : 3}
           maxLength={MAX_COMMENT_LENGTH}
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={handleTextChange}
+          onPaste={(e) => handlePasteSanitization(e, setContent, setError)}
           placeholder={placeholder}
           className={`w-full p-3 rounded-[8px] border bg-[#0D0D0F] text-[#F2F2F2] text-xs focus:outline-none resize-none transition-all placeholder:text-[#6F7076] ${
             isOverLimit
@@ -105,7 +124,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
           )}
           <button
             type="submit"
-            disabled={loading || !content.trim() || isOverLimit}
+            disabled={loading || isInvalidText(content) || isOverLimit}
             className="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors disabled:opacity-50 cursor-pointer"
           >
             {loading ? 'Posting...' : parentId ? 'Reply' : 'Post Comment'}

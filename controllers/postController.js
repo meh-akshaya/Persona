@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client')
 const { detectPrivacyLeaks } = require('../utils/privacyDetector')
+const { sanitizeAndTrimText, isInvalidText } = require('../utils/textSanitizer')
 
 const prisma = new PrismaClient()
 
@@ -40,10 +41,11 @@ const createPost = async (req, res) => {
     const { content, communityId } = req.body
     const authorId = req.userId // set by auth middleware
 
-    if (!content || !content.trim())
-      return res.status(400).json({ error: 'Post content is required' })
+    const cleanedContent = sanitizeAndTrimText(content)
+    if (!cleanedContent || isInvalidText(content))
+      return res.status(400).json({ error: 'Post content cannot be empty or contain only spaces/invisible characters' })
 
-    if (content.length > MAX_POST_LENGTH)
+    if (cleanedContent.length > MAX_POST_LENGTH)
       return res.status(400).json({ error: `Post content cannot exceed ${MAX_POST_LENGTH} characters` })
 
     if (!communityId)
@@ -55,11 +57,11 @@ const createPost = async (req, res) => {
       return res.status(404).json({ error: 'Community not found' })
 
     // Run privacy detector BEFORE saving — this is the core logic of the feature
-    const { hasLeak, leaks } = detectPrivacyLeaks(content)
+    const { hasLeak, leaks } = detectPrivacyLeaks(cleanedContent)
 
     const post = await prisma.post.create({
       data: {
-        content,
+        content: cleanedContent,
         authorId,
         communityId,
         hasPrivacyLeak: hasLeak,
