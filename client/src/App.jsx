@@ -56,7 +56,7 @@ function MainLayout({ searchQuery, setSearchQuery }) {
   }
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-primary)' }} className="min-h-screen flex flex-col justify-between overflow-x-hidden text-[#F2F2F2]">
+    <div style={{ backgroundColor: 'var(--bg-primary)' }} className="h-screen max-h-screen flex flex-col justify-between overflow-hidden text-[#F2F2F2]">
       {/* Mobile Top Responsive Sticky Header */}
       <MobileHeader
         searchQuery={searchQuery}
@@ -65,12 +65,12 @@ function MainLayout({ searchQuery, setSearchQuery }) {
         onOpenInfoModal={(type) => setInfoModalType(type)}
       />
 
-      <div className="w-full max-w-[1380px] mx-auto flex justify-between flex-1 px-4 sm:px-6">
+      <div className="w-full max-w-[1380px] mx-auto flex justify-between flex-1 min-h-0 overflow-hidden px-4 sm:px-6">
         {/* Left Navigation Sidebar (240px fixed width) */}
         <Sidebar onCreatePostClick={handleCreatePost} />
 
         {/* Middle Main Feed Container (Proportionate 780px main feed focus) */}
-        <main className="flex-1 max-w-[780px] w-full min-h-screen border-r border-l border-[#25252A] px-4 sm:px-6 py-6 min-w-0">
+        <main className="flex-1 max-w-[780px] w-full h-full overflow-y-auto no-scrollbar border-r border-l border-[#25252A] px-4 sm:px-6 py-6 min-w-0">
           <Routes>
             <Route path="/" element={<Home searchQuery={searchQuery} />} />
             <Route path="/c/:slug" element={<Home searchQuery={searchQuery} />} />

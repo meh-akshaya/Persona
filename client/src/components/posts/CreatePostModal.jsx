@@ -48,6 +48,8 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
   useEffect(() => {
     if (isOpen) {
       window.scrollTo({ top: 0, behavior: 'instant' })
+      const mainEl = document.querySelector('main')
+      if (mainEl) mainEl.scrollTo({ top: 0, behavior: 'instant' })
       setTimeout(() => {
         textareaRef.current?.focus()
       }, 50)

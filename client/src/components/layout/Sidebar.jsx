@@ -46,7 +46,7 @@ export default function Sidebar({ onCreatePostClick }) {
 
   return (
     <>
-      <aside className="w-[240px] min-w-[240px] shrink-0 hidden md:flex flex-col justify-between py-6 px-3.5 sticky top-0 h-screen overflow-y-auto no-scrollbar border-r border-[#25252A] bg-[#0D0D0F]">
+      <aside className="w-[240px] min-w-[240px] shrink-0 hidden md:flex flex-col justify-between py-6 px-3.5 h-full overflow-y-auto no-scrollbar border-r border-[#25252A] bg-[#0D0D0F]">
         <div className="flex flex-col gap-6">
           {/* Futuristic Wordmark Logo (No Icon Image) */}
           <div className="pl-4 pr-2 pt-1">
