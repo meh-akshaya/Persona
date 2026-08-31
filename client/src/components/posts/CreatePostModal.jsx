@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import api from '../../api/axios'
 import {
   stripInvisibleChars,
@@ -43,9 +43,15 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [privacyAlert, setPrivacyAlert] = useState({ hasLeak: false, leaks: [] })
+  const textareaRef = useRef(null)
 
   useEffect(() => {
     if (isOpen) {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      setTimeout(() => {
+        textareaRef.current?.focus()
+      }, 50)
+
       api.get('/communities')
         .then(res => {
           const list = res.data.communities || []
@@ -102,8 +108,8 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
   const isNearLimit = content.length >= MAX_POST_LENGTH - 50
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-fade-in">
-      <div className="relative w-full max-w-lg rounded-[8px] p-6 bg-[#151518] border border-[#25252A] text-[#F2F2F2] shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-8 sm:pt-12 px-4 pb-8 overflow-y-auto bg-black/80 backdrop-blur-xs animate-fade-in">
+      <div className="relative w-full max-w-lg rounded-[8px] p-6 bg-[#151518] border border-[#25252A] text-[#F2F2F2] shadow-2xl overflow-hidden my-auto sm:my-0">
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-[#25252A]">
           <h2 className="text-sm font-bold text-[#F2F2F2]">Create Anonymous Post</h2>
@@ -160,6 +166,7 @@ export default function CreatePostModal({ isOpen, onClose, onPostCreated, presel
               </span>
             </div>
             <textarea
+              ref={textareaRef}
               rows={5}
               maxLength={MAX_POST_LENGTH}
               value={content}
