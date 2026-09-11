@@ -1,8 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useState, useEffect } from 'react'
 import ProfileModal from '../profile/ProfileModal'
 import CreatePostModal from '../posts/CreatePostModal'
+import CleanLink from '../common/CleanLink'
 
 export default function Navbar({ onSearchChange, onPostCreated }) {
   const { isLoggedIn, persona, logout } = useAuth()
@@ -39,7 +40,7 @@ export default function Navbar({ onSearchChange, onPostCreated }) {
         className="fixed top-0 left-0 right-0 z-40 h-14 flex items-center px-4 md:px-6 gap-4 shadow-sm"
       >
         {/* Brand Logo */}
-        <Link
+        <CleanLink
           to="/"
           className="text-lg font-black tracking-tight flex items-center gap-2 mr-2 text-white group"
         >
@@ -47,7 +48,7 @@ export default function Navbar({ onSearchChange, onPostCreated }) {
           <span className="hidden sm:inline bg-gradient-to-r from-violet-400 to-indigo-300 bg-clip-text text-transparent">
             Persona
           </span>
-        </Link>
+        </CleanLink>
 
         {/* Search Input */}
         <div className="flex-1 max-w-md relative">
@@ -175,14 +176,14 @@ export default function Navbar({ onSearchChange, onPostCreated }) {
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <Link
+              <CleanLink
                 to="/login"
                 style={{ color: 'var(--text-primary)' }}
                 className="text-xs font-semibold hover:opacity-80 transition-opacity px-2.5 py-1.5"
               >
                 Sign in
-              </Link>
-              <Link
+              </CleanLink>
+              <CleanLink
                 to="/register"
                 style={{
                   backgroundColor: 'var(--accent)',
@@ -191,7 +192,7 @@ export default function Navbar({ onSearchChange, onPostCreated }) {
                 className="text-xs font-semibold px-3 py-1.5 rounded-xl hover:opacity-90 transition-opacity shadow-xs"
               >
                 Sign up
-              </Link>
+              </CleanLink>
             </div>
           )}
         </div>

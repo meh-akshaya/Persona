@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../api/axios'
 
 import PersonaLogo from '../components/common/PersonaLogo'
+import CleanLink from '../components/common/CleanLink'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -116,14 +117,14 @@ export default function Login() {
         <div className="mt-7 pt-5 border-t border-[#25252A] text-center text-xs text-[#9A9A9F] space-y-2">
           <div>
             Don&apos;t have a persona?{' '}
-            <Link to="/register" className="font-semibold text-[#F5B800] hover:underline">
+            <CleanLink to="/register" className="font-semibold text-[#F5B800] hover:underline">
               Create an account →
-            </Link>
+            </CleanLink>
           </div>
           <div>
-            <Link to="/" className="text-[11px] text-[#6F7076] hover:text-[#9A9A9F] transition-colors">
+            <CleanLink to="/" className="text-[11px] text-[#6F7076] hover:text-[#9A9A9F] transition-colors">
               Continue as guest →
-            </Link>
+            </CleanLink>
           </div>
         </div>
       </div>

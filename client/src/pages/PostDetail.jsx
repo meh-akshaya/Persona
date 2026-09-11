@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react'
 import api from '../api/axios'
 import PostCard from '../components/posts/PostCard'
 import CommentComposer from '../components/comments/CommentComposer'
 import CommentThread from '../components/comments/CommentThread'
+import CleanLink from '../components/common/CleanLink'
 
 export default function PostDetail() {
   const { id } = useParams()
@@ -67,12 +68,12 @@ export default function PostDetail() {
         <p style={{ color: 'var(--text-secondary)' }} className="text-xs mt-1 mb-4">
           {error || 'This post may have been removed or does not exist.'}
         </p>
-        <Link
+        <CleanLink
           to="/"
           className="px-5 py-2.5 rounded-full text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-all uppercase tracking-wider shadow-md inline-block"
         >
           ← Back to Discussions
-        </Link>
+        </CleanLink>
       </div>
     )
   }
@@ -81,13 +82,13 @@ export default function PostDetail() {
     <div className="max-w-2xl mx-auto py-4 px-2 md:px-0 animate-fade-in">
       {/* Back button */}
       <div className="mb-4">
-        <Link
+        <CleanLink
           to="/"
           style={{ color: 'var(--text-secondary)' }}
           className="text-xs font-semibold hover:text-[var(--text-primary)] transition-colors inline-flex items-center gap-1.5"
         >
           <span>←</span> Back to Discussions
-        </Link>
+        </CleanLink>
       </div>
 
       {/* Main Post Card */}

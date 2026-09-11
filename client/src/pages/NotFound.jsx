@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import CleanLink from '../components/common/CleanLink'
 import { useEffect } from 'react'
 
 export default function NotFound() {
@@ -19,12 +19,12 @@ export default function NotFound() {
           The page or discussion you are looking for has been moved, removed, or does not exist.
         </p>
         <div className="mt-6">
-          <Link
+          <CleanLink
             to="/"
             className="inline-flex items-center justify-center px-6 py-2.5 rounded-full text-xs font-extrabold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-all uppercase tracking-wider shadow-md"
           >
             ← Return to Home Feed
-          </Link>
+          </CleanLink>
         </div>
       </div>
     </div>

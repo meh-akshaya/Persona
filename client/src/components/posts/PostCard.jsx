@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { useSecurity } from '../../context/SecurityContext'
 import api from '../../api/axios'
 import BitmojiAvatar from '../common/BitmojiAvatar'
+import CleanLink from '../common/CleanLink'
 
 export default function PostCard({ post, onReactionUpdated, isDetail = false }) {
   const { isLoggedIn, persona } = useAuth()
@@ -124,13 +125,13 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
 
             <span className="text-[#6F7076] text-xs">·</span>
 
-            <Link
+            <CleanLink
               to={`/c/${post.community?.slug}`}
               onClick={(e) => e.stopPropagation()}
               className="text-xs text-[#9A9A9F] hover:text-[#F2F2F2] font-medium transition-colors"
             >
               {post.community?.name}
-            </Link>
+            </CleanLink>
           </div>
         </div>
 
@@ -146,11 +147,11 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
         onCut={handleCopyAttempt}
         onDragStart={(e) => e.preventDefault()}
       >
-        <Link to={`/post/${post.id}`} className="block group-hover:opacity-95 transition-opacity">
+        <CleanLink to={`/post/${post.id}`} className="block group-hover:opacity-95 transition-opacity">
           <p className="text-[15px] sm:text-[16px] text-[#F2F2F2] leading-relaxed whitespace-pre-wrap font-normal select-none">
             {displayedContent}
           </p>
-        </Link>
+        </CleanLink>
 
         {isLong && (
           <button
@@ -168,7 +169,7 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
 
         {/* Privacy Leak Alert */}
         {post.hasPrivacyLeak && (
-          <Link to={`/post/${post.id}`} className="block">
+          <CleanLink to={`/post/${post.id}`} className="block">
             <div
               style={{
                 backgroundColor: 'var(--warning-bg)',
@@ -184,7 +185,7 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
                 Privacy Warning: Post contains potential personal contact info ({post.privacyLeaks?.join(', ') || 'detected'}).
               </span>
             </div>
-          </Link>
+          </CleanLink>
         )}
       </div>
 
@@ -254,7 +255,7 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
         </div>
 
         {/* Comment Count Link */}
-        <Link
+        <CleanLink
           to={`/post/${post.id}`}
           className="flex items-center gap-1.5 px-2.5 py-1 rounded-[6px] bg-[#151518]/40 border border-[#25252A] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518] font-medium transition-colors"
         >
@@ -262,7 +263,7 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
           <span>{post._count?.comments || 0} comments</span>
-        </Link>
+        </CleanLink>
       </div>
     </article>
   )

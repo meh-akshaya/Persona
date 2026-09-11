@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import CleanLink from './CleanLink'
 
 export default function PersonaLogo({ size = 'md', to = '/', className = '', onClick }) {
   const sizeClasses = {
@@ -15,9 +15,9 @@ export default function PersonaLogo({ size = 'md', to = '/', className = '', onC
 
   if (to) {
     return (
-      <Link to={to} onClick={onClick} className="inline-flex items-center group cursor-pointer">
+      <CleanLink to={to} onClick={onClick} className="inline-flex items-center group cursor-pointer">
         {logoText}
-      </Link>
+      </CleanLink>
     )
   }
 

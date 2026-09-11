@@ -1,10 +1,11 @@
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import api from '../../api/axios'
 import CreatePostModal from '../posts/CreatePostModal'
 import BitmojiAvatar from '../common/BitmojiAvatar'
 import PersonaLogo from '../common/PersonaLogo'
+import CleanLink from '../common/CleanLink'
 
 const formatSpaceName = (c) => {
   if (!c) return 'General'
@@ -69,7 +70,7 @@ export default function Sidebar({ onCreatePostClick }) {
               <div className="text-[11px] font-bold text-[#6F7076] tracking-wider uppercase mb-2 px-3">
                 Main
               </div>
-              <Link
+              <CleanLink
                 to="/"
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-[6px] text-[13px] sm:text-sm transition-colors ${
                   !slug
@@ -81,7 +82,7 @@ export default function Sidebar({ onCreatePostClick }) {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 <span>Home</span>
-              </Link>
+              </CleanLink>
             </div>
 
             {/* SPACES GROUP */}
@@ -113,7 +114,7 @@ export default function Sidebar({ onCreatePostClick }) {
                       const isActive = slug === c.slug
                       const cleanName = formatSpaceName(c)
                       return (
-                        <Link
+                        <CleanLink
                           key={c.id}
                           to={`/c/${c.slug}`}
                           className={`flex items-center justify-between py-2.5 px-3 rounded-[6px] text-[13px] sm:text-sm transition-all ${
@@ -128,7 +129,7 @@ export default function Sidebar({ onCreatePostClick }) {
                               {c._count.posts}
                             </span>
                           )}
-                        </Link>
+                        </CleanLink>
                       )
                     })
                   )}
@@ -142,7 +143,7 @@ export default function Sidebar({ onCreatePostClick }) {
                 Activity
               </div>
               <div className="flex flex-col gap-0.5">
-                <Link
+                <CleanLink
                   to="/"
                   className="flex items-center gap-3 px-3 py-2.5 rounded-[6px] text-[13px] sm:text-sm text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors font-medium"
                 >
@@ -150,9 +151,9 @@ export default function Sidebar({ onCreatePostClick }) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                   </svg>
                   <span>Notifications</span>
-                </Link>
+                </CleanLink>
 
-                <Link
+                <CleanLink
                   to="/"
                   className="flex items-center gap-3 px-3 py-2.5 rounded-[6px] text-[13px] sm:text-sm text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors font-medium"
                 >
@@ -160,7 +161,7 @@ export default function Sidebar({ onCreatePostClick }) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                   <span>Explore</span>
-                </Link>
+                </CleanLink>
               </div>
             </div>
 
@@ -169,7 +170,7 @@ export default function Sidebar({ onCreatePostClick }) {
               <div className="text-[11px] font-bold text-[#6F7076] tracking-wider uppercase mb-2 px-3">
                 Account
               </div>
-              <Link
+              <CleanLink
                 to={isLoggedIn ? '/' : '/login'}
                 className="flex items-center gap-2.5 px-3 py-2.5 rounded-[6px] text-[13px] sm:text-sm text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors font-medium"
               >
@@ -185,7 +186,7 @@ export default function Sidebar({ onCreatePostClick }) {
                   </svg>
                 )}
                 <span>{isLoggedIn ? persona?.name || 'Profile' : 'Profile'}</span>
-              </Link>
+              </CleanLink>
             </div>
           </nav>
         </div>

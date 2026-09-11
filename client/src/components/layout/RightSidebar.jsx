@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import ProfileModal from '../profile/ProfileModal'
 import BitmojiAvatar from '../common/BitmojiAvatar'
 import TopPersonasWidget from '../sidebar/TopPersonasWidget'
+import CleanLink from '../common/CleanLink'
 
 export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
   const { isLoggedIn, persona, logout } = useAuth()
@@ -43,18 +44,18 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
               </p>
 
               <div className="flex flex-col gap-2">
-                <Link
+                <CleanLink
                   to="/register"
-                  className="w-full py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors text-center shadow-xs"
+                  className="w-full py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors text-center shadow-xs block"
                 >
                   Start your Persona
-                </Link>
-                <Link
+                </CleanLink>
+                <CleanLink
                   to="/login"
-                  className="w-full py-2 rounded-[6px] text-xs font-semibold text-[#9A9A9F] bg-[#151518] border border-[#25252A] hover:text-[#F2F2F2] transition-colors text-center"
+                  className="w-full py-2 rounded-[6px] text-xs font-semibold text-[#9A9A9F] bg-[#151518] border border-[#25252A] hover:text-[#F2F2F2] transition-colors text-center block"
                 >
                   Sign in
-                </Link>
+                </CleanLink>
               </div>
             </div>
           ) : (

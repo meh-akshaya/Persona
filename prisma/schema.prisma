@@ -55,13 +55,13 @@ model Comment {
   content   String
   createdAt DateTime @default(now())
 
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  String
 
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
 
-  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  parent    Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
   parentId  String?
 
   replies   Comment[] @relation("CommentReplies")
@@ -72,10 +72,10 @@ model Reaction {
   type      ReactionType
   createdAt DateTime     @default(now())
 
-  user      User         @relation(fields: [userId], references: [id])
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
-  post      Post         @relation(fields: [postId], references: [id])
+  post      Post         @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String
 
   @@unique([userId, postId]) // one reaction per user per post
