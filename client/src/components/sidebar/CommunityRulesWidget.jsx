@@ -1,12 +1,12 @@
 export default function CommunityRulesWidget({ onOpenInfoModal }) {
   return (
-    <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 text-xs animate-fade-in shadow-xs">
+    <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 sm:p-4.5 text-xs animate-fade-in shadow-xs min-w-0">
       {/* Widget Section Title */}
-      <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#25252A]">
-        <h3 className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase truncate pr-2">
+      <div className="flex items-center justify-between gap-3 pb-3 mb-3.5 border-b border-[#25252A] min-w-0">
+        <h3 className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase truncate min-w-0 flex-1 pr-1">
           COMMUNITY GUIDELINES
         </h3>
-        <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-[4px] bg-[#0D0D0F] text-[#F5B800] border border-[#25252A] shrink-0">
+        <span className="text-[9px] font-semibold px-2 py-0.5 rounded-[4px] bg-[#0D0D0F] text-[#F5B800] border border-[#25252A] shrink-0 whitespace-nowrap">
           Protected
         </span>
       </div>

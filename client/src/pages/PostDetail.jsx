@@ -95,23 +95,17 @@ export default function PostDetail() {
       <PostCard post={post} isDetail={true} />
 
       {/* Comment Section Header */}
-      <div className="mt-8 mb-4 flex items-center justify-between">
-        <h2 className="text-base font-bold flex items-center gap-2 text-[var(--text-primary)]">
-          <svg className="w-5 h-5 text-amber-400 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
+      <div className="mt-8 mb-4 flex items-center justify-between min-w-0">
+        <h2 className="text-sm font-bold flex items-center gap-2 text-[#F2F2F2] min-w-0">
+          <svg className="w-4 h-4 text-[#F5B800] fill-none stroke-current shrink-0" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
-          <span>Community Discussion ({comments.length})</span>
+          <span className="truncate">Community Discussion ({comments.length})</span>
         </h2>
       </div>
 
       {/* Top Level Comment Composer */}
-      <div
-        style={{
-          backgroundColor: 'var(--bg-card)',
-          border: '1px solid var(--border)',
-        }}
-        className="rounded-2xl p-4 mb-6 shadow-xs"
-      >
+      <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-4 mb-6 shadow-xs min-w-0">
         <CommentComposer
           postId={post.id}
           placeholder="Share your anonymous response or advice..."

@@ -47,24 +47,24 @@ export default function Sidebar({ onCreatePostClick }) {
 
   return (
     <>
-      <aside className="w-[230px] xl:w-[240px] shrink-0 hidden md:flex flex-col justify-between py-4 px-2.5 h-full overflow-y-auto no-scrollbar border-t border-x border-[#25252A] rounded-t-[10px] bg-[#0D0D0F]">
-        <div className="flex flex-col gap-3">
+      <aside className="w-[230px] xl:w-[240px] shrink-0 hidden md:flex flex-col justify-center py-4 px-3 sm:px-3.5 h-full overflow-y-auto no-scrollbar border-t border-x border-[#25252A] rounded-t-[10px] bg-[#0D0D0F]">
+        <div className="flex flex-col gap-3.5 my-auto">
           {/* Header Section Box (Logo & Primary CTA) */}
-          <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-3 shadow-xs">
-            <div className="px-1 mb-3 pt-0.5">
+          <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-3 sm:p-3.5 shadow-xs text-center">
+            <div className="flex items-center justify-center mb-2.5 pt-0.5">
               <PersonaLogo size="md" />
             </div>
             <button
               onClick={handleCreateClick}
-              className="w-full h-9 px-3 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full h-8.5 px-3 rounded-[6px] text-[11px] font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span className="text-sm font-black">+</span>
+              <span className="text-xs font-black">+</span>
               <span>Start a post</span>
             </button>
           </div>
 
           {/* Grouped Sidebar Navigation Box */}
-          <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-3 shadow-xs flex flex-col gap-5">
+          <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-3.5 sm:p-4 shadow-xs flex flex-col gap-4">
             {/* MAIN GROUP */}
             <div>
               <div className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase mb-2 px-2">
@@ -72,7 +72,7 @@ export default function Sidebar({ onCreatePostClick }) {
               </div>
               <CleanLink
                 to="/"
-                className={`flex items-center h-9 px-2.5 rounded-[6px] text-xs transition-colors ${!slug
+                className={`flex items-center h-9 px-2.5 rounded-[6px] text-xs transition-colors gap-2.5 min-w-0 ${!slug
                     ? 'bg-[#0D0D0F] text-[#F2F2F2] font-bold border-l-2 border-[#F5B800]'
                     : 'text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 font-medium'
                   }`}
@@ -82,7 +82,7 @@ export default function Sidebar({ onCreatePostClick }) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 </div>
-                <span className="flex-1 ml-2.5 truncate">Home</span>
+                <span className="flex-1 truncate">Home</span>
               </CleanLink>
             </div>
 
@@ -118,7 +118,7 @@ export default function Sidebar({ onCreatePostClick }) {
                         <CleanLink
                           key={c.id}
                           to={`/c/${c.slug}`}
-                          className={`flex items-center h-8 px-2.5 rounded-[6px] text-xs transition-all ${isActive
+                          className={`flex items-center h-8 px-2.5 rounded-[6px] text-xs transition-all gap-2 min-w-0 ${isActive
                               ? 'text-[#F5B800] bg-[#0D0D0F] font-bold border-l-2 border-[#F5B800]'
                               : 'text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 font-medium'
                             }`}
@@ -128,7 +128,7 @@ export default function Sidebar({ onCreatePostClick }) {
                               <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                           </div>
-                          <span className="flex-1 ml-2 truncate">{cleanName}</span>
+                          <span className="flex-1 truncate">{cleanName}</span>
                           {c._count?.posts > 0 && (
                             <span className="min-w-[20px] text-center text-[10px] font-mono text-[#6F7076] bg-[#0D0D0F] px-1 py-0.5 rounded border border-[#25252A] ml-auto shrink-0">
                               {c._count.posts}
@@ -150,26 +150,26 @@ export default function Sidebar({ onCreatePostClick }) {
               <div className="flex flex-col gap-0.5">
                 <CleanLink
                   to="/"
-                  className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium"
+                  className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium gap-2.5 min-w-0"
                 >
                   <div className="w-5 h-5 flex items-center justify-center shrink-0">
                     <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
                   </div>
-                  <span className="flex-1 ml-2.5 truncate">Notifications</span>
+                  <span className="flex-1 truncate">Notifications</span>
                 </CleanLink>
 
                 <CleanLink
                   to="/"
-                  className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium"
+                  className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium gap-2.5 min-w-0"
                 >
                   <div className="w-5 h-5 flex items-center justify-center shrink-0">
                     <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                   </div>
-                  <span className="flex-1 ml-2.5 truncate">Explore</span>
+                  <span className="flex-1 truncate">Explore</span>
                 </CleanLink>
               </div>
             </div>
@@ -181,7 +181,7 @@ export default function Sidebar({ onCreatePostClick }) {
               </div>
               <CleanLink
                 to={isLoggedIn ? '/' : '/login'}
-                className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium"
+                className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium gap-2.5 min-w-0"
               >
                 <div className="w-5 h-5 flex items-center justify-center shrink-0">
                   {isLoggedIn && persona ? (
@@ -196,7 +196,7 @@ export default function Sidebar({ onCreatePostClick }) {
                     </svg>
                   )}
                 </div>
-                <span className="flex-1 ml-2.5 truncate">{isLoggedIn ? persona?.name || 'Profile' : 'Profile'}</span>
+                <span className="flex-1 truncate">{isLoggedIn ? persona?.name || 'Profile' : 'Profile'}</span>
               </CleanLink>
             </div>
           </div>

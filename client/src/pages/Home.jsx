@@ -64,33 +64,34 @@ export default function Home({ searchQuery = '' }) {
     <div className="w-full animate-fade-in">
       {/* Stream Integrated Polished Hero Card */}
       {!slug && (
-        <div className="p-4 sm:p-5 mb-6 rounded-[8px] bg-[#151518]/40 border border-[#25252A] flex items-center justify-between gap-4 flex-wrap shadow-xs">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] font-bold text-[#F5B800] uppercase tracking-wider bg-[#F5B800]/10 px-2 py-0.5 rounded-[4px] border border-[#F5B800]/20">
+        <div className="p-5 sm:p-6 mb-6 rounded-[10px] bg-[#151518]/60 border border-[#25252A] flex items-center justify-between gap-5 flex-wrap shadow-xs min-w-0">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <span className="text-[10px] font-bold text-[#F5B800] uppercase tracking-wider bg-[#F5B800]/10 px-2.5 py-0.5 rounded-[4px] border border-[#F5B800]/20 shrink-0 whitespace-nowrap">
                 Encrypted & Anonymous
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#F2F2F2] mb-1">
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#F2F2F2] mb-1.5 leading-tight">
               Say what you think.
             </h1>
             <p className="text-[#9A9A9F] text-xs font-medium">
               Real conversations. No real names.
             </p>
           </div>
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3 flex-wrap shrink-0">
             <button
               onClick={handleStartPost}
-              className="px-4 py-2 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2.5 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center gap-2 cursor-pointer shrink-0"
             >
-              <span>+</span>
-              <span>Start a post</span>
+              <span className="text-xs font-black">+</span>
+              <span className="whitespace-nowrap">Start a post</span>
             </button>
             <button
               onClick={() => navigate('/c/coding-tech')}
-              className="px-3 py-2 rounded-[6px] text-xs font-medium text-[#9A9A9F] hover:text-[#F2F2F2] bg-[#0D0D0F]/80 border border-[#25252A] transition-colors cursor-pointer"
+              className="px-3.5 py-2.5 rounded-[6px] text-xs font-medium text-[#9A9A9F] hover:text-[#F2F2F2] bg-[#0D0D0F]/80 border border-[#25252A] transition-colors cursor-pointer shrink-0 flex items-center gap-1.5"
             >
-              Explore →
+              <span className="whitespace-nowrap">Explore</span>
+              <span>→</span>
             </button>
           </div>
         </div>
@@ -98,12 +99,12 @@ export default function Home({ searchQuery = '' }) {
 
       {/* Community Header if inside a Space */}
       {community && (
-        <div className="pb-5 mb-6 border-b border-[#25252A]">
-          <div className="flex items-center gap-2.5 mb-1.5">
-            <h1 className="text-xl font-bold tracking-tight text-[#F2F2F2]">
+        <div className="p-5 sm:p-6 mb-6 rounded-[10px] bg-[#151518]/40 border border-[#25252A] min-w-0">
+          <div className="flex items-center gap-3 mb-2 flex-wrap min-w-0">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#F2F2F2] truncate min-w-0">
               {community.name}
             </h1>
-            <span className="text-[11px] font-semibold text-[#6F7076] ml-2">
+            <span className="text-[11px] font-semibold text-[#6F7076] bg-[#0D0D0F] px-2.5 py-1 rounded-[4px] border border-[#25252A] shrink-0">
               {community._count?.posts || 0} discussions
             </span>
           </div>
@@ -114,7 +115,7 @@ export default function Home({ searchQuery = '' }) {
       )}
 
       {/* Clean Stream Feed Tabs (Container Box) */}
-      <div className="bg-[#151518] border border-[#25252A] rounded-[10px] px-4 h-11 flex items-center justify-between mb-4 text-xs shadow-xs">
+      <div className="bg-[#151518] border border-[#25252A] rounded-[10px] px-5 h-11 flex items-center justify-between mb-5 text-xs shadow-xs min-w-0">
         <div className="h-full flex items-center gap-6 font-medium">
           <button
             onClick={() => setSortBy('latest')}

@@ -71,7 +71,7 @@ function MainLayout({ searchQuery, setSearchQuery }) {
           <Sidebar onCreatePostClick={handleCreatePost} />
 
           {/* Middle Main Feed Container (Section 2 - Top Gapped & Border-Capped) */}
-          <main className="flex-1 h-full overflow-y-auto no-scrollbar border-t border-x border-[#25252A] rounded-t-[10px] px-3 sm:px-5 py-4 min-w-0 bg-[#0D0D0F]/30 flex flex-col items-center">
+          <main className="flex-1 h-full overflow-y-auto no-scrollbar border-t border-x border-[#25252A] rounded-t-[10px] px-4 sm:px-6 md:px-8 py-4 sm:py-5 min-w-0 bg-[#0D0D0F]/30 flex flex-col items-center">
             <div className="w-full max-w-[920px] flex-1">
               <Routes>
                 <Route path="/" element={<Home searchQuery={searchQuery} />} />

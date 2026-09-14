@@ -50,13 +50,13 @@ export default function TopPersonasWidget() {
     : 'TOP PERSONAS IN ALL SPACES'
 
   return (
-    <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 text-xs animate-fade-in shadow-xs">
+    <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 sm:p-4.5 text-xs animate-fade-in shadow-xs min-w-0">
       {/* Widget Section Title */}
-      <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#25252A]">
-        <h3 className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase truncate pr-2">
+      <div className="flex items-center justify-between gap-3 pb-3 mb-3.5 border-b border-[#25252A] min-w-0">
+        <h3 className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase truncate min-w-0 flex-1 pr-1">
           {headingText}
         </h3>
-        <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-[4px] bg-[#0D0D0F] text-[#F5B800] border border-[#25252A] shrink-0">
+        <span className="text-[9px] font-semibold px-2 py-0.5 rounded-[4px] bg-[#0D0D0F] text-[#F5B800] border border-[#25252A] shrink-0 whitespace-nowrap">
           Trust Ranked
         </span>
       </div>
@@ -67,7 +67,7 @@ export default function TopPersonasWidget() {
           {[1, 2, 3, 4, 5].map(i => (
             <div key={i} className="h-9 flex items-center gap-2.5 px-2 animate-pulse">
               <div className="w-5 h-4 bg-[#25252A] rounded shrink-0" />
-              <div className="w-6 h-6 bg-[#25252A] rounded-full shrink-0" />
+              <div className="w-5 h-5 bg-[#25252A] rounded-full shrink-0" />
               <div className="flex-1 h-4 bg-[#25252A] rounded" />
               <div className="w-12 h-3 bg-[#25252A] rounded shrink-0" />
             </div>
@@ -86,7 +86,7 @@ export default function TopPersonasWidget() {
             return (
               <div
                 key={user.id || idx}
-                className="flex items-center h-9 px-2 rounded-[6px] hover:bg-[#0D0D0F]/60 transition-colors group"
+                className="flex items-center h-9 px-3 rounded-[6px] gap-2.5 min-w-0 hover:bg-[#0D0D0F]/70 transition-colors group cursor-pointer"
               >
                 {/* Rank Number (Fixed 20px) */}
                 <span
@@ -97,22 +97,22 @@ export default function TopPersonasWidget() {
                   {rankStr}
                 </span>
 
-                {/* Avatar (Fixed 24px) */}
-                <div className="w-6 h-6 flex items-center justify-center shrink-0 ml-2">
+                {/* Avatar (Fixed 20px) */}
+                <div className="w-5 h-5 flex items-center justify-center shrink-0">
                   <BitmojiAvatar
                     seed={user.personaName}
                     avatarConfig={user.avatarConfig}
-                    size={22}
+                    size={20}
                   />
                 </div>
 
                 {/* Username (Flexible, truncates cleanly) */}
-                <span className="flex-1 text-xs font-semibold text-[#F2F2F2] truncate ml-2.5 group-hover:text-[#F5B800] transition-colors">
+                <span className="flex-1 text-xs font-semibold text-[#F2F2F2] truncate min-w-0 group-hover:text-[#F5B800] transition-colors">
                   {user.personaName}
                 </span>
 
-                {/* Trust Score Badge (Consistently Right-Aligned) */}
-                <span className="ml-auto text-right shrink-0 text-[10px] text-[#9A9A9F] font-medium">
+                {/* Trust Score Badge (Consistently Right-Aligned with dedicated space) */}
+                <span className="ml-auto text-right shrink-0 text-[10px] text-[#9A9A9F] font-medium pl-1.5 pr-0.5 flex items-center gap-1">
                   Trust <span className="font-bold text-[#F5B800]">{user.trustScore ?? 0}</span>
                 </span>
               </div>

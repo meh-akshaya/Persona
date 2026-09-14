@@ -87,7 +87,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
 
         {/* Floating Persona Badge */}
         {isLoggedIn && persona && (
-          <div className="absolute right-3 bottom-3 text-[10px] font-semibold text-[#9A9A9F] flex items-center gap-1.5 bg-[#151518]/90 px-2 py-1 rounded-[4px] border border-[#25252A]">
+          <div className="absolute right-3 bottom-3 text-[10px] font-semibold text-[#9A9A9F] flex items-center gap-1.5 bg-[#151518]/90 px-2 py-0.5 rounded-[4px] border border-[#25252A] pointer-events-none">
             <BitmojiAvatar
               seed={persona.name}
               avatarConfig={persona.avatarConfig}
@@ -98,9 +98,9 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between gap-2.5 min-w-0">
         <span
-          className={`text-[11px] font-medium tabular-nums transition-colors ${
+          className={`text-[11px] font-medium tabular-nums transition-colors shrink-0 ${
             isOverLimit
               ? 'text-rose-400 font-bold'
               : isNearLimit
@@ -111,13 +111,12 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
           {content.length}/{MAX_COMMENT_LENGTH}
         </span>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           {onCancel && (
             <button
               type="button"
               onClick={onCancel}
-              style={{ color: 'var(--text-secondary)' }}
-              className="px-3 py-1.5 rounded-lg text-xs font-semibold hover:opacity-80 transition-opacity cursor-pointer"
+              className="px-3 py-1.5 rounded-[6px] text-xs font-semibold text-[#9A9A9F] hover:text-[#F2F2F2] transition-colors cursor-pointer"
             >
               Cancel
             </button>
@@ -125,7 +124,7 @@ export default function CommentComposer({ postId, parentId = null, onCommentAdde
           <button
             type="submit"
             disabled={loading || isInvalidText(content) || isOverLimit}
-            className="px-4 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-amber-500 hover:bg-amber-400 transition-colors disabled:opacity-50 cursor-pointer"
+            className="px-3.5 py-1.5 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors disabled:opacity-50 cursor-pointer"
           >
             {loading ? 'Posting...' : parentId ? 'Reply' : 'Post Comment'}
           </button>

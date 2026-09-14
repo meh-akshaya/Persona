@@ -41,22 +41,24 @@ export default function CommentThread({ comment, postId, onReplyAdded, depth = 0
     <div className={`flex flex-col gap-2 ${depth > 0 ? 'ml-4 pl-3 border-l-2 border-[#25252A]' : ''}`}>
       <div className="p-3.5 rounded-[8px] border border-[#25252A] bg-[#151518] text-xs animate-fade-in">
         {/* Comment Header */}
-        <div className="flex items-center gap-2 mb-2">
-          <div className="flex items-center gap-2">
-            <BitmojiAvatar
-              seed={comment.author?.personaName || 'Persona'}
-              avatarConfig={savedAvatarConfig}
-              size={24}
-            />
-            <span className="font-bold text-xs text-[#F2F2F2]">
+        <div className="flex items-center justify-between gap-2.5 mb-2 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap min-w-0 flex-1">
+            <div className="shrink-0">
+              <BitmojiAvatar
+                seed={comment.author?.personaName || 'Persona'}
+                avatarConfig={savedAvatarConfig}
+                size={24}
+              />
+            </div>
+            <span className="font-bold text-xs text-[#F2F2F2] truncate max-w-[140px]">
               {comment.author?.personaName}
             </span>
-            <span className="text-[10px] font-extrabold px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
-              Trust {comment.author?.trustScore ?? 0}
+            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#0D0D0F] text-[#9A9A9F] border border-[#25252A] shrink-0 flex items-center gap-1">
+              Trust <span className="font-bold text-[#F5B800]">{comment.author?.trustScore ?? 0}</span>
             </span>
           </div>
 
-          <span style={{ color: 'var(--text-muted)' }} className="text-[10px] ml-auto">
+          <span className="text-[10px] text-[#6F7076] shrink-0 ml-auto text-right whitespace-nowrap">
             {timeAgo(comment.createdAt)}
           </span>
         </div>
