@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext'
 import ProfileModal from '../profile/ProfileModal'
 import BitmojiAvatar from '../common/BitmojiAvatar'
 import TopPersonasWidget from '../sidebar/TopPersonasWidget'
+import CommunityRulesWidget from '../sidebar/CommunityRulesWidget'
 import CleanLink from '../common/CleanLink'
 
 export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
@@ -21,7 +22,7 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
   return (
     <>
       <aside className="w-[280px] min-w-[280px] shrink-0 hidden lg:flex flex-col justify-between py-6 px-3.5 h-full overflow-y-auto no-scrollbar border-l border-[#25252A] bg-[#0D0D0F]">
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-4">
           {/* Search Bar — Clean Input without Icon */}
           <div className="relative w-full">
             <input
@@ -109,6 +110,9 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
 
           {/* Contextual Top Personas Section */}
           <TopPersonasWidget />
+
+          {/* Platform Trust & Community Rules Section */}
+          <CommunityRulesWidget onOpenInfoModal={onOpenInfoModal} />
         </div>
 
         {/* Minimal Footer Links */}

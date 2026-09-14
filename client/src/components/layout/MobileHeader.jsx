@@ -104,7 +104,7 @@ export default function MobileHeader({ searchQuery, setSearchQuery, onCreatePost
                         : 'bg-[#151518]/60 text-[#9A9A9F] border border-[#25252A] hover:text-[#F2F2F2]'
                     }`}
                   >
-                    # {space.name}
+                    {space.name}
                   </button>
                 ))}
               </div>

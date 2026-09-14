@@ -50,7 +50,7 @@ export default function TopPersonasWidget() {
     : 'TOP PERSONAS IN ALL SPACES'
 
   return (
-    <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 mb-5 text-xs animate-fade-in">
+    <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 text-xs animate-fade-in shadow-xs">
       {/* Widget Section Title */}
       <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#25252A]">
         <h3 className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase truncate pr-2">
@@ -63,22 +63,22 @@ export default function TopPersonasWidget() {
 
       {/* Loading Skeleton */}
       {loading ? (
-        <div className="space-y-3 py-1">
+        <div className="space-y-2 py-1">
           {[1, 2, 3, 4, 5].map(i => (
-            <div key={i} className="flex items-center gap-2.5 animate-pulse">
-              <div className="w-4 h-4 bg-[#25252A] rounded shrink-0" />
-              <div className="w-5 h-5 bg-[#25252A] rounded-full shrink-0" />
+            <div key={i} className="h-9 flex items-center gap-2.5 px-2 animate-pulse">
+              <div className="w-5 h-4 bg-[#25252A] rounded shrink-0" />
+              <div className="w-6 h-6 bg-[#25252A] rounded-full shrink-0" />
               <div className="flex-1 h-4 bg-[#25252A] rounded" />
               <div className="w-12 h-3 bg-[#25252A] rounded shrink-0" />
             </div>
           ))}
         </div>
       ) : topPersonas.length === 0 ? (
-        <p className="text-[11px] text-[#6F7076] py-2 text-center">
+        <p className="text-[11px] text-[#6F7076] py-3 text-center">
           No personas ranked yet.
         </p>
       ) : (
-        <div className="space-y-2.5">
+        <div className="flex flex-col gap-1">
           {topPersonas.map((user, idx) => {
             const rankStr = String(idx + 1).padStart(2, '0')
             const isTop3 = idx < 3
@@ -86,35 +86,35 @@ export default function TopPersonasWidget() {
             return (
               <div
                 key={user.id || idx}
-                className="flex items-center justify-between gap-2.5 py-1 px-1.5 rounded-[6px] hover:bg-[#0D0D0F]/60 transition-colors group"
+                className="flex items-center h-9 px-2 rounded-[6px] hover:bg-[#0D0D0F]/60 transition-colors group"
               >
-                {/* Rank Number + Avatar + Username */}
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <span
-                    className={`text-[11px] font-mono font-bold shrink-0 ${
-                      isTop3 ? 'text-[#F5B800]' : 'text-[#6F7076]'
-                    }`}
-                  >
-                    {rankStr}
-                  </span>
+                {/* Rank Number (Fixed 20px) */}
+                <span
+                  className={`w-5 text-center text-[11px] font-mono font-bold shrink-0 ${
+                    isTop3 ? 'text-[#F5B800]' : 'text-[#6F7076]'
+                  }`}
+                >
+                  {rankStr}
+                </span>
 
+                {/* Avatar (Fixed 24px) */}
+                <div className="w-6 h-6 flex items-center justify-center shrink-0 ml-2">
                   <BitmojiAvatar
                     seed={user.personaName}
                     avatarConfig={user.avatarConfig}
                     size={22}
                   />
-
-                  <span className="truncate text-xs font-semibold text-[#F2F2F2] group-hover:text-[#F5B800] transition-colors">
-                    {user.personaName}
-                  </span>
                 </div>
 
-                {/* Trust Score Badge */}
-                <div className="shrink-0 text-right">
-                  <span className="text-[10px] text-[#9A9A9F] font-medium">
-                    Trust <span className="font-bold text-[#F5B800]">{user.trustScore ?? 0}</span>
-                  </span>
-                </div>
+                {/* Username (Flexible, truncates cleanly) */}
+                <span className="flex-1 text-xs font-semibold text-[#F2F2F2] truncate ml-2.5 group-hover:text-[#F5B800] transition-colors">
+                  {user.personaName}
+                </span>
+
+                {/* Trust Score Badge (Consistently Right-Aligned) */}
+                <span className="ml-auto text-right shrink-0 text-[10px] text-[#9A9A9F] font-medium">
+                  Trust <span className="font-bold text-[#F5B800]">{user.trustScore ?? 0}</span>
+                </span>
               </div>
             )
           })}

@@ -64,17 +64,17 @@ export default function Home({ searchQuery = '' }) {
     <div className="w-full animate-fade-in">
       {/* Stream Integrated Polished Hero Card */}
       {!slug && (
-        <div className="p-4 sm:p-5 mb-5 rounded-[8px] bg-[#151518]/40 border border-[#25252A] flex items-center justify-between gap-4 flex-wrap shadow-xs">
+        <div className="p-4 sm:p-5 mb-6 rounded-[8px] bg-[#151518]/40 border border-[#25252A] flex items-center justify-between gap-4 flex-wrap shadow-xs">
           <div>
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex items-center gap-2 mb-2">
               <span className="text-[10px] font-bold text-[#F5B800] uppercase tracking-wider bg-[#F5B800]/10 px-2 py-0.5 rounded-[4px] border border-[#F5B800]/20">
                 Encrypted & Anonymous
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#F2F2F2]">
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-[#F2F2F2] mb-1">
               Say what you think.
             </h1>
-            <p className="text-[#9A9A9F] text-xs mt-1 font-medium">
+            <p className="text-[#9A9A9F] text-xs font-medium">
               Real conversations. No real names.
             </p>
           </div>
@@ -98,9 +98,8 @@ export default function Home({ searchQuery = '' }) {
 
       {/* Community Header if inside a Space */}
       {community && (
-        <div className="pb-5 mb-5 border-b border-[#25252A]">
+        <div className="pb-5 mb-6 border-b border-[#25252A]">
           <div className="flex items-center gap-2.5 mb-1.5">
-            <span className="text-[#F5B800] font-bold text-base">#</span>
             <h1 className="text-xl font-bold tracking-tight text-[#F2F2F2]">
               {community.name}
             </h1>
@@ -115,23 +114,13 @@ export default function Home({ searchQuery = '' }) {
       )}
 
       {/* Clean Stream Feed Tabs (Underline Active Indicator) */}
-      <div className="flex items-center justify-between border-b border-[#25252A] mb-2 text-xs">
-        <div className="flex items-center gap-6 font-medium">
+      <div className="h-11 flex items-center justify-between border-b border-[#25252A] mb-4 text-xs">
+        <div className="h-full flex items-center gap-6 font-medium">
           <button
             onClick={() => setSortBy('latest')}
-            className={`py-2.5 px-1 font-semibold transition-all relative cursor-pointer ${
+            className={`h-full flex items-center px-1 font-semibold transition-all relative cursor-pointer ${
               sortBy === 'latest'
                 ? 'text-[#F2F2F2] border-b-2 border-[#F5B800]'
-                : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
-            }`}
-          >
-            {slug ? community?.name || slug : 'For you'}
-          </button>
-          <button
-            onClick={() => setSortBy('latest')}
-            className={`py-2.5 px-1 font-semibold transition-all cursor-pointer ${
-              sortBy === 'latest'
-                ? 'text-[#F2F2F2]'
                 : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
             }`}
           >
@@ -139,9 +128,9 @@ export default function Home({ searchQuery = '' }) {
           </button>
           <button
             onClick={() => setSortBy('top')}
-            className={`py-2.5 px-1 font-semibold transition-all cursor-pointer ${
+            className={`h-full flex items-center px-1 font-semibold transition-all relative cursor-pointer ${
               sortBy === 'top'
-                ? 'text-[#F5B800] font-bold border-b-2 border-[#F5B800]'
+                ? 'text-[#F2F2F2] border-b-2 border-[#F5B800]'
                 : 'text-[#9A9A9F] hover:text-[#F2F2F2]'
             }`}
           >
