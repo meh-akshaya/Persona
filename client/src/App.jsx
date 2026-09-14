@@ -65,25 +65,29 @@ function MainLayout({ searchQuery, setSearchQuery }) {
         onOpenInfoModal={(type) => setInfoModalType(type)}
       />
 
-      <div className="w-full max-w-[1380px] mx-auto flex items-start justify-center gap-6 flex-1 min-h-0 overflow-hidden px-4 sm:px-6">
-        {/* Left Navigation Sidebar (240px fixed width) */}
-        <Sidebar onCreatePostClick={handleCreatePost} />
+      <div className="w-full flex-1 min-h-0 flex justify-center overflow-hidden pt-2.5 sm:pt-3">
+        <div className="w-full max-w-[1720px] flex items-stretch flex-1 min-h-0 overflow-hidden px-3 sm:px-4 md:px-5 gap-3.5">
+          {/* Left Navigation Sidebar (Section 1) */}
+          <Sidebar onCreatePostClick={handleCreatePost} />
 
-        {/* Middle Main Feed Container (Proportionate 760px main feed focus) */}
-        <main className="flex-1 max-w-[760px] w-full h-full overflow-y-auto no-scrollbar border-r border-l border-[#25252A] px-4 sm:px-6 py-6 min-w-0">
-          <Routes>
-            <Route path="/" element={<Home searchQuery={searchQuery} />} />
-            <Route path="/c/:slug" element={<Home searchQuery={searchQuery} />} />
-            <Route path="/post/:id" element={<PostDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
+          {/* Middle Main Feed Container (Section 2 - Top Gapped & Border-Capped) */}
+          <main className="flex-1 h-full overflow-y-auto no-scrollbar border-t border-x border-[#25252A] rounded-t-[10px] px-3 sm:px-5 py-4 min-w-0 bg-[#0D0D0F]/30 flex flex-col items-center">
+            <div className="w-full max-w-[920px] flex-1">
+              <Routes>
+                <Route path="/" element={<Home searchQuery={searchQuery} />} />
+                <Route path="/c/:slug" element={<Home searchQuery={searchQuery} />} />
+                <Route path="/post/:id" element={<PostDetail />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </div>
+          </main>
 
-        {/* Right Sidebar (280px anchored sidebar) */}
-        <RightSidebar
-          onSearchChange={setSearchQuery}
-          onOpenInfoModal={(type) => setInfoModalType(type)}
-        />
+          {/* Right Sidebar (Section 3) */}
+          <RightSidebar
+            onSearchChange={setSearchQuery}
+            onOpenInfoModal={(type) => setInfoModalType(type)}
+          />
+        </div>
       </div>
 
       {/* Info Modal (Privacy, Terms, Guidelines, Contact) */}

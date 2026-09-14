@@ -79,7 +79,7 @@ export default function PostDetail() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto py-4 px-2 md:px-0 animate-fade-in">
+    <div className="w-full py-2 animate-fade-in">
       {/* Back button */}
       <div className="mb-4">
         <CleanLink

@@ -21,22 +21,22 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
 
   return (
     <>
-      <aside className="w-[280px] min-w-[280px] shrink-0 hidden lg:flex flex-col justify-between py-6 px-3.5 h-full overflow-y-auto no-scrollbar border-l border-[#25252A] bg-[#0D0D0F]">
-        <div className="flex flex-col gap-4">
-          {/* Search Bar — Clean Input without Icon */}
-          <div className="relative w-full">
+      <aside className="w-[260px] xl:w-[280px] shrink-0 hidden lg:flex flex-col justify-between py-4 px-2.5 h-full overflow-y-auto no-scrollbar border-t border-x border-[#25252A] rounded-t-[10px] bg-[#0D0D0F]">
+        <div className="flex flex-col gap-3.5">
+          {/* Search Bar — Clean Container Box */}
+          <div className="relative w-full bg-[#151518] border border-[#25252A] rounded-[10px] p-2.5 shadow-xs">
             <input
               type="text"
               value={searchQuery}
               onChange={handleSearch}
               placeholder="Search Persona..."
-              className="w-full px-3.5 py-2.5 rounded-[8px] text-xs bg-[#151518] border border-[#25252A] text-[#F2F2F2] placeholder-[#6F7076] focus:outline-none focus:border-[#F5B800] transition-colors shadow-xs"
+              className="w-full px-3 py-2 rounded-[6px] text-xs bg-[#0D0D0F] border border-[#25252A] text-[#F2F2F2] placeholder-[#6F7076] focus:outline-none focus:border-[#F5B800] transition-colors"
             />
           </div>
 
-          {/* Auth / Account Widget */}
+          {/* Auth / Account Widget Box */}
           {!isLoggedIn ? (
-            <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 text-center shadow-xs">
+            <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-4 text-center shadow-xs">
               <h3 className="text-xs font-bold text-[#F2F2F2]">
                 Log in or sign up
               </h3>
@@ -53,14 +53,14 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
                 </CleanLink>
                 <CleanLink
                   to="/login"
-                  className="w-full py-2 rounded-[6px] text-xs font-semibold text-[#9A9A9F] bg-[#151518] border border-[#25252A] hover:text-[#F2F2F2] transition-colors text-center block"
+                  className="w-full py-2 rounded-[6px] text-xs font-semibold text-[#9A9A9F] bg-[#0D0D0F] border border-[#25252A] hover:text-[#F2F2F2] transition-colors text-center block"
                 >
                   Sign in
                 </CleanLink>
               </div>
             </div>
           ) : (
-            <div className="bg-[#151518] border border-[#25252A] rounded-[8px] p-4 text-xs shadow-xs">
+            <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-4 text-xs shadow-xs">
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <h3 className="font-bold text-[#F2F2F2] text-sm leading-tight">
@@ -108,16 +108,16 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
             </div>
           )}
 
-          {/* Contextual Top Personas Section */}
+          {/* Contextual Top Personas Section Box */}
           <TopPersonasWidget />
 
-          {/* Platform Trust & Community Rules Section */}
+          {/* Platform Trust & Community Rules Section Box */}
           <CommunityRulesWidget onOpenInfoModal={onOpenInfoModal} />
         </div>
 
-        {/* Minimal Footer Links */}
-        <div className="px-1 pt-4 text-[11px] text-[#6F7076] space-y-1.5 border-t border-[#25252A]/50 mt-4">
-          <div className="flex items-center gap-1.5 font-medium flex-wrap">
+        {/* Minimal Footer Links Section Box — Pinned to Bottom */}
+        <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-3 text-[11px] text-[#6F7076] space-y-1.5 shadow-xs mt-4">
+          <div className="flex items-center justify-center gap-1.5 font-medium flex-wrap">
             <button onClick={() => onOpenInfoModal && onOpenInfoModal('privacy')} className="hover:text-[#9A9A9F] cursor-pointer">Privacy</button>
             <span>·</span>
             <button onClick={() => onOpenInfoModal && onOpenInfoModal('terms')} className="hover:text-[#9A9A9F] cursor-pointer">Terms</button>
@@ -126,7 +126,7 @@ export default function RightSidebar({ onSearchChange, onOpenInfoModal }) {
             <span>·</span>
             <button onClick={() => onOpenInfoModal && onOpenInfoModal('contact')} className="hover:text-[#9A9A9F] cursor-pointer">Contact</button>
           </div>
-          <p className="text-[10px]">Persona Inc. © {new Date().getFullYear()}</p>
+          <p className="text-[10px] text-center">Persona Inc. © {new Date().getFullYear()}</p>
         </div>
       </aside>
 

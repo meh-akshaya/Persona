@@ -47,49 +47,49 @@ export default function Sidebar({ onCreatePostClick }) {
 
   return (
     <>
-      <aside className="w-[240px] min-w-[240px] shrink-0 hidden md:flex flex-col justify-between py-6 px-3 h-full overflow-y-auto no-scrollbar border-r border-[#25252A] bg-[#0D0D0F]">
-        <div className="flex flex-col">
-          {/* Futuristic Wordmark Logo (No Icon Image) */}
-          <div className="px-3 mb-5 pt-0.5">
-            <PersonaLogo size="md" />
+      <aside className="w-[230px] xl:w-[240px] shrink-0 hidden md:flex flex-col justify-between py-4 px-2.5 h-full overflow-y-auto no-scrollbar border-t border-x border-[#25252A] rounded-t-[10px] bg-[#0D0D0F]">
+        <div className="flex flex-col gap-3">
+          {/* Header Section Box (Logo & Primary CTA) */}
+          <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-3 shadow-xs">
+            <div className="px-1 mb-3 pt-0.5">
+              <PersonaLogo size="md" />
+            </div>
+            <button
+              onClick={handleCreateClick}
+              className="w-full h-9 px-3 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <span className="text-sm font-black">+</span>
+              <span>Start a post</span>
+            </button>
           </div>
 
-          {/* Primary CTA Button */}
-          <button
-            onClick={handleCreateClick}
-            className="w-full h-10 px-3.5 rounded-[6px] text-xs font-bold text-[#0D0D0F] bg-[#F5B800] hover:bg-[#e0a800] transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer mb-7"
-          >
-            <span className="text-sm font-black">+</span>
-            <span>Start a post</span>
-          </button>
-
-          {/* Grouped Sidebar Navigation */}
-          <nav className="flex flex-col">
+          {/* Grouped Sidebar Navigation Box */}
+          <div className="bg-[#151518] border border-[#25252A] rounded-[10px] p-3 shadow-xs flex flex-col gap-5">
             {/* MAIN GROUP */}
-            <div className="mb-7">
-              <div className="text-[11px] font-bold text-[#6F7076] tracking-wider uppercase mb-3 px-3">
+            <div>
+              <div className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase mb-2 px-2">
                 Main
               </div>
               <CleanLink
                 to="/"
-                className={`flex items-center h-10 px-3 rounded-[6px] text-xs transition-colors ${!slug
-                    ? 'bg-[#151518] text-[#F2F2F2] font-bold border-l-2 border-[#F5B800]'
-                    : 'text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 font-medium'
+                className={`flex items-center h-9 px-2.5 rounded-[6px] text-xs transition-colors ${!slug
+                    ? 'bg-[#0D0D0F] text-[#F2F2F2] font-bold border-l-2 border-[#F5B800]'
+                    : 'text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 font-medium'
                   }`}
               >
-                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                <div className="w-5 h-5 flex items-center justify-center shrink-0">
                   <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 </div>
-                <span className="flex-1 ml-3 truncate">Home</span>
+                <span className="flex-1 ml-2.5 truncate">Home</span>
               </CleanLink>
             </div>
 
             {/* SPACES GROUP */}
-            <div className="mb-7">
-              <div className="flex items-center justify-between px-3 mb-3">
-                <span className="text-[11px] font-bold text-[#6F7076] tracking-wider uppercase">
+            <div>
+              <div className="flex items-center justify-between px-2 mb-2">
+                <span className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase">
                   Spaces
                 </span>
                 <button
@@ -105,9 +105,9 @@ export default function Sidebar({ onCreatePostClick }) {
               {showSpaces && (
                 <div className="flex flex-col gap-0.5">
                   {loading ? (
-                    <div className="py-2 space-y-2 px-3">
-                      {[1, 2, 3, 4, 5].map(i => (
-                        <div key={i} className="h-8 bg-[#151518] rounded animate-pulse" />
+                    <div className="py-1 space-y-1.5 px-2">
+                      {[1, 2, 3, 4].map(i => (
+                        <div key={i} className="h-7 bg-[#0D0D0F] rounded animate-pulse" />
                       ))}
                     </div>
                   ) : (
@@ -118,19 +118,19 @@ export default function Sidebar({ onCreatePostClick }) {
                         <CleanLink
                           key={c.id}
                           to={`/c/${c.slug}`}
-                          className={`flex items-center h-10 px-3 rounded-[6px] text-xs transition-all ${isActive
-                              ? 'text-[#F5B800] bg-[#151518] font-bold border-l-2 border-[#F5B800]'
-                              : 'text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/70 font-medium'
+                          className={`flex items-center h-8 px-2.5 rounded-[6px] text-xs transition-all ${isActive
+                              ? 'text-[#F5B800] bg-[#0D0D0F] font-bold border-l-2 border-[#F5B800]'
+                              : 'text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 font-medium'
                             }`}
                         >
-                          <div className="w-6 h-6 flex items-center justify-center shrink-0 text-[#9A9A9F]">
+                          <div className="w-4 h-4 flex items-center justify-center shrink-0 text-[#9A9A9F]">
                             <svg className="w-3.5 h-3.5 fill-none stroke-current" strokeWidth="2" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                           </div>
-                          <span className="flex-1 ml-3 truncate">{cleanName}</span>
+                          <span className="flex-1 ml-2 truncate">{cleanName}</span>
                           {c._count?.posts > 0 && (
-                            <span className="min-w-[24px] text-center text-[11px] font-mono text-[#6F7076] bg-[#0D0D0F] px-1.5 py-0.5 rounded-[4px] border border-[#25252A] ml-auto shrink-0">
+                            <span className="min-w-[20px] text-center text-[10px] font-mono text-[#6F7076] bg-[#0D0D0F] px-1 py-0.5 rounded border border-[#25252A] ml-auto shrink-0">
                               {c._count.posts}
                             </span>
                           )}
@@ -143,47 +143,47 @@ export default function Sidebar({ onCreatePostClick }) {
             </div>
 
             {/* ACTIVITY GROUP */}
-            <div className="mb-7">
-              <div className="text-[11px] font-bold text-[#6F7076] tracking-wider uppercase mb-3 px-3">
+            <div>
+              <div className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase mb-2 px-2">
                 Activity
               </div>
               <div className="flex flex-col gap-0.5">
                 <CleanLink
                   to="/"
-                  className="flex items-center h-10 px-3 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors font-medium"
+                  className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium"
                 >
-                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <div className="w-5 h-5 flex items-center justify-center shrink-0">
                     <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
                   </div>
-                  <span className="flex-1 ml-3 truncate">Notifications</span>
+                  <span className="flex-1 ml-2.5 truncate">Notifications</span>
                 </CleanLink>
 
                 <CleanLink
                   to="/"
-                  className="flex items-center h-10 px-3 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors font-medium"
+                  className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium"
                 >
-                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                  <div className="w-5 h-5 flex items-center justify-center shrink-0">
                     <svg className="w-4 h-4 fill-none stroke-current" strokeWidth="1.75" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                   </div>
-                  <span className="flex-1 ml-3 truncate">Explore</span>
+                  <span className="flex-1 ml-2.5 truncate">Explore</span>
                 </CleanLink>
               </div>
             </div>
 
             {/* ACCOUNT GROUP */}
             <div>
-              <div className="text-[11px] font-bold text-[#6F7076] tracking-wider uppercase mb-3 px-3">
+              <div className="text-[10px] font-bold text-[#6F7076] tracking-wider uppercase mb-2 px-2">
                 Account
               </div>
               <CleanLink
                 to={isLoggedIn ? '/' : '/login'}
-                className="flex items-center h-10 px-3 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#151518]/60 transition-colors font-medium"
+                className="flex items-center h-9 px-2.5 rounded-[6px] text-xs text-[#9A9A9F] hover:text-[#F2F2F2] hover:bg-[#0D0D0F]/60 transition-colors font-medium"
               >
-                <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                <div className="w-5 h-5 flex items-center justify-center shrink-0">
                   {isLoggedIn && persona ? (
                     <BitmojiAvatar
                       seed={persona.name}
@@ -196,10 +196,10 @@ export default function Sidebar({ onCreatePostClick }) {
                     </svg>
                   )}
                 </div>
-                <span className="flex-1 ml-3 truncate">{isLoggedIn ? persona?.name || 'Profile' : 'Profile'}</span>
+                <span className="flex-1 ml-2.5 truncate">{isLoggedIn ? persona?.name || 'Profile' : 'Profile'}</span>
               </CleanLink>
             </div>
-          </nav>
+          </div>
         </div>
       </aside>
 

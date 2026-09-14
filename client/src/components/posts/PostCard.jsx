@@ -99,7 +99,7 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
 
   return (
     <article
-      className="pt-4 pb-5 px-3 hover:bg-[#151518]/40 transition-colors animate-fade-in group rounded-[8px] select-none border-b border-[#25252A] mb-5"
+      className="bg-[#151518] border border-[#25252A] rounded-[10px] p-4 sm:p-5 mb-4 shadow-xs hover:border-[#35353A] transition-all animate-fade-in group select-none"
       onCopy={handleCopyAttempt}
       onCut={handleCopyAttempt}
       onDragStart={(e) => e.preventDefault()}

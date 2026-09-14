@@ -113,8 +113,8 @@ export default function Home({ searchQuery = '' }) {
         </div>
       )}
 
-      {/* Clean Stream Feed Tabs (Underline Active Indicator) */}
-      <div className="h-11 flex items-center justify-between border-b border-[#25252A] mb-4 text-xs">
+      {/* Clean Stream Feed Tabs (Container Box) */}
+      <div className="bg-[#151518] border border-[#25252A] rounded-[10px] px-4 h-11 flex items-center justify-between mb-4 text-xs shadow-xs">
         <div className="h-full flex items-center gap-6 font-medium">
           <button
             onClick={() => setSortBy('latest')}
@@ -139,11 +139,11 @@ export default function Home({ searchQuery = '' }) {
         </div>
       </div>
 
-      {/* Feed List — Continuous Stream Format */}
+      {/* Feed List — Boxed Post Cards Format */}
       {loading ? (
-        <div className="divide-y divide-[#25252A]">
+        <div className="flex flex-col gap-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="py-5 animate-pulse space-y-3">
+            <div key={i} className="p-5 rounded-[10px] bg-[#151518] border border-[#25252A] animate-pulse space-y-3">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-full bg-[#25252A]" />
                 <div className="w-32 h-4 rounded bg-[#25252A]" />
@@ -153,7 +153,7 @@ export default function Home({ searchQuery = '' }) {
           ))}
         </div>
       ) : filteredPosts.length === 0 ? (
-        <div className="py-16 text-center border border-dashed border-[#25252A] rounded-[8px] my-6">
+        <div className="py-16 text-center border border-dashed border-[#25252A] rounded-[10px] bg-[#151518]/40 my-4">
           <h3 className="text-sm font-bold text-[#F2F2F2]">No discussions found</h3>
           <p className="text-xs text-[#9A9A9F] mt-1 max-w-sm mx-auto">
             {searchQuery
@@ -168,7 +168,7 @@ export default function Home({ searchQuery = '' }) {
           </button>
         </div>
       ) : (
-        <div className="divide-y divide-[#25252A]">
+        <div className="flex flex-col gap-4">
           {filteredPosts.map(post => (
             <PostCard key={post.id} post={post} />
           ))}
