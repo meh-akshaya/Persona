@@ -93,13 +93,30 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
   }
 
   // Use saved persona avatar config if available locally
-  const savedAvatarConfig = (persona && persona.name === post.author?.personaName)
+  const savedAvatarConfig = (persona && persona.name === post?.author?.personaName)
     ? persona.avatarConfig
-    : post.author?.avatarConfig
+    : post?.author?.avatarConfig
+
+  const handleCardClick = (e) => {
+    if (isDetail || !post?.id) return
+    // Avoid double navigation if clicking interactive elements
+    if (
+      e.target.closest('button') ||
+      e.target.closest('a') ||
+      e.target.closest('select') ||
+      e.target.closest('[role="button"]')
+    ) {
+      return
+    }
+    navigate(`/post/${post.id}`)
+  }
 
   return (
     <article
-      className="bg-[#151518] border border-[#25252A] rounded-[10px] p-4.5 sm:p-5.5 md:p-6 mb-4 sm:mb-5 shadow-xs hover:border-[#35353A] transition-all animate-fade-in group select-none min-w-0"
+      onClick={handleCardClick}
+      className={`bg-[#151518] border border-[#25252A] rounded-[10px] p-4.5 sm:p-5.5 md:p-6 mb-4 sm:mb-5 shadow-xs hover:border-[#35353A] transition-all animate-fade-in group select-none min-w-0 ${
+        !isDetail ? 'cursor-pointer' : ''
+      }`}
       onCopy={handleCopyAttempt}
       onCut={handleCopyAttempt}
       onDragStart={(e) => e.preventDefault()}
@@ -147,11 +164,17 @@ export default function PostCard({ post, onReactionUpdated, isDetail = false }) 
         onCut={handleCopyAttempt}
         onDragStart={(e) => e.preventDefault()}
       >
-        <CleanLink to={`/post/${post.id}`} className="block group-hover:opacity-95 transition-opacity">
+        {!isDetail ? (
+          <CleanLink to={`/post/${post.id}`} className="block group-hover:opacity-95 transition-opacity">
+            <p className="text-[15px] sm:text-[16px] text-[#F2F2F2] leading-relaxed whitespace-pre-wrap font-normal select-none">
+              {displayedContent}
+            </p>
+          </CleanLink>
+        ) : (
           <p className="text-[15px] sm:text-[16px] text-[#F2F2F2] leading-relaxed whitespace-pre-wrap font-normal select-none">
             {displayedContent}
           </p>
-        </CleanLink>
+        )}
 
         {isLong && (
           <button

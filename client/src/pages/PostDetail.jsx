@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react'
+import { useParams } from 'react-router-dom'
 import api from '../api/axios'
 import PostCard from '../components/posts/PostCard'
 import CommentComposer from '../components/comments/CommentComposer'
@@ -14,6 +14,7 @@ export default function PostDetail() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    if (!id) return
     setLoading(true)
     setError(null)
 
@@ -24,12 +25,13 @@ export default function PostDetail() {
       .then(([postRes, commentsRes]) => {
         const fetchedPost = postRes.data?.post || null
         setPost(fetchedPost)
-        setComments(commentsRes.data?.comments || [])
-        if (fetchedPost) {
+        setComments(Array.isArray(commentsRes.data?.comments) ? commentsRes.data.comments : [])
+        if (fetchedPost && fetchedPost.content) {
           document.title = `${fetchedPost.content.substring(0, 45)}... — Persona`
         }
       })
       .catch(err => {
+        console.error('PostDetail fetch error:', err)
         setError(err.response?.data?.error || 'Failed to load discussion details.')
       })
       .finally(() => setLoading(false))
